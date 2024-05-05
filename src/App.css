@@ -1,38 +1,217 @@
-.App {
-  text-align: center;
-}
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
+.container{
+  padding: 1rem;
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
   }
+  
+  .container button{
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+.css-o1u8iu-content-text{
+  background-color: #fff !important;
+}
+.css-hf3w1f-word-removed{
+  text-decoration: line-through !important;
+  background-color: #fff !important;
+
+}
+/* css-17vezug-marker css-cnnxkz-diff-added */
+/* .css-17uc4if-title-block, .css-1ks9aww-gutter, .css-1klnsbn-empty-gutter, .css-17vezug-marker pre{
+  display: none;
+} */
+/* Style the back side */
+
+.css-1n5o7vh-diff-container{
+  display: none;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.btnHide{
+  display: none;
+}
+
+.css-1ks9aww-gutter{
+  display: none;
+}
+
+.css-17vezug-marker{
+  display: none;
+}
+
+/* right */
+.css-1u4zuq6-word-added{
+  color: blue;
+  background-color: #fff !important;
+}
+
+.css-vl0irh-content, .css-rq9a2a-diff-removed{
+  background-color: #fff !;
+}
+
+td{
+  background-color: #fff !important;
+}
+
+.view {
+  /* border: 1px solid black; */
+ 
   display: flex;
-  flex-direction: column;
+  align-items: stretch;
+  padding:1rem;
+
+}
+
+.view p {
+  /* text-align: justify; */
+  /* border: 1px solid black; */
+  margin: 5px;
+  line-height: 2;
+  /* padding: 1rem; */
+}
+
+.view-diff{
+  display: none;
+  background-color: #fff !important;
+}
+
+.div-table{
+  /* border: 1px solid rgb(126, 126, 126); */
+  padding: 5px;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+
+
+}
+
+.btnShow, .btnHide{
+  /* display: inline-block; */
+  
+  /* width: 100px;
+  margin-bottom: 1rem;
+  margin-top: 1rem; */
+}
+
+.div-btn-radio{
+  display: flex;
+  justify-content: space-between;
   align-items: center;
+  gap: 1rem;
+  
+}
+
+.div-btn {
+  display: flex;
+  gap: 5px;
+}
+
+.div-btn button{
+  width: 120px;
+}
+
+.div-par-left, .div-par-right{
+  width: 50%;
+  padding: 1rem;
+  box-sizing: border-box;
+
+}
+
+.div-par-left{
+  border-right: 1px solid black;
+}
+
+
+
+.radio-btn{
+  display: flex;
+
+  gap: 1rem;
+  border: 1px solid rgb(228, 228, 228);
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+}
+
+
+
+
+pre, span{
+  padding-bottom: 0 !important;
+  padding-top: 0 !important;
+}
+
+.label-radio{
+  display: flex;
+  gap: 5px;
+}
+
+.label-radio label{
+  cursor: pointer;
+}
+/* 
+.css-cncyp1-word-diff,.alignement{
+  color: red;
+} */
+
+.alignement{
+  color: rgb(16, 145, 55) !important;
+}
+
+.div-textarea{
+  display: flex;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  position: relative;
 }
 
-.App-link {
-  color: #61dafb;
+.div-textarea button{
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: none;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.div-textarea textarea{
+  width: 100%;
+  padding: 1rem;
+  margin: 1rem;
+  height: 100px;
+  box-sizing: border-box;
+  border: 1px solid gray;
+  display: none;
+}
+
+.author{
+  display: flex;
+  /* justify-content: flex-end; */
+  gap: 10px;
+}
+
+h3{
+  text-align: center;
+
+}
+.author span{
+  color: brown;
+  font-style: italic;
+}
+
+@media screen and (max-width: 600px) {
+  .view {
+    flex-direction: column;
   }
-  to {
-    transform: rotate(360deg);
+  .div-par-left,.div-par-right{
+    width: 100%;
   }
+
+  .div-par-left{
+    border-right: none;
+  }
+
+  .div-btn-radio{
+    flex-direction: column;
+  }
+
 }
