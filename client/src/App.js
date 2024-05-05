@@ -1,5 +1,5 @@
 // import logo from './logo.svg';
-import { Route, Router, Routes } from 'react-router-dom';
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import './App.css';
 import Home from './pages/Home';
 import Login from './pages/Login';
@@ -134,18 +134,18 @@ function App() {
     // }
 
     return (
-    <div>
-        {texts && texts.map((text, id) =>
-            <Alignement text={text} id={id} key={id}/>
-       ) }
-    </div>
-        // <Router>
-        //     <Routes>
-        //         <Route path='/' element={<Home />}></Route>
-        //         <Route path='/login' element={<Login />}></Route>
+    // <div>
+    //     {texts && texts.map((text, id) =>
+    //         <Alignement text={text} id={id} key={id}/>
+    //    ) }
+    // </div>
+        <Router>
+            <Routes>
+                <Route path='/' element={<Home />}></Route>
+                <Route path='/login' element={<Login />}></Route>
 
-        //     </Routes>
-        // </Router>
+            </Routes>
+        </Router>
 
     )
 }

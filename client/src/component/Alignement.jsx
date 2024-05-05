@@ -24,7 +24,7 @@ export default function Alignement({ text, id }) {
     const hide_btn = useRef([]);
     const textarea_comment = useRef([]);
     const btn_textarea = useRef([]);
-    const token = localStorage.getItem('token')
+    
     const showDiff = (id) => {
         // Si le conteneur du texte traité existe
         if (source_target.current[id]) {
@@ -120,9 +120,7 @@ export default function Alignement({ text, id }) {
         }
     }
 
-    // if (!token) {
-    //     return <Navigate to={'/login'} />
-    // }
+    
     return (
         <>
             <Search />
