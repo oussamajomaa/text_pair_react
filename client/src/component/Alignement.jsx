@@ -4,7 +4,6 @@ import TargetAuthor from "./TargetAuthor";
 import SourceAuthor from "./SourceAuthor";
 import RadioButton from "./RadioButton";
 // import { Navigate } from "react-router-dom";
-import Search from "./Search";
 
 export default function Alignement({ text, id }) {
     const [show, setShow] = useState(false)
@@ -24,7 +23,7 @@ export default function Alignement({ text, id }) {
     const hide_btn = useRef([]);
     const textarea_comment = useRef([]);
     const btn_textarea = useRef([]);
-    
+
     const showDiff = (id) => {
         // Si le conteneur du texte traité existe
         if (source_target.current[id]) {
@@ -40,6 +39,11 @@ export default function Alignement({ text, id }) {
             let sources = source_alignement.current[id].querySelectorAll('.css-cncyp1-word-diff')
             sources.forEach(source => {
                 source.style.color = "green"
+            })
+
+            let removed = source_alignement.current[id].querySelectorAll('.css-hf3w1f-word-removed')
+            removed.forEach(item => {
+                item.style.color = 'red'
             })
 
             // récupérer le code html du texte target traité
@@ -91,10 +95,10 @@ export default function Alignement({ text, id }) {
 
     const handleComment = (id) => {
         // setComment(true)
-        console.log(id);
+        // console.log(id);
         // textarea_comment.current[id].style.display="block"
         if (textarea_comment.current[id]) {
-            console.log(textarea_comment.current[id])
+            // console.log(textarea_comment.current[id])
             textarea_comment.current[id].style.display = 'block'
             btn_textarea.current[id].style.display = 'block'
             // textarea_comment.current[id].style.display="block"
@@ -112,19 +116,18 @@ export default function Alignement({ text, id }) {
     const handleSave = (id) => {
         // setComment(false)
         if (textarea_comment.current[id]) {
-            console.log(textarea_comment.current[id])
+            // console.log(textarea_comment.current[id])
             textarea_comment.current[id].style.display = 'none'
             btn_textarea.current[id].style.display = 'none'
             // textarea_comment.current[id].style.display="block"
-            console.log(radioValue);
+            // console.log(radioValue);
         }
     }
 
-    
+
     return (
         <>
-            <Search />
-            <div key={id} className="div-table" ref={(el) => source_target.current[id] = el}>
+            <div key={id} className="div-table m-5" ref={(el) => source_target.current[id] = el}>
                 <div className="view" ref={(el) => source_target_before.current[id] = el}>
                     <div className="div-par-left">
                         <h3>Source</h3>
@@ -182,7 +185,9 @@ export default function Alignement({ text, id }) {
                 </div>
                 <div className='div-textarea' >
                     <textarea placeholder='Ajouter un commentaire...' cols="30" rows="10" ref={(el) => { textarea_comment.current[id] = el }}></textarea>
-                    <button onClick={() => handleTextArea(id)} ref={(el) => { btn_textarea.current[id] = el }}>X</button>
+                    <button className="btn btn-circle btn-xs btn-outline" onClick={() => handleTextArea(id)} ref={(el) => { btn_textarea.current[id] = el }}>
+                        <svg xmlns="http://www.w3.org/2000/svg" className="text-xs" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                    </button>
                 </div>
 
                 <ReactDiffViewer
@@ -195,10 +200,10 @@ export default function Alignement({ text, id }) {
                 />
                 <div className="div-btn-radio">
                     <div className="div-btn">
-                        <button className="btnShow" onClick={() => showDiff(id)} ref={(el) => show_btn.current[id] = el}>Show</button>
-                        <button className="btnHide" onClick={() => hideDiff(id)} ref={(el) => hide_btn.current[id] = el}>Hide</button>
-                        <button onClick={() => { handleComment(id) }}>Commentaire</button>
-                        <button onClick={() => { handleSave(id) }}>Enregistrer</button>
+                        <button className="btnShow btn btn-sm btn-outline  " onClick={() => showDiff(id)} ref={(el) => show_btn.current[id] = el}>Show Diff</button>
+                        <button className="btnHide btn btn-sm btn-outline hover:text-white" onClick={() => hideDiff(id)} ref={(el) => hide_btn.current[id] = el}>Hide Diff</button>
+                        <button className="btn btn-sm btn-outline" onClick={() => { handleComment(id) }} >Commentaire</button>
+                        <button className="btn btn-sm btn-outline " onClick={() => { handleSave(id) }}>Enregistrer</button>
                     </div>
 
                     <RadioButton id={id} setRadioValue={setRadioValue} />

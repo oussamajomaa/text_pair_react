@@ -1,5 +1,7 @@
 import { Navigate } from 'react-router-dom';
 import Alignement from '../component/Alignement';
+import Search from '../component/Search';
+import { useRef, useState } from 'react';
 
 const texts = [
     {
@@ -16,7 +18,7 @@ const texts = [
         target_passage: " MealSuite propose une gamme source_title de solutions logicielles tondu",
         target_context_after: " NetChef est une plateforme de gestion alimentaire qui inclut des fonctionnalités de gestion de stock adaptées aux cuisines de cliniques. Elle permet de suivre les niveaux de stock, de planifier les menus, de gérer les recettes et de générer des rapports nutritionnels.",
     },
-{
+    {
         source_author: "source_author",
         source_date: "source_date1",
         source_title: "source_title",
@@ -34,16 +36,85 @@ const texts = [
 
 export default function Home() {
     const token = localStorage.getItem('token')
+    const form = useRef();
+    const button = useRef();
+    const [paragraph,setParagraph] = useState([])
+
+    const handlSubmit = (e) => {
+        e.preventDefault()
+        console.log(form);
+        console.log(button);
+        form.current.style.display = 'none'
+        button.current.style.display = 'block'
+        setParagraph(texts)
+    }
+
+    const showForm = () => {
+        form.current.style.display = 'block'
+        button.current.style.display = 'none'
+    }
+
     if (!token) {
         return <Navigate to={'/login'} />
     }
-  return (
-    
-    <div>
-        {texts && texts.map((text, id) =>
-            <Alignement text={text} id={id} key={id}/>
-                
+
+
+    return (
+
+        <div>
+            <div className=" shadow-md m-5 p-5 ">
+                <button onClick={showForm} className=" hidden show-form btn btn-outline w-full" ref={(el) => button.current = el}>Show search form</button>
+                <form onSubmit={handlSubmit} ref={(el) => form.current = el} >
+                    <div className=" flex">
+                        <div className="p-5 source w-1/2 border-r">
+                            <h3 className=" font-bold mb-2">Source</h3>
+                            <label className="input input-bordered flex items-center gap-2 mb-1">
+                                Passage
+                                <input type="text" className="grow" />
+                            </label>
+                            <label className="input input-bordered flex items-center gap-2 mb-1">
+                                Author
+                                <input type="text" className="grow" />
+                            </label>
+                            <label className="input input-bordered flex items-center gap-2 mb-1">
+                                Title
+                                <input type="text" className="grow" />
+                            </label>
+                            <label className="input input-bordered flex items-center gap-2 mb-1">
+                                Date
+                                <input type="text" className="grow" />
+                            </label>
+                        </div>
+                        <div className="p-5 target w-1/2 border-l">
+                            <h3 className=" font-bold mb-2">Target</h3>
+                            <label className="input input-bordered flex items-center gap-2 mb-1">
+                                Passage
+                                <input type="text" className="grow" />
+                            </label>
+                            <label className="input input-bordered flex items-center gap-2 mb-1">
+                                Author
+                                <input type="text" className="grow" />
+                            </label>
+                            <label className="input input-bordered flex items-center gap-2 mb-1">
+                                Title
+                                <input type="text" className="grow" />
+                            </label>
+                            <label className="input input-bordered flex items-center gap-2 mb-1">
+                                Date
+                                <input type="text" className="grow" />
+                            </label>
+                        </div>
+                    </div>
+
+                    <button className="btn bg-sky-600 hover:bg-sky-700 text-white btn-sm px-6 mr-2">Search</button>
+                    <button type="reset" className="btn btn-sm px-6 bg-red-400 hover:bg-red-500 text-white ">Reset</button>
+                </form>
+            </div>
+            {/* <Search  /> */}
+            {paragraph && paragraph.map((text, id) =>
+                <Alignement text={text} id={id} key={id} />
+
             )}
-    </div>
-  )
+        </div>
+    )
 }

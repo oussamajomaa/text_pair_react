@@ -92,13 +92,7 @@ td{
 
 }
 
-.btnShow, .btnHide{
-  /* display: inline-block; */
-  
-  /* width: 100px;
-  margin-bottom: 1rem;
-  margin-top: 1rem; */
-}
+
 
 .div-btn-radio{
   display: flex;
@@ -202,8 +196,10 @@ h3{
   color: brown;
   font-style: italic;
 }
-
-@media screen and (max-width: 600px) {
+.active {
+  border-bottom: 2px solid;
+}
+@media screen and (max-width: 800px) {
   .view {
     flex-direction: column;
   }
@@ -218,5 +214,7 @@ h3{
   .div-btn-radio{
     flex-direction: column;
   }
+
+  
 
 }
