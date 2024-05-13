@@ -24,6 +24,7 @@ export default function Alignement({ text, id }) {
     const textarea_comment = useRef([]);
     const btn_textarea = useRef([]);
 
+    const role = localStorage.getItem('role')
     const showDiff = (id) => {
         // Si le conteneur du texte traité existe
         if (source_target.current[id]) {
@@ -128,9 +129,9 @@ export default function Alignement({ text, id }) {
     return (
         <>
             <div key={id} className="div-table m-5" ref={(el) => source_target.current[id] = el}>
-                <div className="view" ref={(el) => source_target_before.current[id] = el}>
-                    <div className="div-par-left">
-                        <h3>Source</h3>
+                <div className="view flex max-md:flex-col" ref={(el) => source_target_before.current[id] = el}>
+                    <div className="div-par-left w-1/2 max-md:w-full p-4">
+                        <h3 className="text-xl font-bold mb-2 text-center">Source</h3>
                         <SourceAuthor text={text} />
 
                         {/* <div className='author'>
@@ -145,8 +146,8 @@ export default function Alignement({ text, id }) {
                         </p>
                     </div>
 
-                    <div className="div-par-right">
-                        <h3>Target</h3>
+                    <div className="div-par-right w-1/2 max-md:w-full p-4">
+                        <h3 className="text-xl font-bold mb-2 text-center">Cible</h3>
                         <TargetAuthor text={text} />
                         {/* <div className='author'>
                             <span>{text.target_author}</span>
@@ -161,9 +162,9 @@ export default function Alignement({ text, id }) {
                     </div>
                 </div>
 
-                <div className="view view-diff" ref={(el) => source_target_after.current[id] = el}>
-                    <div className="div-par-left">
-                        <h3>Source</h3>
+                <div className="view view-diff max-md:flex-col" ref={(el) => source_target_after.current[id] = el}>
+                    <div className="div-par-left w-1/2 max-md:w-full p-4">
+                        <h3 className="text-xl font-bold mb-2 text-center">Source</h3>
                         <SourceAuthor text={text} />
                         {/* <div className='author'>
                             <span>{text.source_author}</span>
@@ -172,8 +173,8 @@ export default function Alignement({ text, id }) {
                         </div> */}
                         <p ref={(el) => source_alignement.current[id] = el}></p>
                     </div>
-                    <div className="div-par-right">
-                        <h3>Target</h3>
+                    <div className="div-par-right w-1/2 max-md:w-full p-4">
+                        <h3 className="text-xl font-bold mb-2 text-center">Cible</h3>
                         <TargetAuthor text={text} />
                         {/* <div className='author'>
                             <span>{text.target_author}</span>
@@ -202,8 +203,9 @@ export default function Alignement({ text, id }) {
                     <div className="div-btn">
                         <button className="btnShow btn btn-sm btn-outline  " onClick={() => showDiff(id)} ref={(el) => show_btn.current[id] = el}>Show Diff</button>
                         <button className="btnHide btn btn-sm btn-outline hover:text-white" onClick={() => hideDiff(id)} ref={(el) => hide_btn.current[id] = el}>Hide Diff</button>
-                        <button className="btn btn-sm btn-outline" onClick={() => { handleComment(id) }} >Commentaire</button>
-                        <button className="btn btn-sm btn-outline " onClick={() => { handleSave(id) }}>Enregistrer</button>
+                        {role === 'Annotateur' && <button className="btn btn-sm btn-outline" onClick={() => { handleComment(id) }} >Commentaire</button>}
+                        {role === 'Annotateur' && <button className="btn btn-sm btn-outline " onClick={() => { handleSave(id) }}>Enregistrer</button>}
+                        
                     </div>
 
                     <RadioButton id={id} setRadioValue={setRadioValue} />

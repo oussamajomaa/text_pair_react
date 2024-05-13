@@ -1,220 +1,231 @@
-.container-login {
-  /* height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center; */
-}
-.container{
-  padding: 1rem;
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
 
-  }
-  
-  .container button{
-    padding: 10px;
-    border: 1px solid black;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-
-.css-o1u8iu-content-text{
-  background-color: #fff !important;
+body,h1,h2,h3,p,ul,li,a {
+	margin: 0;
+	padding: 0;
+	font-family: "Noto Sans", sans-serif;
 }
-.css-hf3w1f-word-removed{
-  text-decoration: line-through !important;
-  background-color: #fff !important;
+
+.container {
+	padding: 1rem;
 
 }
+
+.container button {
+	padding: 10px;
+	border: 1px solid black;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+.css-o1u8iu-content-text {
+	background-color: #fff !important;
+}
+
+.css-hf3w1f-word-removed {
+	text-decoration: line-through !important;
+	background-color: #fff !important;
+
+}
+
 /* css-17vezug-marker css-cnnxkz-diff-added */
 /* .css-17uc4if-title-block, .css-1ks9aww-gutter, .css-1klnsbn-empty-gutter, .css-17vezug-marker pre{
   display: none;
 } */
 /* Style the back side */
 
-.css-1n5o7vh-diff-container{
-  display: none;
+.css-1n5o7vh-diff-container {
+	display: none;
 }
 
-.btnHide{
-  display: none;
+.btnHide {
+	display: none;
 }
 
-.css-1ks9aww-gutter{
-  display: none;
+.css-1ks9aww-gutter {
+	display: none;
 }
 
-.css-17vezug-marker{
-  display: none;
+.css-17vezug-marker {
+	display: none;
 }
 
 /* right */
-.css-1u4zuq6-word-added{
-  color: blue;
-  background-color: #fff !important;
+.css-1u4zuq6-word-added {
+	color: blue;
+	background-color: #fff !important;
 }
 
-.css-vl0irh-content, .css-rq9a2a-diff-removed{
-  background-color: #fff !;
+.css-vl0irh-content,
+.css-rq9a2a-diff-removed {
+	background-color: #fff !;
 }
 
-td{
-  background-color: #fff !important;
+td {
+	background-color: #fff !important;
 }
 
 .view {
-  /* border: 1px solid black; */
- 
-  display: flex;
-  align-items: stretch;
-  padding:1rem;
+	/* border: 1px solid black; */
+
+	display: flex;
+	align-items: stretch;
+	padding: 1rem;
 
 }
 
 .view p {
-  /* text-align: justify; */
-  /* border: 1px solid black; */
-  margin: 5px;
-  line-height: 2;
-  /* padding: 1rem; */
+	/* text-align: justify; */
+	/* border: 1px solid black; */
+	margin: 5px;
+	line-height: 2;
+	/* padding: 1rem; */
 }
 
-.view-diff{
-  display: none;
-  background-color: #fff !important;
+.view-diff {
+	display: none;
+	background-color: #fff !important;
 }
 
-.div-table{
-  /* border: 1px solid rgb(126, 126, 126); */
-  padding: 5px;
-  margin-bottom: 1rem;
-  margin-top: 1rem;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+.div-table {
+	/* border: 1px solid rgb(126, 126, 126); */
+	padding: 5px;
+	margin-bottom: 1rem;
+	margin-top: 1rem;
+	box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
 
 
 }
 
 
 
-.div-btn-radio{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 1rem;
-  
+.div-btn-radio {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 1rem;
+
 }
 
 .div-btn {
-  display: flex;
-  gap: 5px;
+	display: flex;
+	gap: 5px;
 }
 
-.div-btn button{
-  width: 120px;
+.div-btn button {
+	width: 120px;
 }
 
-.div-par-left, .div-par-right{
-  width: 50%;
-  padding: 1rem;
-  box-sizing: border-box;
+.div-par-left,
+.div-par-right {
+	/* width: 50%; */
+	/* padding: 1rem; */
+	box-sizing: border-box;
 
 }
 
-.div-par-left{
-  border-right: 1px solid black;
-}
-
-
-
-.radio-btn{
-  display: flex;
-
-  gap: 1rem;
-  border: 1px solid rgb(228, 228, 228);
-  padding: 10px;
-  border-radius: 5px;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+.div-par-left {
+	border-right: 1px solid black;
 }
 
 
 
+.radio-btn {
+	display: flex;
 
-pre, span{
-  padding-bottom: 0 !important;
-  padding-top: 0 !important;
+	gap: 1rem;
+	border: 1px solid rgb(228, 228, 228);
+	padding: 10px;
+	border-radius: 5px;
+	box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
 }
 
-.label-radio{
-  display: flex;
-  gap: 5px;
+
+
+
+pre,
+span {
+	padding-bottom: 0 !important;
+	padding-top: 0 !important;
 }
 
-.label-radio label{
-  cursor: pointer;
+.label-radio {
+	display: flex;
+	gap: 5px;
 }
+
+.label-radio label {
+	cursor: pointer;
+}
+
 /* 
 .css-cncyp1-word-diff,.alignement{
   color: red;
 } */
 
-.alignement{
-  color: rgb(16, 145, 55) !important;
+.alignement {
+	color: rgb(16, 145, 55) !important;
 }
 
-.div-textarea{
-  display: flex;
-  justify-content: center;
-  position: relative;
+.div-textarea {
+	display: flex;
+	justify-content: center;
+	position: relative;
 }
 
-.div-textarea button{
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  display: none;
+.div-textarea button {
+	position: absolute;
+	top: 20px;
+	right: 20px;
+	display: none;
 }
 
-.div-textarea textarea{
-  width: 100%;
-  padding: 1rem;
-  margin: 1rem;
-  height: 100px;
-  box-sizing: border-box;
-  border: 1px solid gray;
-  display: none;
+.div-textarea textarea {
+	width: 100%;
+	padding: 1rem;
+	margin: 1rem;
+	height: 100px;
+	box-sizing: border-box;
+	border: 1px solid gray;
+	display: none;
 }
 
-.author{
-  display: flex;
-  /* justify-content: flex-end; */
-  gap: 10px;
+.author {
+	display: flex;
+	/* justify-content: flex-end; */
+	gap: 10px;
 }
 
-h3{
-  text-align: center;
 
+.author span {
+	color: brown;
+	font-style: italic;
 }
-.author span{
-  color: brown;
-  font-style: italic;
-}
+
 .active {
-  border-bottom: 2px solid;
+	border-bottom: 2px solid;
 }
+
+
 @media screen and (max-width: 800px) {
-  .view {
-    flex-direction: column;
-  }
-  .div-par-left,.div-par-right{
-    width: 100%;
-  }
+	/* .view {
+		flex-direction: column;
+	}
 
-  .div-par-left{
-    border-right: none;
-  }
+	.div-par-left,
+	.div-par-right {
+		width: 100%;
+	} */
 
-  .div-btn-radio{
-    flex-direction: column;
-  }
+	.div-par-left {
+		border-right: none;
+	}
 
-  
+	.div-btn-radio {
+		flex-direction: column;
+	}
+
+
 
 }

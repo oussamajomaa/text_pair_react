@@ -1,35 +1,35 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import Search from "./Search";
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "./UserContext";
-import AuthContext from "./AuthContext";
+
+
 
 export default function Nav() {
-
-
-	const { user, setUser } = useContext(UserContext)
-	// const info = useContext(UserContext)
-	// console.log(info);
-	let token = localStorage.getItem('token')
+	const token = localStorage.getItem('token')
 	const role = localStorage.getItem('role')
 	const email = localStorage.getItem('email')
 	const [isOpen, setIsOpen] = useState(false);
-	console.log(token);
+	const [width,setWidth] = useState(window.innerWidth)
+	const { user, setUser } = useContext(UserContext)
+	window.addEventListener('resize', function(){
+		setWidth(window.innerWidth)
+		if (width < 1024) {
+			setIsOpen(false)
+		}
+	})
+	
 	// const navigate = useNavigate()
+	// osm70@gmx.com
+
 	useEffect(() => {
-		
 		if (token) {
 			fetch('http://localhost:3333/profile', {
-				// headers: {
-				//   Authorization: `Bearer ${token}`,
-				//   // Other headers (if needed)
-				// },
 				credentials: 'include'
 			}).then(response => {
 				response.json()
 					.then(userInfo => {
 						setUser(userInfo)
-						// console.log(userInfo);
 					})
 			})
 		}
@@ -39,17 +39,17 @@ export default function Nav() {
 			credentials: 'include',
 			method: 'POST'
 		})
-		// setUser(null)
+		setUser(null)
 		localStorage.clear()
-		// navigate('/login')
 		setIsOpen(!isOpen)
 	}
 
 
 	return (
-		
+
 		<>
-			{token && <nav className="flex items-center justify-between flex-wrap p-3  bg-slate-400">
+			
+			{token && <nav className="flex items-center justify-between flex-wrap p-3  bg-slate-600">
 				<div className="flex items-center flex-shrink-0  mr-6 lg:mr-72">
 					<a href=""><img src="./logo512.png" className="w-100 h-10 mr-2" alt="Logo" /></a>
 				</div>
@@ -72,14 +72,16 @@ export default function Nav() {
 					</button>
 				</div>
 				<div className={`w-full block lg:flex lg:items-center lg:w-auto text-white ${isOpen ? "block" : "hidden"}`}>
-						<NavLink 
-							onClick={() => setIsOpen(!isOpen)} to={'/'} 
-							className='block mt-4 lg:inline-block lg:mt-0  mr-4'>Home
-						</NavLink>
-						{role === 'administrator' && <NavLink onClick={() => setIsOpen(!isOpen)} className="block mt-4 lg:inline-block lg:mt-0 mr-4" to={'/register'}>Ajouter un utilisateur</NavLink>}
-						<NavLink to={'/d'} className="block mt-4 lg:inline-block lg:mt-0 mr-4">Contact</NavLink>
-						<NavLink className="block mt-4 lg:inline-block lg:mt-0 mr-4" onClick={logout} to={'/login'} >Déconnexion</NavLink>
-						<p className="block mt-4 lg:inline-block lg:mt-0 mr-4">{email}</p>
+					<NavLink
+						onClick={() => setIsOpen(!isOpen)} to={'/'}
+						className='block mt-4 lg:inline-block lg:mt-0  mr-4'>Accueil
+					</NavLink>
+					<NavLink onClick={() => setIsOpen(!isOpen)} to={'/v'} className="block mt-4 lg:inline-block lg:mt-0 mr-4">Validation</NavLink>
+					{role === 'Administrateur' && <NavLink onClick={() => setIsOpen(!isOpen)} className="block mt-4 lg:inline-block lg:mt-0 mr-4" to={'/register'}>Gestion des utilisateurs</NavLink>}
+
+					<NavLink onClick={() => setIsOpen(!isOpen)} to={'/d'} className="block mt-4 lg:inline-block lg:mt-0 mr-4">Contact</NavLink>
+					<NavLink className="block mt-4 lg:inline-block lg:mt-0 mr-4" onClick={logout} to={'/login'} >Déconnexion</NavLink>
+					<p className="block mt-4 lg:inline-block lg:mt-0 mr-4">{email}</p>
 				</div>
 			</nav>}
 		</>

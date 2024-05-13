@@ -66,16 +66,16 @@ export default function Login() {
 						required
 						value={email}
 						onChange={(e) => setEmail(e.target.value)}
-						placeholder="Email" />
+						placeholder="E-mail" />
 					<input
 						className='input input-bordered input-primary w-full max-w-xs'
 						type="password"
 						required
 						value={password}
 						onChange={(e) => setPassword(e.target.value)}
-						placeholder="Password" />
+						placeholder="Mot de passe" />
 					<button className='btn btn-primary'>Login</button>
-					<NavLink to={'/forgot-password'}>Forgetten Password</NavLink>
+					<NavLink to={'/forgot-password'}>Mot de passe oublié</NavLink>
 				</form>
 				{/* {isflash && <Flash color="red" message={message} onClose={onClose} />} */}
 			</div>
