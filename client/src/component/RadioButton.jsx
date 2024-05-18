@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-export default function RadioButton({ id, setRadioValue }) {
+export default function RadioButton({ id, setRadioValue, onClick }) {
     const role = localStorage.getItem('role')
     console.log(role);
     return (

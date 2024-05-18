@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react"
 import Modal from "../component/Modal";
 import User from "../component/User";
-import Flash from "../component/Flash";
-
-
+import { Navigate } from "react-router-dom";
 
 export default function Register() {
 	const [email, setEmail] = useState('')
@@ -27,7 +25,6 @@ export default function Register() {
 
 	const handleAddUser = async (e) => {
 		e.preventDefault()
-		// console.log(role);
 		try {
 			const response = await fetch('http://localhost:3333/register', {
 				method: 'POST',
@@ -65,18 +62,16 @@ export default function Register() {
 	};
 
 	const handleDelete = (id) => {
-		console.log(id);
 		setIsDeleteModal(true)
 		const [user] = users.filter(user => {
 			return user.id === id
 		})
 		localStorage.setItem('user', user.email)
-		localStorage.setItem('id', id)
-		console.log(user);
+		localStorage.setItem('deletUserId', id)
 	};
 
 	const submitDelete = async () => {
-		const id = localStorage.getItem('id')
+		const id = localStorage.getItem('deletUserId')
 		const response = await fetch(`http://localhost:3333/user/${id}`, {
 			method: 'DELETE',
 			credentials: 'include'
@@ -84,7 +79,6 @@ export default function Register() {
 
 		if (response.ok) {
 			const data = await response.json()
-			console.log(data);
 			fetchUser()
 			setIsDeleteModal(false)
 		}
@@ -101,6 +95,11 @@ export default function Register() {
 	const onCloseDeleteModal = () => {
 		setIsDeleteModal(false)
 	}
+	const userRole = localStorage.getItem('role')
+	// si le role n'est pas administrateur revenir sur la page d'accueil
+	if (userRole !== 'administrator') {
+		return <Navigate to={'/'} />
+	}
 	return (
 		<>
 			<User users={users} openAddModal={openAddModal} handleDelete={handleDelete} />
@@ -113,25 +112,25 @@ export default function Register() {
 			</Modal>
 
 			<Modal isOpen={isOpen} onClose={closeModal} >
-				<div className=' flex justify-center items-center'>
-					<div className='flex flex-col gap-5 justify-center items-center  '>
+				<div className=' flex justify-center items-center  '>
+					<div className='flex flex-col gap-5 justify-center items-center  w-full'>
 						<h2 className='text-2xl font-bold'>Ajouter un utilisateur</h2>
-						<form onSubmit={handleAddUser} className="flex flex-col gap-5">
+						<form onSubmit={handleAddUser} className="flex flex-col gap-5 w-1/2 max-md:w-full ">
 							<input
-								className='input input-bordered input-primary w-full max-w-xs'
+								className='input input-bordered input-primary w-full '
 								type="text"
 								required
 								value={email}
 								onChange={(e) => setEmail(e.target.value)}
 								placeholder="E-mail" />
 							<input
-								className='input input-bordered input-primary w-full max-w-xs'
+								className='input input-bordered input-primary w-full '
 								type="password"
 								required
 								value={password}
 								onChange={(e) => setPassword(e.target.value)}
 								placeholder="Mot de passe" />
-							<select className="select select-bordered select-primary w-full max-w-xs" defaultValue={'DEFAULT'}
+							<select className="select select-bordered select-primary w-full" defaultValue={'DEFAULT'}
 								onChange={(e) => setRole(e.target.value)}>
 								<option value="DEFAULT" disabled>Choisir un rôle</option>
 								<option value="Administrateur">Administrateur</option>

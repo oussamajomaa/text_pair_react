@@ -58,7 +58,9 @@ router.post('/login', (req, res) => {
 
                         // console.log(user);
                         // res.status(200).send({ token, user })
+                        console.log(user.id);
                         res.status(200).cookie('token', token).json({
+                            id:user.id,
                             email: user.email,
                             token: token,
                             role: user.role

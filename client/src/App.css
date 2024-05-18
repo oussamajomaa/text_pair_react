@@ -29,17 +29,14 @@ body,h1,h2,h3,p,ul,li,a {
 
 }
 
-/* css-17vezug-marker css-cnnxkz-diff-added */
-/* .css-17uc4if-title-block, .css-1ks9aww-gutter, .css-1klnsbn-empty-gutter, .css-17vezug-marker pre{
-  display: none;
-} */
+
 /* Style the back side */
 
 .css-1n5o7vh-diff-container {
 	display: none;
 }
 
-.btnHide {
+.btnHide, .save-comment {
 	display: none;
 }
 
@@ -67,66 +64,19 @@ td {
 }
 
 .view {
-	/* border: 1px solid black; */
-
 	display: flex;
 	align-items: stretch;
 	padding: 1rem;
-
 }
 
 .view p {
-	/* text-align: justify; */
-	/* border: 1px solid black; */
 	margin: 5px;
 	line-height: 2;
-	/* padding: 1rem; */
 }
 
 .view-diff {
 	display: none;
 	background-color: #fff !important;
-}
-
-.div-table {
-	/* border: 1px solid rgb(126, 126, 126); */
-	padding: 5px;
-	margin-bottom: 1rem;
-	margin-top: 1rem;
-	box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
-
-
-}
-
-
-
-.div-btn-radio {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	gap: 1rem;
-
-}
-
-.div-btn {
-	display: flex;
-	gap: 5px;
-}
-
-.div-btn button {
-	width: 120px;
-}
-
-.div-par-left,
-.div-par-right {
-	/* width: 50%; */
-	/* padding: 1rem; */
-	box-sizing: border-box;
-
-}
-
-.div-par-left {
-	border-right: 1px solid black;
 }
 
 
@@ -159,22 +109,18 @@ span {
 	cursor: pointer;
 }
 
-/* 
-.css-cncyp1-word-diff,.alignement{
-  color: red;
-} */
 
 .alignement {
 	color: rgb(16, 145, 55) !important;
 }
 
 .div-textarea {
-	display: flex;
+	/* display: flex;
 	justify-content: center;
-	position: relative;
+	position: relative; */
 }
 
-.div-textarea button {
+/* .div-textarea button {
 	position: absolute;
 	top: 20px;
 	right: 20px;
@@ -189,11 +135,10 @@ span {
 	box-sizing: border-box;
 	border: 1px solid gray;
 	display: none;
-}
+} */
 
 .author {
 	display: flex;
-	/* justify-content: flex-end; */
 	gap: 10px;
 }
 
@@ -209,14 +154,7 @@ span {
 
 
 @media screen and (max-width: 800px) {
-	/* .view {
-		flex-direction: column;
-	}
 
-	.div-par-left,
-	.div-par-right {
-		width: 100%;
-	} */
 
 	.div-par-left {
 		border-right: none;

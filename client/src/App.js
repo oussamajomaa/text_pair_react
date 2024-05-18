@@ -6,13 +6,13 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Nav from './component/Nav';
 import { UserContextProvider } from './component/UserContext';
-import { AuthProvider } from './component/AuthContext';
+import Validation from './pages/Validation';
 
 // import ReactDiffViewer, { DiffMethod } from "react-diff-viewer";
 // import { useState, useRef } from 'react';
 
 function App() {
-    const token = localStorage.getItem('token')
+    const role = localStorage.getItem('role')
 
     return (
         <UserContextProvider>
@@ -22,6 +22,7 @@ function App() {
                     <Route path='/' element={<Home />}></Route>
                     <Route path='/login' element={<Login />}></Route>
                     <Route path='/register' element={<Register />}></Route>
+                    <Route path='/validation' element={<Validation />}></Route>
                 </Routes>
             </Router>
         </UserContextProvider>

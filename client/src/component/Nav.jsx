@@ -1,5 +1,4 @@
-import { Link, NavLink, useNavigate } from "react-router-dom";
-import Search from "./Search";
+import { NavLink } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "./UserContext";
 
@@ -18,9 +17,6 @@ export default function Nav() {
 			setIsOpen(false)
 		}
 	})
-	
-	// const navigate = useNavigate()
-	// osm70@gmx.com
 
 	useEffect(() => {
 		if (token) {
@@ -48,7 +44,6 @@ export default function Nav() {
 	return (
 
 		<>
-			
 			{token && <nav className="flex items-center justify-between flex-wrap p-3  bg-slate-600">
 				<div className="flex items-center flex-shrink-0  mr-6 lg:mr-72">
 					<a href=""><img src="./logo512.png" className="w-100 h-10 mr-2" alt="Logo" /></a>
@@ -61,13 +56,13 @@ export default function Nav() {
 							className={`fill-current h-3 w-3 ${isOpen ? "hidden" : "block"}`}
 							viewBox="0 0 20 20"
 							xmlns="http://www.w3.org/2000/svg">
-							<path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
+							<path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" fill="white"/>
 						</svg>
 						<svg
 							className={`fill-current h-3 w-3 ${isOpen ? "block" : "hidden"}`}
 							viewBox="0 0 20 20"
 							xmlns="http://www.w3.org/2000/svg">
-							<path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z" />
+							<path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z" fill="white" />
 						</svg>
 					</button>
 				</div>
@@ -76,7 +71,7 @@ export default function Nav() {
 						onClick={() => setIsOpen(!isOpen)} to={'/'}
 						className='block mt-4 lg:inline-block lg:mt-0  mr-4'>Accueil
 					</NavLink>
-					<NavLink onClick={() => setIsOpen(!isOpen)} to={'/v'} className="block mt-4 lg:inline-block lg:mt-0 mr-4">Validation</NavLink>
+					{role === 'Validateur' && <NavLink onClick={() => setIsOpen(!isOpen)} to={'/validation'} className="block mt-4 lg:inline-block lg:mt-0 mr-4">Validation</NavLink>}
 					{role === 'Administrateur' && <NavLink onClick={() => setIsOpen(!isOpen)} className="block mt-4 lg:inline-block lg:mt-0 mr-4" to={'/register'}>Gestion des utilisateurs</NavLink>}
 
 					<NavLink onClick={() => setIsOpen(!isOpen)} to={'/d'} className="block mt-4 lg:inline-block lg:mt-0 mr-4">Contact</NavLink>
