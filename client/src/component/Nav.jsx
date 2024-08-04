@@ -19,19 +19,19 @@ export default function Nav() {
 	})
 
 	useEffect(() => {
-		if (token) {
-			fetch('http://localhost:3333/profile', {
-				credentials: 'include'
-			}).then(response => {
-				response.json()
-					.then(userInfo => {
-						setUser(userInfo)
-					})
-			})
-		}
+		// if (token) {
+		// 	fetch('http://localhost:3500/profile', {
+		// 		credentials: 'include'
+		// 	}).then(response => {
+		// 		response.json()
+		// 			.then(userInfo => {
+		// 				setUser(userInfo)
+		// 			})
+		// 	})
+		// }
 	}, [])
 	const logout = () => {
-		fetch('http://localhost:3333/logout', {
+		fetch('http://localhost:3500/logout', {
 			credentials: 'include',
 			method: 'POST'
 		})

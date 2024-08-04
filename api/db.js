@@ -15,5 +15,24 @@ const connection = mysql.createConnection({
         console.log('connection to dtabase failed', err);
     }
 })
-  
-  module.exports = connection;
+
+const { Client } = require('pg');
+
+// Configuration de la connexion
+// const connection = new Client({
+//   user: 'una',
+//   host: 'localhost',
+//   database: 'modern',
+//   password: 'una',
+//   port: 5432,
+// });
+// connection.connect(err => {
+//   if (!err) {
+//     console.log('connection to database ok');
+//   } else {
+//     console.log('connection to dtabase failed', err);
+//   }
+// })
+module.exports = connection;
+// module.exports = connection;
+

@@ -152,7 +152,9 @@ span {
 	border-bottom: 2px solid;
 }
 
-
+.css-cncyp1-word-diff ,.css-hf3w1f-word-removed {
+	display: inline !important;
+}
 @media screen and (max-width: 800px) {
 
 

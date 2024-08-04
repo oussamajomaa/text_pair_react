@@ -12,7 +12,7 @@ export default function Register() {
 	const [isDeleteModal, setIsDeleteModal] = useState(false)
 
 	const fetchUser = async () => {
-		const response = await fetch('http://localhost:3333/user')
+		const response = await fetch('http://localhost:3500/user')
 		if (response.ok) {
 			const data = await response.json()
 			setUsers(data)
@@ -26,7 +26,7 @@ export default function Register() {
 	const handleAddUser = async (e) => {
 		e.preventDefault()
 		try {
-			const response = await fetch('http://localhost:3333/register', {
+			const response = await fetch('http://localhost:3500/register', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
@@ -72,7 +72,7 @@ export default function Register() {
 
 	const submitDelete = async () => {
 		const id = localStorage.getItem('deletUserId')
-		const response = await fetch(`http://localhost:3333/user/${id}`, {
+		const response = await fetch(`http://localhost:3500/user/${id}`, {
 			method: 'DELETE',
 			credentials: 'include'
 		})
@@ -97,7 +97,7 @@ export default function Register() {
 	}
 	const userRole = localStorage.getItem('role')
 	// si le role n'est pas administrateur revenir sur la page d'accueil
-	if (userRole !== 'administrator') {
+	if (userRole !== 'Administrateur') {
 		return <Navigate to={'/'} />
 	}
 	return (

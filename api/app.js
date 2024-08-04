@@ -16,6 +16,6 @@ app.use('',alignementRoute)
 
 
 
-app.listen(3333,()=> {
-    console.log('server running on port 3333');
+app.listen(3500,()=> {
+    console.log('server running on port 3500');
 })

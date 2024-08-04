@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { createElement, useRef, useState } from "react";
 import ReactDiffViewer, { DiffMethod } from "react-diff-viewer";
 import TargetAuthor from "./TargetAuthor";
 import SourceAuthor from "./SourceAuthor";
@@ -32,40 +32,84 @@ export default function Alignement({ text, id }) {
     const showDiff = (id) => {
         // Si le conteneur du texte traité existe
         if (source_target.current[id]) {
-
+            
             // Afficher la différence entre les deux textes
             source_target_after.current[id].style.display = 'flex'
+
+            if (source_target.current[id].querySelector('.css-cncyp1-word-diff') === null) {
+                source_alignement.current[id].innerHTML = ""
+                target_alignement.current[id].innerHTML = ""
+                source_alignement.current[id].innerHTML =   source_before.current[id].innerHTML
+                target_alignement.current[id].innerHTML =   target_before.current[id].innerHTML
+                let span_source = document.createElement('span')
+                span_source.setAttribute('class','span-source text-[green]' )
+                let span_target = document.createElement('span')
+                span_target.setAttribute('class','span-target text-[green]')
+                source_alignement.current[id].appendChild(span_source)
+                target_alignement.current[id].appendChild(span_target)
+                console.log(source_alignement.current[id].querySelector('.span-source'));
+                source_alignement.current[id].querySelector('.span-source').textContent = source_target.current[id].querySelector('span.alignement').textContent
+                target_alignement.current[id].querySelector('.span-target').textContent = source_target.current[id].querySelector('span.alignement').textContent
+                source_alignement.current[id].innerHTML +=   source_after.current[id].innerHTML
+                target_alignement.current[id].innerHTML +=   target_after.current[id].innerHTML
+
+                // let span_source_content = source_alignement.current[id].querySelector('.span-source')
+                // span_source_content.textContent = source_target.current[id].querySelector('span.alignement').textContent 
+                // let span_target_content = target_alignement.current[id].querySelector('.span-target')
+                // span_target_content.textContent = source_target.current[id].querySelector('span.alignement').textContent 
+                // let content = source_target.current[id].querySelector('span.alignement').textContent
+                // console.log(source_target.current[id].querySelector('span.alignement').innerHTML)
+                // source_alignement.current[id].innerHTML =   source_before.current[id].innerHTML + 
+                                                            
+                //                                             source_after.current[id].innerHTML 
+                // source_target.current[id].querySelector('span.alignement').classList.add('css-cncyp1-word-diff')
+                // source_target.current[id].querySelector('.css-cncyp1-word-diff').innerHTML = source_target.current[id].querySelector('span.alignment').innerHTML
+                // source_alignement.current[id].innerHTML = source_before.current[id].innerHTML + source_target.current[id].querySelector('span.alignment').innerHTML + source_after.current[id].innerHTML
+                // source_target.current[id].querySelector('span.alignment').style.color = "green"
+            }
+                
+            
             // récupérer le code html du texte source traité
-            let source = source_target.current[id].querySelector('.css-rq9a2a-diff-removed .css-o1u8iu-content-text').innerHTML
+            if(source_target.current[id].querySelector('.css-rq9a2a-diff-removed .css-o1u8iu-content-text')){
+                console.log(source_target_after.current[id])
 
-            // Insérer le code html du texte source traité dans un paragraphe
-            source_alignement.current[id].innerHTML = source_before.current[id].innerHTML + source + source_after.current[id].innerHTML
-            // donner une color vert au passage après traitement
-            let sources = source_alignement.current[id].querySelectorAll('.css-cncyp1-word-diff')
-            sources.forEach(source => {
-                source.style.color = "green"
-            })
-            // donner une color rouge au passage source après traitement
-            let removed = source_alignement.current[id].querySelectorAll('.css-hf3w1f-word-removed')
-            removed.forEach(item => {
-                item.style.color = 'red'
-            })
+                let source = source_target.current[id].querySelector('.css-rq9a2a-diff-removed .css-o1u8iu-content-text').innerHTML
+                console.log(source);
+                // Insérer le code html du texte source traité dans un paragraphe
+                source_alignement.current[id].innerHTML = source_before.current[id].innerHTML + source + source_after.current[id].innerHTML
+                // donner une color vert au passage après traitement
+                let sources = source_alignement.current[id].querySelectorAll('.css-cncyp1-word-diff')
+                sources.forEach(source => {
+                    source.style.color = "green"
+                })
+                // donner une color rouge au passage source après traitement
+                let removed = source_alignement.current[id].querySelectorAll('.css-hf3w1f-word-removed')
+                removed.forEach(item => {
+                    item.style.color = 'red'
+                })
+            
+            }
+           
 
-            // récupérer le code html du texte target traité
-            let target = source_target.current[id].querySelector('.css-cnnxkz-diff-added .css-o1u8iu-content-text').innerHTML
+            if (source_target.current[id].querySelector('.css-cnnxkz-diff-added .css-o1u8iu-content-text')) {
 
-            // Insérer le code html du texte target traité dans un paragraphe
-            target_alignement.current[id].innerHTML = target_before.current[id].innerHTML + target + target_after.current[id].innerHTML
-            // donner une color vert au passage après traitement
-            let targets = target_alignement.current[id].querySelectorAll('.css-cncyp1-word-diff')
-            targets.forEach(target => {
-                target.style.color = "green"
-            })
-            // donner une color blue au passage target après traitement
-            let targets1 = target_alignement.current[id].querySelectorAll('.css-1u4zuq6-word-added')
-            targets1.forEach(target => {
-                target.style.color = "blue"
-            })
+                // récupérer le code html du texte target traité
+                let target = source_target.current[id].querySelector('.css-cnnxkz-diff-added .css-o1u8iu-content-text').innerHTML
+    
+                // Insérer le code html du texte target traité dans un paragraphe
+                target_alignement.current[id].innerHTML = target_before.current[id].innerHTML + target + target_after.current[id].innerHTML
+                // donner une color vert au passage après traitement
+                let targets = target_alignement.current[id].querySelectorAll('.css-cncyp1-word-diff')
+                targets.forEach(target => {
+                    target.style.color = "green"
+                })
+                // donner une color blue au passage target après traitement
+                let targets1 = target_alignement.current[id].querySelectorAll('.css-1u4zuq6-word-added')
+                targets1.forEach(target => {
+                    target.style.color = "blue"
+                })
+            }
+            
 
 
             // cacher le bouton afficher
@@ -162,7 +206,7 @@ export default function Alignement({ text, id }) {
         const evaluate = e.target.value
         const user_id = localStorage.getItem('id')
         try {
-            const response = await fetch('http://localhost:3333/evaluate', {
+            const response = await fetch('http://localhost:3500/evaluate', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -187,7 +231,7 @@ export default function Alignement({ text, id }) {
 
         
         console.log(validate);
-        const response = await fetch('http://localhost:3333/validate', {
+        const response = await fetch('http://localhost:3500/validate', {
             method: 'PATCH',
             headers: {
                 "Content-Type": "application/json"
@@ -203,61 +247,40 @@ export default function Alignement({ text, id }) {
     }
     return (
         <>
-            <div key={id} className="div-table m-5 my-6 p-1 border shadow-xl relative rounded" ref={(el) => source_target.current[id] = el}>
+            <div  className="div-table m-5 my-6 p-1 border shadow-xl relative rounded" ref={(el) => source_target.current[id] = el}>
                 <span className="absolute top-0 left-0 bg-slate-600 p-4 rounde text-white text-xs">{id + 1}</span>
                 <div className="view flex max-md:flex-col" ref={(el) => source_target_before.current[id] = el}>
                     <div className="div-par-left w-1/2 max-md:w-full p-4 border-r border-black">
                         <h3 className="text-xl font-bold mb-2 text-center">Source</h3>
                         <SourceAuthor text={text} />
-
-                        {/* <div className='author'>
-                            <span>{text.source_author}</span>
-                            <span>{text.source_date}</span>
-                            <span>{text.source_title}</span>
-                        </div> */}
                         <p>
-                            <span ref={(el) => source_before.current[id] = el}>{text.source_context_before}</span>
-                            <span className="alignement">{text.source_passage}</span>
-                            <span ref={(el) => source_after.current[id] = el}>{text.source_context_after}</span>
+                            <span ref={(el) => source_before.current[id] = el}>{text.source_before}</span>
+                            <span className="align alignement">{text.source_content}</span>
+                            <span ref={(el) => source_after.current[id] = el}>{text.source_after}</span>
                         </p>
                     </div>
 
                     <div className="div-par-right w-1/2 max-md:w-full p-4">
                         <h3 className="text-xl font-bold mb-2 text-center">Cible</h3>
                         <TargetAuthor text={text} />
-                        {/* <div className='author'>
-                            <span>{text.target_author}</span>
-                            <span>{text.target_date}</span>
-                            <span>{text.target_title}</span>
-                        </div> */}
                         <p>
-                            <span ref={(el) => target_before.current[id] = el}>{text.target_context_before}</span>
-                            <span className="alignement">{text.target_passage}</span>
-                            <span ref={(el) => target_after.current[id] = el}>{text.target_context_after}</span>
+                            <span ref={(el) => target_before.current[id] = el}>{text.target_before}</span>
+                            <span className="align alignement">{text.target_content}</span>
+                            <span ref={(el) => target_after.current[id] = el}>{text.target_after}</span>
                         </p>
                     </div>
 
                 </div>
 
                 <div className="view view-diff max-md:flex-col" ref={(el) => source_target_after.current[id] = el}>
-                    <div className="div-par-left w-1/2 max-md:w-full p-4">
+                    <div className="div-par-left w-1/2 max-md:w-full p-4 border-r border-black">
                         <h3 className="text-xl font-bold mb-2 text-center">Source</h3>
                         <SourceAuthor text={text} />
-                        {/* <div className='author'>
-                            <span>{text.source_author}</span>
-                            <span>{text.source_date}</span>
-                            <span>{text.source_title}</span>
-                        </div> */}
                         <p ref={(el) => source_alignement.current[id] = el}></p>
                     </div>
                     <div className="div-par-right w-1/2 max-md:w-full p-4">
                         <h3 className="text-xl font-bold mb-2 text-center">Cible</h3>
                         <TargetAuthor text={text} />
-                        {/* <div className='author'>
-                            <span>{text.target_author}</span>
-                            <span>{text.target_date}</span>
-                            <span>{text.target_title}</span>
-                        </div> */}
                         <p ref={(el) => target_alignement.current[id] = el}></p>
                     </div>
                 </div>
@@ -271,8 +294,8 @@ export default function Alignement({ text, id }) {
                 </div>
 
                 <ReactDiffViewer
-                    oldValue={text.source_passage}
-                    newValue={text.target_passage}
+                    oldValue={text.source_content}
+                    newValue={text.target_content}
                     splitView={true}
                     compareMethod={DiffMethod.WORDS}
                     lineNumberStart={100}

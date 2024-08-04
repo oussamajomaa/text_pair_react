@@ -7,7 +7,7 @@ export default function Validation() {
 	const [isSpinnser, setIsSpinner] = useState(false)
 	const fetchEvaluation = async () => {
 		setIsSpinner(true)
-		const response = await fetch('http://localhost:3333/evaluate')
+		const response = await fetch('http://localhost:3500/evaluate')
 		const data = await response.json()
 		setParagraphs(data)
 		setIsSpinner(false)
