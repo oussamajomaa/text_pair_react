@@ -4,10 +4,10 @@ const { Client } = require('pg');
 
 
 const pgConnection = new Client({
-    user: 'una',
+    user: 'oussama',
     host: 'localhost',
-    database: 'modern',
-    password: 'una',
+    database: 'ModERN',
+    password: 'modern2024',
     port: 5432,
 });
 
@@ -19,7 +19,8 @@ pgConnection.connect(err => {
     }
 })
 
-router.get('/alignment',(req,res)=>{
+router.get('/alignment/:id',(req,res)=>{
+    const {id} = req.params
     const query = `
         SELECT 
             tp.target_passage_id as target_id,
@@ -37,7 +38,8 @@ router.get('/alignment',(req,res)=>{
             a.author_name AS target_author,
             ts.text_first_publication_date AS source_year,
             ts.text_title AS source_title,
-            sa.author_name AS source_author
+            sa.author_name AS source_author,
+            alignment_id
             FROM 
                 passage_relationship pr
             JOIN 
@@ -56,9 +58,9 @@ router.get('/alignment',(req,res)=>{
                 text_author sta ON ts.text_id = sta.text_id
             JOIN 
                 author sa ON sta.author_id = sa.author_id
-            WHERE tp.target_passage_id <=500
+            WHERE alignment_id = $1
         `
-        pgConnection.query(query,(err,results)=> {
+        pgConnection.query(query,[id],(err,results)=> {
             if (!err) {
                
                 res.json(results.rows)

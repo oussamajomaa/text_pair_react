@@ -63,13 +63,13 @@ td {
 	background-color: #fff !important;
 }
 
-.view {
+.view-all,.view-diff {
 	display: flex;
 	align-items: stretch;
 	padding: 1rem;
 }
 
-.view p {
+.view-all p, .view-diff p {
 	margin: 5px;
 	line-height: 2;
 }
@@ -155,6 +155,26 @@ span {
 .css-cncyp1-word-diff ,.css-hf3w1f-word-removed {
 	display: inline !important;
 }
+
+.pagination {
+	display: flex;
+	list-style: none;
+	padding: 0;
+  }
+  
+  .pagination li {
+	margin: 0 5px;
+  }
+  
+  .pagination li a {
+	text-decoration: none;
+	color: blue;
+  }
+  
+  .pagination li.active a {
+	font-weight: bold;
+	color: red;
+  }
 @media screen and (max-width: 800px) {
 
 

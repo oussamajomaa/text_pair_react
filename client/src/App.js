@@ -8,6 +8,7 @@ import Nav from './component/Nav';
 import { UserContextProvider } from './component/UserContext';
 import Validation from './pages/Validation';
 import Add from './pages/Add';
+import TextComparisonList from './pages/TextComparisonList';
 
 // import ReactDiffViewer, { DiffMethod } from "react-diff-viewer";
 // import { useState, useRef } from 'react';
@@ -17,7 +18,7 @@ function App() {
 
     return (
         <UserContextProvider>
-            <Router>
+            <Router basename="/modern-textpair">
                 <Nav />
                 <Routes>
                     <Route path='/' element={<Home />}></Route>

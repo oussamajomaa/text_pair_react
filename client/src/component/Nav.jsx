@@ -3,7 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import { UserContext } from "./UserContext";
 
 
-
+const ENDPOINT = 'http://134.157.57.237:3500' 
 export default function Nav() {
 	const token = localStorage.getItem('token')
 	const role = localStorage.getItem('role')
@@ -18,20 +18,8 @@ export default function Nav() {
 		}
 	})
 
-	useEffect(() => {
-		// if (token) {
-		// 	fetch('http://localhost:3500/profile', {
-		// 		credentials: 'include'
-		// 	}).then(response => {
-		// 		response.json()
-		// 			.then(userInfo => {
-		// 				setUser(userInfo)
-		// 			})
-		// 	})
-		// }
-	}, [])
 	const logout = () => {
-		fetch('http://localhost:3500/logout', {
+		fetch(`${ENDPOINT}/logout`, {
 			credentials: 'include',
 			method: 'POST'
 		})
@@ -46,7 +34,7 @@ export default function Nav() {
 		<>
 			{token && <nav className="flex items-center justify-between flex-wrap p-3  bg-slate-600">
 				<div className="flex items-center flex-shrink-0  mr-6 lg:mr-72">
-					<a href=""><img src="./logo512.png" className="w-100 h-10 mr-2" alt="Logo" /></a>
+					<a href=""><img src="/modern-textpair/logo512.png" className="w-100 h-10 mr-2" alt="Logo" /></a>
 				</div>
 				<div className="block lg:hidden">
 					<button
@@ -74,7 +62,6 @@ export default function Nav() {
 					{role === 'Validateur' && <NavLink onClick={() => setIsOpen(!isOpen)} to={'/validation'} className="block mt-4 lg:inline-block lg:mt-0 mr-4">Validation</NavLink>}
 					{role === 'Administrateur' && <NavLink onClick={() => setIsOpen(!isOpen)} className="block mt-4 lg:inline-block lg:mt-0 mr-4" to={'/register'}>Gestion des utilisateurs</NavLink>}
 
-					<NavLink onClick={() => setIsOpen(!isOpen)} to={'/d'} className="block mt-4 lg:inline-block lg:mt-0 mr-4">Contact</NavLink>
 					<NavLink className="block mt-4 lg:inline-block lg:mt-0 mr-4" onClick={logout} to={'/login'} >Déconnexion</NavLink>
 					<p className="block mt-4 lg:inline-block lg:mt-0 mr-4">{email}</p>
 				</div>

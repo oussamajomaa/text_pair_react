@@ -2,19 +2,20 @@ import { useState, useContext } from 'react';
 import { Navigate, NavLink } from 'react-router-dom';
 import { UserContext } from "../component/UserContext";
 
-
+    const ENDPOINT = 'http://134.157.57.237:3500' 
+    // const ENDPOINT = 'http://localhost:3500' 
 export default function Login() {
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 	const [logged, setLogged] = useState(false)
 	const [message, setMessage] = useState('')
-
+	console.log('Login')
 	const {setUser} = useContext(UserContext)
 	const handleLogin = async (e) => {
 		e.preventDefault()
-		localStorage.setItem('token','osm')
+
 		try {
-			const response = await fetch('http://localhost:3500/login', {
+			const response = await fetch(`${ENDPOINT}/login`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',

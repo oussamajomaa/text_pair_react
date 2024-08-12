@@ -15,8 +15,9 @@ const connection = mysql.createConnection({
         console.log('connection to dtabase failed', err);
     }
 })
+module.exports = connection;
 
-const { Client } = require('pg');
+// const { Client } = require('pg');
 
 // Configuration de la connexion
 // const connection = new Client({
@@ -33,6 +34,5 @@ const { Client } = require('pg');
 //     console.log('connection to dtabase failed', err);
 //   }
 // })
-module.exports = connection;
 // module.exports = connection;
 

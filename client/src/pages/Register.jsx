@@ -3,6 +3,8 @@ import Modal from "../component/Modal";
 import User from "../component/User";
 import { Navigate } from "react-router-dom";
 
+  const ENDPOINT = 'http://134.157.57.237:3500' 
+//   const ENDPOINT = 'http://localhost:3500' 
 export default function Register() {
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
@@ -12,7 +14,7 @@ export default function Register() {
 	const [isDeleteModal, setIsDeleteModal] = useState(false)
 
 	const fetchUser = async () => {
-		const response = await fetch('http://localhost:3500/user')
+		const response = await fetch(`${ENDPOINT}/user`)
 		if (response.ok) {
 			const data = await response.json()
 			setUsers(data)
@@ -26,7 +28,7 @@ export default function Register() {
 	const handleAddUser = async (e) => {
 		e.preventDefault()
 		try {
-			const response = await fetch('http://localhost:3500/register', {
+			const response = await fetch(`${ENDPOINT}/register`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
@@ -72,7 +74,7 @@ export default function Register() {
 
 	const submitDelete = async () => {
 		const id = localStorage.getItem('deletUserId')
-		const response = await fetch(`http://localhost:3500/user/${id}`, {
+		const response = await fetch(`${ENDPOINT}/user/${id}`, {
 			method: 'DELETE',
 			credentials: 'include'
 		})

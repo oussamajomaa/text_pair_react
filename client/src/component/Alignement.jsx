@@ -6,11 +6,10 @@ import RadioButton from "./RadioButton";
 // import { Navigate } from "react-router-dom";
 
 export default function Alignement({ text, id }) {
-    const [show, setShow] = useState(false)
+    // const [show, setShow] = useState(false)
     // const [comment, setComment] = useState('')
     const [radioValue, setRadioValue] = useState('')
     const [checked, setChecked] = useState(null)
-
     const source_target = useRef([]);
     const source_target_before = useRef([]);
     const source_target_after = useRef([]);
@@ -28,53 +27,38 @@ export default function Alignement({ text, id }) {
     const add_comment = useRef([]);
     const check = useRef([]);
 
+
     const role = localStorage.getItem('role')
     const showDiff = (id) => {
         // Si le conteneur du texte traité existe
         if (source_target.current[id]) {
-            
+
             // Afficher la différence entre les deux textes
             source_target_after.current[id].style.display = 'flex'
 
             if (source_target.current[id].querySelector('.css-cncyp1-word-diff') === null) {
                 source_alignement.current[id].innerHTML = ""
                 target_alignement.current[id].innerHTML = ""
-                source_alignement.current[id].innerHTML =   source_before.current[id].innerHTML
-                target_alignement.current[id].innerHTML =   target_before.current[id].innerHTML
+                source_alignement.current[id].innerHTML = source_before.current[id].innerHTML
+                target_alignement.current[id].innerHTML = target_before.current[id].innerHTML
                 let span_source = document.createElement('span')
-                span_source.setAttribute('class','span-source text-[green]' )
+                span_source.setAttribute('class', 'span-source text-[green]')
                 let span_target = document.createElement('span')
-                span_target.setAttribute('class','span-target text-[green]')
+                span_target.setAttribute('class', 'span-target text-[green]')
                 source_alignement.current[id].appendChild(span_source)
                 target_alignement.current[id].appendChild(span_target)
-                console.log(source_alignement.current[id].querySelector('.span-source'));
                 source_alignement.current[id].querySelector('.span-source').textContent = source_target.current[id].querySelector('span.alignement').textContent
                 target_alignement.current[id].querySelector('.span-target').textContent = source_target.current[id].querySelector('span.alignement').textContent
-                source_alignement.current[id].innerHTML +=   source_after.current[id].innerHTML
-                target_alignement.current[id].innerHTML +=   target_after.current[id].innerHTML
+                source_alignement.current[id].innerHTML += source_after.current[id].innerHTML
+                target_alignement.current[id].innerHTML += target_after.current[id].innerHTML
 
-                // let span_source_content = source_alignement.current[id].querySelector('.span-source')
-                // span_source_content.textContent = source_target.current[id].querySelector('span.alignement').textContent 
-                // let span_target_content = target_alignement.current[id].querySelector('.span-target')
-                // span_target_content.textContent = source_target.current[id].querySelector('span.alignement').textContent 
-                // let content = source_target.current[id].querySelector('span.alignement').textContent
-                // console.log(source_target.current[id].querySelector('span.alignement').innerHTML)
-                // source_alignement.current[id].innerHTML =   source_before.current[id].innerHTML + 
-                                                            
-                //                                             source_after.current[id].innerHTML 
-                // source_target.current[id].querySelector('span.alignement').classList.add('css-cncyp1-word-diff')
-                // source_target.current[id].querySelector('.css-cncyp1-word-diff').innerHTML = source_target.current[id].querySelector('span.alignment').innerHTML
-                // source_alignement.current[id].innerHTML = source_before.current[id].innerHTML + source_target.current[id].querySelector('span.alignment').innerHTML + source_after.current[id].innerHTML
-                // source_target.current[id].querySelector('span.alignment').style.color = "green"
             }
-                
-            
+
+
             // récupérer le code html du texte source traité
-            if(source_target.current[id].querySelector('.css-rq9a2a-diff-removed .css-o1u8iu-content-text')){
-                console.log(source_target_after.current[id])
+            if (source_target.current[id].querySelector('.css-rq9a2a-diff-removed .css-o1u8iu-content-text')) {
 
                 let source = source_target.current[id].querySelector('.css-rq9a2a-diff-removed .css-o1u8iu-content-text').innerHTML
-                console.log(source);
                 // Insérer le code html du texte source traité dans un paragraphe
                 source_alignement.current[id].innerHTML = source_before.current[id].innerHTML + source + source_after.current[id].innerHTML
                 // donner une color vert au passage après traitement
@@ -87,15 +71,15 @@ export default function Alignement({ text, id }) {
                 removed.forEach(item => {
                     item.style.color = 'red'
                 })
-            
+
             }
-           
+
 
             if (source_target.current[id].querySelector('.css-cnnxkz-diff-added .css-o1u8iu-content-text')) {
 
                 // récupérer le code html du texte target traité
                 let target = source_target.current[id].querySelector('.css-cnnxkz-diff-added .css-o1u8iu-content-text').innerHTML
-    
+
                 // Insérer le code html du texte target traité dans un paragraphe
                 target_alignement.current[id].innerHTML = target_before.current[id].innerHTML + target + target_after.current[id].innerHTML
                 // donner une color vert au passage après traitement
@@ -109,7 +93,7 @@ export default function Alignement({ text, id }) {
                     target.style.color = "blue"
                 })
             }
-            
+
 
 
             // cacher le bouton afficher
@@ -119,7 +103,9 @@ export default function Alignement({ text, id }) {
 
             // cacher le texte original
             source_target_before.current[id].style.display = 'none'
-            setShow(!show)
+            console.log(source_target_before.current[id]);
+            
+            // setShow(!show)
         }
     }
 
@@ -138,7 +124,7 @@ export default function Alignement({ text, id }) {
 
             // Afficher le texte original
             source_target_before.current[id].style.display = 'flex'
-            setShow(!show)
+            // setShow(!show)
         }
     }
 
@@ -205,8 +191,9 @@ export default function Alignement({ text, id }) {
         setRadioValue(e.target.value)
         const evaluate = e.target.value
         const user_id = localStorage.getItem('id')
+
         try {
-            const response = await fetch('http://localhost:3500/evaluate', {
+            const response = await fetch('http://134.157.57.237:3500/evaluate', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -226,12 +213,12 @@ export default function Alignement({ text, id }) {
 
     }
 
-    const handleValidate = async (e,textId,id) => {
+    const handleValidate = async (e, textId, id) => {
         const validate = e.target.checked
 
-        
+
         console.log(validate);
-        const response = await fetch('http://localhost:3500/validate', {
+        const response = await fetch('http://134.157.57.237:3500/validate', {
             method: 'PATCH',
             headers: {
                 "Content-Type": "application/json"
@@ -247,9 +234,9 @@ export default function Alignement({ text, id }) {
     }
     return (
         <>
-            <div  className="div-table m-5 my-6 p-1 border shadow-xl relative rounded" ref={(el) => source_target.current[id] = el}>
-                <span className="absolute top-0 left-0 bg-slate-600 p-4 rounde text-white text-xs">{id + 1}</span>
-                <div className="view flex max-md:flex-col" ref={(el) => source_target_before.current[id] = el}>
+            <div className="div-table m-5 my-6 p-1 border shadow-xl relative rounded" ref={(el) => source_target.current[id] = el}>
+                <span className="absolute top-0 left-0 bg-slate-600 p-4 rounde text-white text-xs">{id}</span>
+                <div className="view-all flex max-md:flex-col" ref={(el) => source_target_before.current[id] = el}>
                     <div className="div-par-left w-1/2 max-md:w-full p-4 border-r border-black">
                         <h3 className="text-xl font-bold mb-2 text-center">Source</h3>
                         <SourceAuthor text={text} />
@@ -272,7 +259,7 @@ export default function Alignement({ text, id }) {
 
                 </div>
 
-                <div className="view view-diff max-md:flex-col" ref={(el) => source_target_after.current[id] = el}>
+                <div className="view-diff max-md:flex-col" ref={(el) => source_target_after.current[id] = el}>
                     <div className="div-par-left w-1/2 max-md:w-full p-4 border-r border-black">
                         <h3 className="text-xl font-bold mb-2 text-center">Source</h3>
                         <SourceAuthor text={text} />
@@ -292,15 +279,16 @@ export default function Alignement({ text, id }) {
                         <svg xmlns="http://www.w3.org/2000/svg" className="text-xs" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
                     </button>
                 </div>
-
+                
                 <ReactDiffViewer
                     oldValue={text.source_content}
                     newValue={text.target_content}
                     splitView={true}
-                    compareMethod={DiffMethod.WORDS}
-                    lineNumberStart={100}
-                    columnTitle={'My Column Title'}
+
                 />
+                
+
+
                 <div className="flex items-center justify-between gap-3 max-md:flex-col">
                     <div className="flex gap-1">
                         <button className="btnShow btn btn-sm btn-outline w-52 " onClick={() => showDiff(id)} ref={(el) => show_btn.current[id] = el}>Afficher la différence</button>
@@ -312,12 +300,12 @@ export default function Alignement({ text, id }) {
                         <div className=" flex gap-3 items-center  max-md:flex-col">
                             <div className=" flex gap-3 items-center px-[3px] btn btn-sm btn-outline hover:text-white">
                                 <label htmlFor={`check${id}`}>Valider</label>
-                                <input 
+                                <input
                                     defaultChecked={text.validate}
-                                    type="checkbox" 
-                                    id={`check${id}`} 
-                                    className="checkbox-warning checkbox" 
-                                    onChange={(e) => handleValidate(e,text.id,id)}
+                                    type="checkbox"
+                                    id={`check${id}`}
+                                    className="checkbox-warning checkbox"
+                                    onChange={(e) => handleValidate(e, text.id, id)}
                                     ref={(el) => check.current[id] = el} />
                             </div>
                             <div className="flex gap-1  items-center max-md:flex-col ">
