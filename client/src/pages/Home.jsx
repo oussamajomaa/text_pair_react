@@ -1,8 +1,8 @@
 import { Navigate } from 'react-router-dom';
-import Alignement from '../component/Alignement';
-// import Search from '../component/Search';
-import { useEffect, useRef, useState } from 'react';
+// import Alignement from '../component/Alignement';
+import { useRef, useState } from 'react';
 import ReactPaginate from 'react-paginate';
+import Alignement from '../component/Alignement';
 
 export default function Home() {
     const token = localStorage.getItem('token')
@@ -47,7 +47,9 @@ export default function Home() {
 
     const offset = currentPage * itemsPerPage;
     const currentItems = paragraphs.slice(offset, offset + itemsPerPage);
-    const ENDPOINT = 'http://134.157.57.237:3500' 
+    
+    // const ENDPOINT = 'http://134.157.57.237:3500' 
+    const ENDPOINT = 'http://localhost:3500'
     const handlSubmit = async (e) => {
         setIsLoading(true)
         e.preventDefault()

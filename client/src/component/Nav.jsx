@@ -3,7 +3,8 @@ import { useContext, useEffect, useState } from "react";
 import { UserContext } from "./UserContext";
 
 
-const ENDPOINT = 'http://134.157.57.237:3500' 
+// const ENDPOINT = 'http://134.157.57.237:3500' 
+const ENDPOINT = 'http://localhost:3500'
 export default function Nav() {
 	const token = localStorage.getItem('token')
 	const role = localStorage.getItem('role')
@@ -35,6 +36,7 @@ export default function Nav() {
 			{token && <nav className="flex items-center justify-between flex-wrap p-3  bg-slate-600">
 				<div className="flex items-center flex-shrink-0  mr-6 lg:mr-72">
 					<a href=""><img src="/modern-textpair/logo512.png" className="w-100 h-10 mr-2" alt="Logo" /></a>
+					<p className="block mt-4 lg:inline-block lg:mt-0 mr-4 text-white">Bonjour {email}</p>
 				</div>
 				<div className="block lg:hidden">
 					<button
@@ -61,9 +63,10 @@ export default function Nav() {
 					</NavLink>
 					{role === 'Validateur' && <NavLink onClick={() => setIsOpen(!isOpen)} to={'/validation'} className="block mt-4 lg:inline-block lg:mt-0 mr-4">Validation</NavLink>}
 					{role === 'Administrateur' && <NavLink onClick={() => setIsOpen(!isOpen)} className="block mt-4 lg:inline-block lg:mt-0 mr-4" to={'/register'}>Gestion des utilisateurs</NavLink>}
+					{role === 'Annotateur' && <NavLink onClick={() => setIsOpen(!isOpen)} className="block mt-4 lg:inline-block lg:mt-0 mr-4" to={'/update'}>Mise à jour</NavLink>}
 
 					<NavLink className="block mt-4 lg:inline-block lg:mt-0 mr-4" onClick={logout} to={'/login'} >Déconnexion</NavLink>
-					<p className="block mt-4 lg:inline-block lg:mt-0 mr-4">{email}</p>
+					
 				</div>
 			</nav>}
 		</>

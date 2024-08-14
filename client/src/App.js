@@ -9,6 +9,7 @@ import { UserContextProvider } from './component/UserContext';
 import Validation from './pages/Validation';
 import Add from './pages/Add';
 import TextComparisonList from './pages/TextComparisonList';
+import UpdateEvaluation from './pages/UpdateEvaluation';
 
 // import ReactDiffViewer, { DiffMethod } from "react-diff-viewer";
 // import { useState, useRef } from 'react';
@@ -26,6 +27,7 @@ function App() {
                     <Route path='/login' element={<Login />}></Route>
                     <Route path='/register' element={<Register />}></Route>
                     <Route path='/validation' element={<Validation />}></Route>
+                    <Route path='/update' element={<UpdateEvaluation />}></Route>
                 </Routes>
             </Router>
         </UserContextProvider>

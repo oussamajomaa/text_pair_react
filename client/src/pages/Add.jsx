@@ -19,7 +19,8 @@ export default function Add() {
             let items = await getAlignments(i, i + batchSize - 1); // Attendre que getAlign renvoie un résultat
             if (items.length > 0) {
                 try {
-                    const response = await fetch('http://134.157.57.237:3500/alignment', {
+                    // const response = await fetch('http://134.157.57.237:3500/alignment', {
+                    const response = await fetch('http://localhost:3500/alignment', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'

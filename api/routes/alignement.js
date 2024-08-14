@@ -5,6 +5,9 @@ const connection = require('../db')
 
 
 router.post('/search', (req, res) => {
+    const { token } = req.cookies
+    console.log(token);
+
     const {
         source_content,
         source_author,
@@ -33,7 +36,8 @@ router.post('/search', (req, res) => {
     target_content like ? and
     target_author like ? and 
     target_title like ? and
-    target_year like ? 
+    target_year like ? and
+	target_year = "1526"
     `
         , values, (err, results) => {
             if (!err) {
@@ -47,7 +51,7 @@ router.post('/search', (req, res) => {
 
 router.post('/evaluate', (req, res) => {
     const { token } = req.cookies
-    // console.log(token);
+    console.log(token);
     const { user_id, alignement_id, comment, evaluate } = req.body
     const evaluation = req.body
     console.log(evaluation);
@@ -108,8 +112,8 @@ router.post('/comment', (req, res) => {
 
 
 router.get('/evaluate', (req, res) => {
-    connection.query(`select *,evaluation.id from passage
-        inner join evaluation on passage.id = evaluation.alignement_id
+    connection.query(`select *,evaluation.id from alignment
+        inner join evaluation on alignment.id = evaluation.alignement_id
         inner join user on user.id = evaluation.user_id order by user.id
     `, (err, resultes) => {
         if (!err) {
@@ -134,15 +138,78 @@ router.patch('/validate', (req, res) => {
     })
 })
 
-router.post('/alignment', (req, res) => {
-    const alignment = req.body
+router.get('/alignment_evaluated/:id', (req, res) => {
+    const { id } = req.params
+    console.log(id);
+    
+    const query = `
+        SELECT a.*
+        FROM alignment a
+        JOIN evaluation e ON a.id = e.alignement_id
+        WHERE e.user_id = ?
+    `;
 
-    connection.query('INSERT INTO alignment SET ?', alignment, (err, row) => {
-        if (!err) {
-            res.status(200).send({ message: `Alignment a été ajouté` })
+    connection.query(query, [id], (err, results) => {
+        if (err) {
+            console.error('Database error:', err);
+            return res.status(500).json({ error: 'Internal Server Error' });
         }
-    })
+        console.log(results.length);
+        
+        res.json(results);
+    });
 })
+
+
+// router.post('/alignment', (req, res) => {
+//     const alignment = req.body
+
+//     connection.query('INSERT INTO alignment SET ?', alignment, (err, row) => {
+//         if (!err) {
+//             res.status(200).send({ message: `Alignment a été ajouté` })
+//         }
+//     })
+// })
+
+// Ajouter from postgres
+router.post('/alignment', (req, res) => {
+    const alignments = req.body;
+    const values = alignments.map(alignment => [
+        alignment.target_id,
+        alignment.target_before,
+        alignment.target_content,
+        alignment.target_after,
+        alignment.source_id,
+        alignment.source_before,
+        alignment.source_content,
+        alignment.source_after,
+        alignment.target_year,
+        alignment.target_title,
+        alignment.target_author,
+        alignment.source_year,
+        alignment.source_title,
+        alignment.source_author,
+        alignment.alignment_id
+    ]);
+
+    const query = `
+        INSERT INTO alignment (
+            target_id, target_before, target_content, target_after, 
+            source_id, source_before, source_content, source_after, 
+            target_year, target_title, target_author, 
+            source_year, source_title, source_author, alignment_id
+        ) VALUES ?
+    `;
+
+    connection.query(query, [values], (err, result) => {
+        if (!err) {
+            res.status(200).send({ message: `Alignments have been added` });
+        } else {
+            res.status(500).json({ error: err.message });
+        }
+    });
+})
+
 
 router.get('/truncate', (req, res) => {
     connection.query('TRUNCATE TABLE alignment', (err, row) => {

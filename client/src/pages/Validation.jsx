@@ -25,7 +25,7 @@ export default function Validation() {
 	}
 	return (
 		<div>
-			{isSpinnser && <span className="loading loading-spinner text-primary"></span>}
+			{/* {isSpinnser && <span className="loading loading-spinner text-primary"></span>} */}
 			<div className=" shadow-md m-5 p-5 ">
 				{paragraphs && paragraphs.map((text, id) =>
 					<Alignement text={text} id={id} key={text.id} />

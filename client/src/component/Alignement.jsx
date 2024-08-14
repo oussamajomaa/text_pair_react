@@ -1,15 +1,13 @@
-import { createElement, useRef, useState } from "react";
-import ReactDiffViewer, { DiffMethod } from "react-diff-viewer";
+import { useRef } from "react";
+import ReactDiffViewer from "react-diff-viewer";
 import TargetAuthor from "./TargetAuthor";
 import SourceAuthor from "./SourceAuthor";
-import RadioButton from "./RadioButton";
-// import { Navigate } from "react-router-dom";
 
+
+// const ENDPOINT = 'http://134.157.57.237:3500' 
+const ENDPOINT = 'http://localhost:3500'
 export default function Alignement({ text, id }) {
-    // const [show, setShow] = useState(false)
-    // const [comment, setComment] = useState('')
-    const [radioValue, setRadioValue] = useState('')
-    const [checked, setChecked] = useState(null)
+
     const source_target = useRef([]);
     const source_target_before = useRef([]);
     const source_target_after = useRef([]);
@@ -27,11 +25,25 @@ export default function Alignement({ text, id }) {
     const add_comment = useRef([]);
     const check = useRef([]);
 
+    const cleanText = (text) => {
+
+        return text;
+    };
 
     const role = localStorage.getItem('role')
     const showDiff = (id) => {
         // Si le conteneur du texte traité existe
         if (source_target.current[id]) {
+            if (source_target.current[id].querySelector('.css-cncyp1-word-diff')) {
+                const spans = source_target.current[id].querySelectorAll('span.css-cncyp1-word-diff');
+
+                // Parcourt tous les éléments 'span dont la classe est css-cncyp1-word-diff et supprimer la classe'
+                spans.forEach(span => {
+                    // Vérifie si l'élément 'span' actuel contient un élément avec la classe '.css-hf3w1f-word-removed'
+                    span.classList.add('diff')
+                    span.classList.remove('css-cncyp1-word-diff')
+                });
+            }
 
             // Afficher la différence entre les deux textes
             source_target_after.current[id].style.display = 'flex'
@@ -103,8 +115,8 @@ export default function Alignement({ text, id }) {
 
             // cacher le texte original
             source_target_before.current[id].style.display = 'none'
-            console.log(source_target_before.current[id]);
-            
+            // console.log(source_target_before.current[id]);
+
             // setShow(!show)
         }
     }
@@ -162,7 +174,7 @@ export default function Alignement({ text, id }) {
             if (comment) {
                 // envoyer une requette pour sauvegarder le commentaire
                 const user_id = localStorage.getItem('id')
-                const response = await fetch('http://localhost:3333/comment', {
+                const response = await fetch(`${ENDPOINT}/comment`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -188,12 +200,11 @@ export default function Alignement({ text, id }) {
     // lorsqu'on clique sur la rdiobutton, on envoie une requette directement à la base de donnée
     // pour sauvegarder la valeur de la radiobutton
     const handleRadio = async (e, alignement_id) => {
-        setRadioValue(e.target.value)
         const evaluate = e.target.value
         const user_id = localStorage.getItem('id')
 
         try {
-            const response = await fetch('http://134.157.57.237:3500/evaluate', {
+            const response = await fetch(`${ENDPOINT}/evaluate`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -218,7 +229,7 @@ export default function Alignement({ text, id }) {
 
 
         console.log(validate);
-        const response = await fetch('http://134.157.57.237:3500/validate', {
+        const response = await fetch(`${ENDPOINT}/validate`, {
             method: 'PATCH',
             headers: {
                 "Content-Type": "application/json"
@@ -279,15 +290,13 @@ export default function Alignement({ text, id }) {
                         <svg xmlns="http://www.w3.org/2000/svg" className="text-xs" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
                     </button>
                 </div>
-                
+
                 <ReactDiffViewer
-                    oldValue={text.source_content}
-                    newValue={text.target_content}
+                    oldValue={cleanText(text.source_content)}
+                    newValue={cleanText(text.target_content)}
                     splitView={true}
 
                 />
-                
-
 
                 <div className="flex items-center justify-between gap-3 max-md:flex-col">
                     <div className="flex gap-1">
@@ -296,6 +305,7 @@ export default function Alignement({ text, id }) {
                     </div>
 
                     {/* Si l'email existe, cela veut dire que l'utilisateur est un valideur */}
+
                     {text.email &&
                         <div className=" flex gap-3 items-center  max-md:flex-col">
                             <div className=" flex gap-3 items-center px-[3px] btn btn-sm btn-outline hover:text-white">
@@ -310,13 +320,9 @@ export default function Alignement({ text, id }) {
                             </div>
                             <div className="flex gap-1  items-center max-md:flex-col ">
                                 <p className="badge bg-slate-500 text-white">{text.evaluate}</p>
-                                {/* <p className=" badge-neutral"> {text.email}</p> */}
-                                {/* <p className=""> {text.comment}</p> */}
                             </div>
                         </div>
                     }
-
-                    {/* <RadioButton id={id} setRadioValue={setRadioValue} onClick={handleRadio} /> */}
 
 
                     {/* Les radios button seront affichés lorsque l'utilisateur est un annotateur */}
@@ -345,3 +351,5 @@ export default function Alignement({ text, id }) {
         </>
     )
 }
+
+

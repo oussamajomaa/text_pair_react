@@ -114,28 +114,7 @@ span {
 	color: rgb(16, 145, 55) !important;
 }
 
-.div-textarea {
-	/* display: flex;
-	justify-content: center;
-	position: relative; */
-}
 
-/* .div-textarea button {
-	position: absolute;
-	top: 20px;
-	right: 20px;
-	display: none;
-}
-
-.div-textarea textarea {
-	width: 100%;
-	padding: 1rem;
-	margin: 1rem;
-	height: 100px;
-	box-sizing: border-box;
-	border: 1px solid gray;
-	display: none;
-} */
 
 .author {
 	display: flex;
@@ -175,6 +154,16 @@ span {
 	font-weight: bold;
 	color: red;
   }
+  
+  
+  .diff{
+	display: inline;
+	color: green;
+  }
+  /* .css-cncyp1-word-diff::after, .css-hf3w1f-word-removed::after, .css-1u4zuq6-word-added::after {
+	content: '' !important; 
+  } */
+   
 @media screen and (max-width: 800px) {
 
 
