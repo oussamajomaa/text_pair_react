@@ -38,6 +38,7 @@ export default function Alignement({ text, id }) {
                 const spans = source_target.current[id].querySelectorAll('span.css-cncyp1-word-diff');
 
                 // Parcourt tous les éléments 'span dont la classe est css-cncyp1-word-diff et supprimer la classe'
+                // supprimer l'espace ajouter par la class css-cncyp1-word-diff.
                 spans.forEach(span => {
                     // Vérifie si l'élément 'span' actuel contient un élément avec la classe '.css-hf3w1f-word-removed'
                     span.classList.add('diff')
