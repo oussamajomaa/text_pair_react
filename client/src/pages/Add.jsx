@@ -13,7 +13,7 @@ export default function Add() {
     const getAlignAndInsert = async () => {
         const batchSize = 50; // Taille du lot réduite à 50 enregistrements
         // c'est fait... le prochain doit commencer à 440000 - 450000
-        for (let i = 420000; i < 430000; i += batchSize) {
+        for (let i = 475459; i < 505459; i += batchSize) {
             console.log(`Fetching alignments from ${i} to ${i + batchSize - 1}`);
             
             let items = await getAlignments(i, i + batchSize - 1); // Attendre que getAlign renvoie un résultat

@@ -4,6 +4,9 @@ import { useRef, useState } from 'react';
 import ReactPaginate from 'react-paginate';
 import Alignement from '../component/Alignement';
 
+// const ENDPOINT = 'http://134.157.57.237:3500' 
+// const ENDPOINT = 'http://localhost:3500'
+const ENDPOINT = 'http://localhost:8000/api'
 export default function Home() {
     const token = localStorage.getItem('token')
     const form = useRef();
@@ -22,39 +25,19 @@ export default function Home() {
     const [isLoading,setIsLoading] = useState(false)
     const itemsPerPage = 10;
     
+    const offset = currentPage * itemsPerPage;
+    const currentItems = paragraphs.slice(offset, offset + itemsPerPage);
 
     const handlePageClick = (event) => {
         setCurrentPage(event.selected);
-        document.querySelectorAll('.view-all').forEach(div => {
-            div.style.display = 'flex'
-        })
-        document.querySelectorAll('.view-diff').forEach(div => {
-            div.style.display = 'none'
-        })
-        document.querySelectorAll('.btnHide').forEach(div => {
-            div.style.display = 'none '
-        })
-        document.querySelectorAll('.btnShow').forEach(div => {
-            div.style.display = 'block'
-        })
-        
     };
 
-
-
-        
-        
-
-    const offset = currentPage * itemsPerPage;
-    const currentItems = paragraphs.slice(offset, offset + itemsPerPage);
-    
-    // const ENDPOINT = 'http://134.157.57.237:3500' 
-    const ENDPOINT = 'http://localhost:3500'
     const handlSubmit = async (e) => {
         setIsLoading(true)
         e.preventDefault()
+        
         // const response = await fetch('passage.json')
-        const response = await fetch(`${ENDPOINT}/search`, {
+        const response = await fetch(`${ENDPOINT}/search?page=${currentPage}&pageSize=${itemsPerPage}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -68,9 +51,10 @@ export default function Home() {
                     target_content,
                     target_author,
                     target_title,
-                    target_year
+                    target_year,
                 }
-            )
+            ),
+            credentials:'include'
         })
 
         if (response.ok) {
@@ -100,8 +84,6 @@ export default function Home() {
         setTarget_content('')
         setTarget_title('')
     }
-
-
 
     if (!token) {
         return <Navigate to={'/login'} />
@@ -207,9 +189,9 @@ export default function Home() {
             />
         }
             {/* <Search  /> */}
-            {currentItems && currentItems.map((text, id) =>
+            {currentItems && currentItems.map((text, counter) =>
 
-                <Alignement text={text} id={offset+id+1} key={id} />
+                <Alignement text={text} counter={offset+counter+1} key={text.ID} />
                 // <Alignement text={text} id={text.id} key={id} />
                 
             )}

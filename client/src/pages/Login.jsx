@@ -2,8 +2,9 @@ import { useState, useContext } from 'react';
 import { Navigate, NavLink } from 'react-router-dom';
 import { UserContext } from "../component/UserContext";
 
-    const ENDPOINT = 'http://134.157.57.237:3500' 
+    // const ENDPOINT = 'http://134.157.57.237:3500' 
     // const ENDPOINT = 'http://localhost:3500' 
+	const ENDPOINT = 'http://localhost:8000/api'
 export default function Login() {
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')

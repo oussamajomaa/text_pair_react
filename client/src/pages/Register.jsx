@@ -3,8 +3,9 @@ import Modal from "../component/Modal";
 import User from "../component/User";
 import { Navigate } from "react-router-dom";
 
-  const ENDPOINT = 'http://134.157.57.237:3500' 
+//   const ENDPOINT = 'http://134.157.57.237:3500' 
 //   const ENDPOINT = 'http://localhost:3500' 
+const ENDPOINT = 'http://localhost:8000/api'
 export default function Register() {
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
@@ -14,10 +15,12 @@ export default function Register() {
 	const [isDeleteModal, setIsDeleteModal] = useState(false)
 
 	const fetchUser = async () => {
-		const response = await fetch(`${ENDPOINT}/user`)
+		const response = await fetch(`${ENDPOINT}/users`)
 		if (response.ok) {
 			const data = await response.json()
-			setUsers(data)
+			setUsers(data['hydra:member'])
+			console.log(data['hydra:member']);
+			
 		}
 	}
 

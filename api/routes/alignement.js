@@ -161,15 +161,6 @@ router.get('/alignment_evaluated/:id', (req, res) => {
 })
 
 
-// router.post('/alignment', (req, res) => {
-//     const alignment = req.body
-
-//     connection.query('INSERT INTO alignment SET ?', alignment, (err, row) => {
-//         if (!err) {
-//             res.status(200).send({ message: `Alignment a été ajouté` })
-//         }
-//     })
-// })
 
 // Ajouter from postgres
 router.post('/alignment', (req, res) => {

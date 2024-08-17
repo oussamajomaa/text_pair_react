@@ -4,7 +4,8 @@ import { UserContext } from "./UserContext";
 
 
 // const ENDPOINT = 'http://134.157.57.237:3500' 
-const ENDPOINT = 'http://localhost:3500'
+// const ENDPOINT = 'http://localhost:3500'
+const ENDPOINT = 'http://localhost:8000/api'
 export default function Nav() {
 	const token = localStorage.getItem('token')
 	const role = localStorage.getItem('role')

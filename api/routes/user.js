@@ -100,7 +100,6 @@ router.get('/profile', (req, res) => {
 })
 
 router.post('/logout', (req, res) => {
-    // console.log(req.cookies);
     res.cookie('token', '').json('ok')
 })
 
