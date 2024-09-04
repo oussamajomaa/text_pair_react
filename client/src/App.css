@@ -111,7 +111,8 @@ span {
 
 
 .alignement {
-	color: rgb(16, 145, 55) !important;
+	color: green;
+
 }
 
 
@@ -139,6 +140,10 @@ span {
 	display: flex;
 	list-style: none;
 	padding: 0;
+	width: 100px;
+	align-items: center;
+	justify-content: center;
+	border-radius: 5px;
   }
   
   .pagination li {
@@ -147,15 +152,27 @@ span {
   
   .pagination li a {
 	text-decoration: none;
-	color: blue;
+	color: white;
+	
   }
   
   .pagination li.active a {
 	font-weight: bold;
 	color: red;
+	width: 50px;
   }
   
+  .pagination li.previous, .pagination li.next{
+	padding: 7px;
+	background: black;
+	border-radius: 5px;
+	color: white;
+
+  }
   
+  .pagination li a[aria-label="Page 2"] {
+	display: none !important;
+}
   .diff{
 	display: inline;
 	color: green;

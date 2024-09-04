@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import ReactDiffViewer from "react-diff-viewer";
 import TargetAuthor from "./TargetAuthor";
 import SourceAuthor from "./SourceAuthor";
@@ -8,7 +8,6 @@ import SourceAuthor from "./SourceAuthor";
 // const ENDPOINT = 'http://localhost:3500'
 const ENDPOINT = 'http://localhost:8000/api'
 export default function Alignement({ text, counter }) {
-
     const source_target = useRef([]);
     const source_target_before = useRef([]);
     const source_target_after = useRef([]);
@@ -21,6 +20,7 @@ export default function Alignement({ text, counter }) {
     const show_btn = useRef([]);
     const hide_btn = useRef([]);
     const textarea_comment = useRef([]);
+    const [comment, setComment] = useState(text.comment || ''); // Définir le commentaire existant ou une chaîne vide
     const btn_textarea = useRef([]);
     const save_comment = useRef([]);
     const add_comment = useRef([]);
@@ -137,6 +137,11 @@ export default function Alignement({ text, counter }) {
         }
     }
 
+    // Fonction pour gérer les changements de valeur dans le textarea
+    const handleCommentChange = (e) => {
+        setComment(e.target.value); // Met à jour l'état avec la nouvelle valeur du textarea
+    };
+
     // Lorsqu'on clique sur le button ajouter un commentaire
     const addComment = (id) => {
         if (textarea_comment.current[id]) {
@@ -154,7 +159,7 @@ export default function Alignement({ text, counter }) {
     const closeTextArea = (id) => {
         if (textarea_comment.current[id]) {
             // vider et chacher le textarea et le button de close
-            textarea_comment.current[id].value = ''
+            // textarea_comment.current[id].value = ''
             textarea_comment.current[id].style.display = 'none'
             btn_textarea.current[id].style.display = 'none'
             // afficher le button ajouter un commentaire et cacher le button enregistrer
@@ -164,28 +169,29 @@ export default function Alignement({ text, counter }) {
     }
 
     // Lorsqu'on clique sur le button enregistrer pour enregistrer le commentaire dans la BDD
-    const saveComment = async (id, alignement_id) => {
+    const saveComment = async (id, evaluation_id) => {
         // Tester si le textarea existe et a une valeur
         if (textarea_comment.current[id]) {
             const comment = textarea_comment.current[id].value
             if (comment) {
                 // envoyer une requette pour sauvegarder le commentaire
                 const user_id = localStorage.getItem('id')
-                const response = await fetch(`${ENDPOINT}/comment`, {
+                const response = await fetch(`${ENDPOINT}/comment/${evaluation_id}`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ user_id, alignement_id, comment })
+                    body: JSON.stringify({ comment }),
+                    credentials:'include'
                 })
 
                 if (response.ok) {
                     const data = await response.json()
-                    console.log(data);
+                    console.log(data.message);
                 }
             }
             // vider et cacher le textarea et le button de close et le button enregistrer
-            textarea_comment.current[id].value = ''
+            // textarea_comment.current[id].value = ''
             save_comment.current[id].style.display = 'none'
             textarea_comment.current[id].style.display = 'none'
             btn_textarea.current[id].style.display = 'none'
@@ -282,7 +288,12 @@ export default function Alignement({ text, counter }) {
 
                 {/* textarea pour ajouter un commentaire. Il est caché par defaut */}
                 <div className='flex justify-center relative' >
-                    <textarea placeholder='Ajouter un commentaire...' className="hidden textarea textarea-bordered w-full m-4 border-gray border" ref={(el) => { textarea_comment.current[counter] = el }}  ></textarea>
+                    <textarea placeholder='Ajouter un commentaire...' 
+                        className="hidden textarea textarea-bordered w-full m-4 border-gray border" 
+                        ref={(el) => { textarea_comment.current[counter] = el }} 
+                        value={comment} 
+                        onChange={handleCommentChange}
+                        />
                     <button className="hidden btn btn-circle btn-xs btn-outline absolute top-5 right-5" onClick={() => closeTextArea(counter)} ref={(el) => { btn_textarea.current[counter] = el }}>
                         <svg xmlns="http://www.w3.org/2000/svg" className="text-xs" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
                     </button>
@@ -297,7 +308,7 @@ export default function Alignement({ text, counter }) {
 
                 <div className="flex items-center justify-between gap-3 max-md:flex-col">
                     <div className="flex gap-1">
-                        <button className="btnShow btn btn-sm btn-outline w-52 " onClick={() => showDiff(counter)} ref={(el) => show_btn.current[counter] = el}>Afficher la différence</button>
+                        <button className="btnShow btn btn-sm btn-outline w-52" onClick={() => showDiff(counter)} ref={(el) => show_btn.current[counter] = el}>Afficher la différence</button>
                         <button className="btnHide btn btn-sm btn-outline hover:text-white w-52" onClick={() => hideDiff(counter)} ref={(el) => hide_btn.current[counter] = el}>Cacher la différence</button>
                     </div>
 

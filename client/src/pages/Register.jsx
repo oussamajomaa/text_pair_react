@@ -15,11 +15,13 @@ export default function Register() {
 	const [isDeleteModal, setIsDeleteModal] = useState(false)
 
 	const fetchUser = async () => {
-		const response = await fetch(`${ENDPOINT}/users`)
+		const response = await fetch(`${ENDPOINT}/user`, {
+			credentials:'include'
+		})
 		if (response.ok) {
 			const data = await response.json()
-			setUsers(data['hydra:member'])
-			console.log(data['hydra:member']);
+			setUsers(data)
+			console.log(data);
 			
 		}
 	}
@@ -43,6 +45,7 @@ export default function Register() {
 
 			if (response.ok) {
 				const data = await response.json();
+				console.log(data.message)
 				fetchUser()
 				setIsOpen(false);
 
@@ -77,13 +80,13 @@ export default function Register() {
 
 	const submitDelete = async () => {
 		const id = localStorage.getItem('deletUserId')
-		const response = await fetch(`${ENDPOINT}/user/${id}`, {
-			method: 'DELETE',
+		const response = await fetch(`${ENDPOINT}/user/delete/${id}`, {
 			credentials: 'include'
 		})
 
 		if (response.ok) {
 			const data = await response.json()
+			console.log(data.message)
 			fetchUser()
 			setIsDeleteModal(false)
 		}
