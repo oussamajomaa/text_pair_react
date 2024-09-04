@@ -227,29 +227,29 @@ export default function Alignement({ text, counter }) {
 
     }
 
-    const handleValidate = async (e, textId, id) => {
+    const handleValidate = async (e, textId) => {
         const validate = e.target.checked
 
-
+        const validateur_id = localStorage.getItem('id')
         console.log(validate);
-        const response = await fetch(`${ENDPOINT}/validate`, {
+        const response = await fetch(`${ENDPOINT}/validation/${textId}`, {
             method: 'PATCH',
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ textId, validate }),
+            body: JSON.stringify({ validateur_id, validate }),
             credentials: "include"
         })
 
         if (response.ok) {
             const data = await response.json()
-            console.log(data);
+            console.log(data.message);
         }
     }
     return (
         <>
             <div className="div-table m-5 my-6 p-1 border shadow-xl relative rounded" ref={(el) => source_target.current[counter] = el}>
-                <span className="absolute top-0 left-0 bg-slate-600 p-4 rounde text-white text-xs">{counter}</span>
+                <span className="absolute top-0 left-0 bg-slate-600 p-4 rounde text-white text-xs">{counter} {text.id}{text.alignment_id}</span>
                 <div className="view-all flex max-md:flex-col" ref={(el) => source_target_before.current[counter] = el}>
                     <div className="div-par-left w-1/2 max-md:w-full p-4 border-r border-black">
                         <h3 className="text-xl font-bold mb-2 text-center">Source</h3>
@@ -314,8 +314,8 @@ export default function Alignement({ text, counter }) {
 
                     {/* Si l'email existe, cela veut dire que l'utilisateur est un valideur */}
 
-                    {text.email &&
-                        <div className=" flex gap-3 items-center  max-md:flex-col">
+                   
+                        {role === 'Validateur' && <div className=" flex gap-3 items-center  max-md:flex-col">
                             <div className=" flex gap-3 items-center px-[3px] btn btn-sm btn-outline hover:text-white">
                                 <label htmlFor={`check${counter}`}>Valider</label>
                                 <input
@@ -323,14 +323,14 @@ export default function Alignement({ text, counter }) {
                                     type="checkbox"
                                     id={`check${counter}`}
                                     className="checkbox-warning checkbox"
-                                    onChange={(e) => handleValidate(e, text.id, counter)}
+                                    onChange={(e) => handleValidate(e, text.id)}
                                     ref={(el) => check.current[counter] = el} />
                             </div>
                             <div className="flex gap-1  items-center max-md:flex-col ">
                                 <p className="badge bg-slate-500 text-white">{text.evaluate}</p>
                             </div>
-                        </div>
-                    }
+                        </div>}
+                  
 
 
                     {/* Les radios button seront affichés lorsque l'utilisateur est un annotateur */}

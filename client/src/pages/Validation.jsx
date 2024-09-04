@@ -2,16 +2,23 @@ import { useEffect, useState } from "react";
 import Alignement from "../component/Alignement";
 import { Navigate } from "react-router-dom";
 
+const ENDPOINT = "http://localhost:8000/api";
 export default function Validation() {
 	const [paragraphs, setParagraphs] = useState([])
 	const [isSpinnser, setIsSpinner] = useState(false)
+	const [count, setCount] = useState(0)
 	const fetchEvaluation = async () => {
 		setIsSpinner(true)
-		const response = await fetch('http://localhost:3500/evaluate')
-		const data = await response.json()
-		setParagraphs(data)
-		setIsSpinner(false)
-		console.log(data);
+		const response = await fetch(`${ENDPOINT}/validation`, {
+			credentials: 'include'
+		})
+		if (response.ok) {
+			const data = await response.json()
+			setParagraphs(data.results)
+			console.log(data.results);
+			setCount(data.count)
+			setIsSpinner(false)
+		}
 	}
 
 	useEffect(() => {
@@ -27,8 +34,9 @@ export default function Validation() {
 		<div>
 			{/* {isSpinnser && <span className="loading loading-spinner text-primary"></span>} */}
 			<div className=" shadow-md m-5 p-5 ">
-				{paragraphs && paragraphs.map((text, id) =>
-					<Alignement text={text} id={id} key={text.id} />
+				{count}
+				{paragraphs && paragraphs.map((text, counter) =>
+					<Alignement text={text} counter={counter + 1} key={text.id} />
 				)}
 			</div>
 		</div>
