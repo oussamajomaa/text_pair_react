@@ -25,7 +25,7 @@ export default function Home() {
     const [currentPage, setCurrentPage] = useState(0); // Suivi de la page actuelle
     const [isLoading, setIsLoading] = useState(false); // Indique si les résultats sont en cours de chargement
     const itemsPerPage = 50;  // Nombre d'éléments à afficher par page
-    const pageSize = 50; // Taille de la page pour les requêtes API
+    // const pageSize = 50; // Taille de la page pour les requêtes API
     const [lastId, setLastId] = useState(0); // Dernier ID récupéré pour la pagination
     const [pageIds, setPageIds] = useState([]); // Pile des derniers IDs pour la navigation dans les pages
     const [start,setStart] = useState(1)
@@ -43,6 +43,8 @@ export default function Home() {
         } else if (direction === 'previous') {
             tempLastId = pageIds.length > 0 ? pageIds.pop() : 0; // Récupérer l'ID de la page précédente
             setPageIds([...pageIds]);  // Mettre à jour la pile des IDs
+            console.log(pageIds);
+            
         }
 
         // Envoi de la requête POST à l'API avec les données du formulaire et l'ID de la page actuelle
@@ -61,7 +63,6 @@ export default function Home() {
                 target_title,
                 target_year,
                 lastId: tempLastId,
-                pageSize,
                 start,
                 end
             }),
@@ -77,7 +78,7 @@ export default function Home() {
                 // console.log('front lastId ', lastId);
                 if (direction === 'next') {
                     setPageIds([...pageIds, lastId]);  // Ajouter l'ID actuel à la pile si c'est une requête "next"
-
+                    console.log(pageIds);
                 }
                 const newLastId = data.results[data.results.length - 1]?.ID || tempLastId; // Mise à jour de lastId avec l'ID du dernier élément récupéré
                 setLastId(newLastId);

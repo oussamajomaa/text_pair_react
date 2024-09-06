@@ -11,9 +11,9 @@ export default function Nav() {
 	const role = localStorage.getItem('role')
 	const email = localStorage.getItem('email')
 	const [isOpen, setIsOpen] = useState(false);
-	const [width,setWidth] = useState(window.innerWidth)
+	const [width, setWidth] = useState(window.innerWidth)
 	const { user, setUser } = useContext(UserContext)
-	window.addEventListener('resize', function(){
+	window.addEventListener('resize', function () {
 		setWidth(window.innerWidth)
 		if (width < 1024) {
 			setIsOpen(false)
@@ -47,7 +47,7 @@ export default function Nav() {
 							className={`fill-current h-3 w-3 ${isOpen ? "hidden" : "block"}`}
 							viewBox="0 0 20 20"
 							xmlns="http://www.w3.org/2000/svg">
-							<path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" fill="white"/>
+							<path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" fill="white" />
 						</svg>
 						<svg
 							className={`fill-current h-3 w-3 ${isOpen ? "block" : "hidden"}`}
@@ -58,16 +58,36 @@ export default function Nav() {
 					</button>
 				</div>
 				<div className={`w-full block lg:flex lg:items-center lg:w-auto text-white ${isOpen ? "block" : "hidden"}`}>
-					<NavLink
+					{role === 'Annotateur' && <NavLink
 						onClick={() => setIsOpen(!isOpen)} to={'/'}
 						className='block mt-4 lg:inline-block lg:mt-0  mr-4'>Accueil
-					</NavLink>
-					{role === 'Validateur' && <NavLink onClick={() => setIsOpen(!isOpen)} to={'/validation'} className="block mt-4 lg:inline-block lg:mt-0 mr-4">Validation</NavLink>}
-					{role === 'Administrateur' && <NavLink onClick={() => setIsOpen(!isOpen)} className="block mt-4 lg:inline-block lg:mt-0 mr-4" to={'/register'}>Gestion des utilisateurs</NavLink>}
-					{role === 'Annotateur' && <NavLink onClick={() => setIsOpen(!isOpen)} className="block mt-4 lg:inline-block lg:mt-0 mr-4" to={'/update'}>Supprimer une évaluation</NavLink>}
+					</NavLink>}
+					{role === 'Validateur' &&
+						<NavLink
+							onClick={() => setIsOpen(!isOpen)} to={'/validation'}
+							className="block mt-4 lg:inline-block lg:mt-0 mr-4">Validation
+						</NavLink>}
+					{role === 'Administrateur' &&
+						<NavLink
+							onClick={() => setIsOpen(!isOpen)}
+							className="block mt-4 lg:inline-block lg:mt-0 mr-4" to={'/admin/dashboard'}>Dashboard
+						</NavLink>}
+					{role === 'Administrateur' &&
+						<NavLink
+							onClick={() => setIsOpen(!isOpen)}
+							className="block mt-4 lg:inline-block lg:mt-0 mr-4" to={'/admin/register'}>Gestion des utilisateurs
+						</NavLink>}
+					{role === 'Annotateur' &&
+						<NavLink
+							onClick={() => setIsOpen(!isOpen)}
+							className="block mt-4 lg:inline-block lg:mt-0 mr-4" to={'/update'}>Supprimer une évaluation
+						</NavLink>}
 
-					<NavLink className="block mt-4 lg:inline-block lg:mt-0 mr-4" onClick={logout} to={'/login'} >Déconnexion</NavLink>
-					
+					<NavLink
+						className="block mt-4 lg:inline-block lg:mt-0 mr-4"
+						onClick={logout} to={'/login'} >Déconnexion
+					</NavLink>
+
 				</div>
 			</nav>}
 		</>

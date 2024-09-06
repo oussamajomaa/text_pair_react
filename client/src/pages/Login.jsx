@@ -10,8 +10,8 @@ export default function Login() {
 	const [password, setPassword] = useState('')
 	const [logged, setLogged] = useState(false)
 	const [message, setMessage] = useState('')
-	console.log('Login')
 	const {setUser} = useContext(UserContext)
+	const [isError,setisError] = useState(false)
 	const handleLogin = async (e) => {
 		e.preventDefault()
 
@@ -25,7 +25,7 @@ export default function Login() {
 				credentials:'include'
 
 			})
-
+console.log('eeeeee')
 			if (response.ok) {
 				const data = await response.json();
 				localStorage.setItem('id', data.id)
@@ -38,7 +38,10 @@ export default function Login() {
 				setUser(data)
 			} else {
 				const data = await response.json()
-				setMessage(data.message)
+				setisError(true)
+				console.log(data.error);
+				setMessage(data.error)
+				
 			}
 		} catch (error) {
 			console.error('Network error:', error);
@@ -47,7 +50,13 @@ export default function Login() {
 
 
 	if (logged) {
-		return <Navigate to={'/'} />
+		if (localStorage.getItem('role') === 'Administrateur'){
+			return <Navigate to={'/admin/dashboard'} />
+		} else if (localStorage.getItem('role') === 'Validateur') {
+			return <Navigate to={'/validation'} />
+		} else {
+			return <Navigate to={'/'} />
+		}
 	}
 	return (
 		<div className='h-screen flex justify-center items-center'>
@@ -69,7 +78,8 @@ export default function Login() {
 						onChange={(e) => setPassword(e.target.value)}
 						placeholder="Mot de passe" />
 					<button className='btn btn-primary'>Login</button>
-					<NavLink to={'/forgot-password'}>Mot de passe oublié</NavLink>
+					<NavLink to={'/forgot-password'} className="ml-auto underline text-blue-500">mot de passe oublié</NavLink>
+					{isError && <p className='text-red-400'>{message}</p>}
 				</form>
 				{/* {isflash && <Flash color="red" message={message} onClose={onClose} />} */}
 			</div>

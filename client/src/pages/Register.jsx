@@ -65,8 +65,6 @@ export default function Register() {
 	const openAddModal = () => {
 		setIsOpen(true);
 		setIsDeleteModal(false)
-
-
 	};
 
 	const handleDelete = (id) => {
