@@ -10,6 +10,7 @@ export default function Home() {
     // Initialisation de plusieurs variables d'état pour gérer les données du formulaire et l'affichage des résultats
     const [count, setCount] = useState(0);
     const token = localStorage.getItem('token'); // Récupération du token d'authentification
+    const role = localStorage.getItem('role')
     const form = useRef(); // Référence au formulaire
     const button = useRef(); // Référence au bouton pour afficher le formulaire
     const [paragraphs, setParagraphs] = useState([]); // Stockage des résultats de recherche
@@ -172,7 +173,7 @@ export default function Home() {
     };
 
     // Redirection vers la page de login si l'utilisateur n'est pas authentifié
-    if (!token) {
+    if (role !== 'Annotateur') {
         return <Navigate to={'/login'} />;
     }
 

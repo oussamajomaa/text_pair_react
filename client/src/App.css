@@ -129,7 +129,8 @@ span {
 }
 
 .active {
-	border-bottom: 2px solid;
+	/* border-bottom: 2px solid; */
+	color:yellow;
 }
 
 .css-cncyp1-word-diff ,.css-hf3w1f-word-removed {

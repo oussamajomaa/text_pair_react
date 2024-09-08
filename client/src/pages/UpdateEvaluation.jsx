@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import Modal from "../component/Modal";
+import { Navigate } from "react-router-dom";
 
 const ENDPOINT = "http://localhost:8000/api";
 
@@ -13,7 +14,7 @@ export default function UpdateEvaluation() {
     const itemsPerPage = 10; // Nombre d'éléments par page
     const [pageIds, setPageIds] = useState([0]); // Initial pageIds starts with 0 for first page
     const [isOpen, setIsOpen] = useState(false)
-
+    const role = localStorage.getItem('role')
     // Fonction pour récupérer les résultats
     const fetchResults = async (id = 0) => {
         setIsLoading(true);
@@ -99,7 +100,11 @@ export default function UpdateEvaluation() {
     const currentItems = paragraphs.slice(0, itemsPerPage);
 
     const pageCount = Math.ceil(count / itemsPerPage); // In your case, this will be 12
-    const validCurrentPage = currentPage >= pageCount ? pageCount - 1 : currentPage; // Ensure valid current page
+    const validCurrentPage = currentPage >= pageCount ? pageCount - 1 : currentPage; // Ensure valid current Page
+    // Redirection vers la page de login si l'utilisateur n'est pas authentifié
+    if (role !== 'Annotateur') {
+        return <Navigate to={'/login'} />;
+    }
     return (
         <div className="p-5 m-5 relative">
             {isLoading && <span className="loading loading-bars loading-lg text-accent block m-auto absolute left-1/2"></span>}

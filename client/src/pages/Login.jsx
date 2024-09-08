@@ -25,12 +25,13 @@ export default function Login() {
 				credentials:'include'
 
 			})
-console.log('eeeeee')
+			
 			if (response.ok) {
 				const data = await response.json();
 				localStorage.setItem('id', data.id)
 				localStorage.setItem('token', data.token)
 				localStorage.setItem('role', data.role)
+				localStorage.setItem('username', data.username)
 				localStorage.setItem('email', data.email)
 
 				// onLogin(token)

@@ -64,7 +64,7 @@ export default function Validation() {
 	const role = localStorage.getItem('role')
 	// si le role n'est pas validateur revenir sur la page d'accueil
 	if (role !== 'Validateur') {
-		return <Navigate to={'/'} />
+		return <Navigate to={'/login'} />
 	}
 
 	const pageCount = Math.ceil(count / itemsPerPage); // In your case, this will be 12
