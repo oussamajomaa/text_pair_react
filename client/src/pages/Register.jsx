@@ -14,8 +14,10 @@ export default function Register() {
 	const [isOpen, setIsOpen] = useState(false);
 	const [isDeleteModal, setIsDeleteModal] = useState(false)
 	const [is401,setIs401] = useState(false)
+	const [isLoading, setIsLoading] = useState(false);
 	const navigate = useNavigate()
 	const fetchUser = async () => {
+		setIsLoading(true)
 		const response = await fetch(`${ENDPOINT}/user`, {
 			credentials:'include'
 		})
@@ -28,8 +30,8 @@ export default function Register() {
 			const data = await response.json()
 			setUsers(data)
 			console.log(data);
-			
 		}
+		setIsLoading(false)
 	}
 
 	useEffect(() => {
@@ -126,6 +128,7 @@ export default function Register() {
 			<div className="flex-grow p-6 bg-gray-100">
 				<h1 className="text-3xl font-bold">Gestion des utilisateurs</h1>
 			</div>
+			{isLoading && <span className="loading loading-bars loading-lg text-accent block m-auto"></span>}
 			<Modal isOpen={is401} onClose={onClose401} bg={''}>
 				<p className="mb-3">Votre connection est expirimée. Recoonectez-vous à nouveau!</p>
 			</Modal>

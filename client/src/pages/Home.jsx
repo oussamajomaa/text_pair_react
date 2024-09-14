@@ -154,22 +154,22 @@ export default function Home() {
         setStart(newStart);
 
         // Si start est supérieur à end, mettez à jour end
-        if (newStart > end) {
-            setEnd(newStart);
-        }
+        // if (newStart > end) {
+        //     setEnd(newStart);
+        // }
     };
 
     const handleEndChange = (e) => {
         const newEnd = parseInt(e.target.value, 10);
 
         // Ne mettez à jour end que s'il est supérieur ou égal à start
-        if (newEnd >= start) {
+        // if (newEnd >= start) {
             setEnd(newEnd);
-        } else {
+        // } else {
             
             // Remettre la valeur de l'input à l'état précédent
-            e.target.value = end;
-        }
+            // e.target.value = end;
+        // }
     };
 
     // Redirection vers la page de login si l'utilisateur n'est pas authentifié
