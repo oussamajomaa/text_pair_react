@@ -29,10 +29,8 @@ export default function Home() {
     // const pageSize = 50; // Taille de la page pour les requêtes API
     const [lastId, setLastId] = useState(0); // Dernier ID récupéré pour la pagination
     const [pageIds, setPageIds] = useState([]); // Pile des derniers IDs pour la navigation dans les pages
-    const [start,setStart] = useState(1)
-    const [end,setEnd] = useState(1)
-
-    console.log('lastId before fetch:', lastId); // Debug: Affichage de l'ID avant de faire la requête
+    const [start, setStart] = useState(1)
+    const [end, setEnd] = useState(1)
 
     // Fonction pour récupérer les résultats de recherche à partir de l'API
     const fetchResults = async (page = 0, direction = 'next', lastId) => {
@@ -44,8 +42,6 @@ export default function Home() {
         } else if (direction === 'previous') {
             tempLastId = pageIds.length > 0 ? pageIds.pop() : 0; // Récupérer l'ID de la page précédente
             setPageIds([...pageIds]);  // Mettre à jour la pile des IDs
-            console.log(pageIds);
-            
         }
 
         // Envoi de la requête POST à l'API avec les données du formulaire et l'ID de la page actuelle
@@ -73,13 +69,9 @@ export default function Home() {
         if (response.ok) {
             const data = await response.json(); // Récupération des données de l'API
             if (data.results && data.results.length > 0) {
-                console.log(data.results)
                 setCount(data.total_count); // Mise à jour du compteur total de résultats
-                // console.log('data.lastId ', data.lastId);
-                // console.log('front lastId ', lastId);
                 if (direction === 'next') {
                     setPageIds([...pageIds, lastId]);  // Ajouter l'ID actuel à la pile si c'est une requête "next"
-                    console.log(pageIds);
                 }
                 const newLastId = data.results[data.results.length - 1]?.ID || tempLastId; // Mise à jour de lastId avec l'ID du dernier élément récupéré
                 setLastId(newLastId);
@@ -103,9 +95,6 @@ export default function Home() {
         setCurrentPage(0);       // Réinitialiser la page courante
         setPageIds([]);          // Réinitialiser la pile des lastIds
         setCount(0);             // Réinitialiser le compteur total de résultats
-
-        console.log('lastId after reset:', 0); // Vérification de la réinitialisation de lastId
-
 
         await fetchResults(0, 'next', 0);  // Passer les paramètres nécessaires à la fonction
         hideForm();  // Cacher le formulaire après la soumission
@@ -164,18 +153,27 @@ export default function Home() {
 
         // Ne mettez à jour end que s'il est supérieur ou égal à start
         // if (newEnd >= start) {
-            setEnd(newEnd);
+        setEnd(newEnd);
         // } else {
-            
-            // Remettre la valeur de l'input à l'état précédent
-            // e.target.value = end;
+
+        // Remettre la valeur de l'input à l'état précédent
+        // e.target.value = end;
         // }
     };
 
     // Redirection vers la page de login si l'utilisateur n'est pas authentifié
-    if (role !== 'Annotateur') {
+    if (role) {
+        if (role === 'Administrateur') {
+            return <Navigate to={'/admin/dashboard'} />
+        }
+        if (role === 'Validateur') {
+            return <Navigate to={'/validation'} />
+        }
+    } else {
+
         return <Navigate to={'/login'} />;
     }
+    
 
     // Détermination des éléments à afficher sur la page actuelle
     const currentItems = paragraphs.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage);
@@ -239,18 +237,18 @@ export default function Home() {
                         <div className='flex flex-col items-center gap-2'>
                             <h2 >Sélectionner l'intervalle des enregistrements entre 1 et 49 000</h2>
                             <div>
-                                <label htmlFor="debut">début 
-                                    <input 
-                                        type="number" 
-                                        className='border rounded mx-2  w-16' id='debut' min={1} 
+                                <label htmlFor="debut">début
+                                    <input
+                                        type="number"
+                                        className='border rounded mx-2  w-16' id='debut' min={1}
                                         value={start}
-                                        onChange={handleStartChange}/></label>
-                                <label htmlFor="fin">fin 
-                                    <input 
-                                        type="number" 
-                                        className='border rounded mx-2 w-16' id='fin' min={1} 
+                                        onChange={handleStartChange} /></label>
+                                <label htmlFor="fin">fin
+                                    <input
+                                        type="number"
+                                        className='border rounded mx-2 w-16' id='fin' min={1}
                                         value={end}
-                                        onChange={handleEndChange}/></label>
+                                        onChange={handleEndChange} /></label>
                             </div>
                         </div>
                     </div>
@@ -266,7 +264,7 @@ export default function Home() {
 
                 {/* Affichage des résultats */}
                 {currentItems && currentItems.map((text, counter) => (
-                    <Alignement text={text} counter={counter + currentPage*50+1} key={text.ID} />
+                    <Alignement text={text} counter={counter + currentPage * 50 + 1} key={text.ID} />
                 ))}
 
             </div>

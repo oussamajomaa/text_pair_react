@@ -48,7 +48,6 @@ export default function UpdateEvaluation() {
             fetchResults(lastId);
 
         } else if (selectedPage < currentPage && pageIds.length > 1) {
-            console.log('selectedPage < currentPage && pageIds.length > 1');
             // Aller à la page précédente
             const prevLastId = pageIds[pageIds.length - 2]; // ID de la page précédente
             setLastId(prevLastId); // Mettre à jour le lastId avec l'avant-dernier ID
@@ -71,16 +70,11 @@ export default function UpdateEvaluation() {
     // Fonction pour gérer la suppression d'une évaluation
     const handleDelete = async (id) => {
         localStorage.setItem('evaluation_id', id)
-        console.log(id);
-
         setIsOpen(true)
-
     };
 
     const confirmDelete = async () => {
         const id = localStorage.getItem('evaluation_id')
-        console.log(id);
-
         const response = await fetch(`${ENDPOINT}/evaluation/${id}`, {
             method: 'DELETE',
             credentials: 'include',

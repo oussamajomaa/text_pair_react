@@ -14,7 +14,7 @@ export default function Validation() {
 	const [currentPage, setCurrentPage] = useState(0); // Page actuelle
 	const itemsPerPage = 10; // Nombre d'éléments par page
 	const [pageIds, setPageIds] = useState([0]); // Initial pageIds starts with 0 for first page
-
+	const userId = localStorage.getItem('id')
 	const fetchResults = async (lastId = 0) => {
 		setIsSpinner(true)
 		const response = await fetch(`${ENDPOINT}/validation`, {
@@ -22,13 +22,12 @@ export default function Validation() {
 			headers: {
 				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify({ lastId }), // Passer le dernier ID pour récupérer les éléments suivants
+			body: JSON.stringify({ lastId, userId }), // Passer le dernier ID pour récupérer les éléments suivants
 			credentials: 'include',
 		})
 		if (response.ok) {
 			const data = await response.json()
 			setParagraphs(data.results)
-			console.log(data.results);
 			setCount(data.count)
 			setLastId(data.lastId)
 			setIsSpinner(false)
@@ -37,6 +36,7 @@ export default function Validation() {
 
 	// Fonction pour gérer le clic sur les numéros de page
 	const handlePageClick = async (event) => {
+		setIsSpinner(true)
 		const selectedPage = event.selected;
 		if (selectedPage > currentPage) {
 			// Aller à la page suivante
@@ -44,17 +44,16 @@ export default function Validation() {
 			fetchResults(lastId);
 
 		} else if (selectedPage < currentPage && pageIds.length > 1) {
-			console.log('selectedPage < currentPage && pageIds.length > 1');
 			// Aller à la page précédente
 			const prevLastId = pageIds[pageIds.length - 2]; // ID de la page précédente
 			setLastId(prevLastId); // Mettre à jour le lastId avec l'avant-dernier ID
 			setPageIds((prev) => prev.slice(0, -1)); // Supprimer le dernier élément de pageIds
 			fetchResults(prevLastId);
 		}
-
+		// Mettre le curseur en haut de la page après le changement
+		window.scrollTo(0, 0);
 		setCurrentPage(selectedPage); // Mettre à jour la page courante
-
-
+		setIsSpinner(false)
 	};
 
 	useEffect(() => {
@@ -73,8 +72,9 @@ export default function Validation() {
 		<div>
 			{/* {isSpinnser && <span className="loading loading-spinner text-primary"></span>} */}
 			<div className=" shadow-md m-5 p-5 ">
+			{isSpinnser && <span className="loading loading-bars loading-lg text-accent block m-auto"></span>}
 				<h2 className="py-2 px-3 mb-3 bg-black text-white text-center rounded">
-					{count} Alignements à valider leurs évaluations
+					{count} Alignements à valider
 				</h2>
 				{paragraphs && paragraphs.map((text, counter) =>
 					<Alignement text={text} counter={counter + currentPage * 10 + 1} key={text.id} />

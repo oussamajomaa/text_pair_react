@@ -40,7 +40,6 @@ export default function Login() {
 			} else {
 				const data = await response.json()
 				setisError(true)
-				console.log(data.error);
 				setMessage(data.error)
 				
 			}

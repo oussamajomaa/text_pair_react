@@ -114,7 +114,6 @@ export default function Alignement({ text, counter }) {
 
             // cacher le texte original
             source_target_before.current[id].style.display = 'none'
-            // console.log(source_target_before.current[id]);
 
             // setShow(!show)
         }
@@ -172,8 +171,6 @@ export default function Alignement({ text, counter }) {
 
     // Lorsqu'on clique sur le button enregistrer pour enregistrer le commentaire dans la BDD
     const saveComment = async (id, alignment_id) => {
-        console.log(id, alignment_id);
-
         if (textarea_comment.current[id]) {
             const comment = textarea_comment.current[id].value;
             if (comment) {
@@ -191,7 +188,6 @@ export default function Alignement({ text, counter }) {
 
                     if (response.ok) {
                         const data = await response.json();
-                        console.log(data.message);
                     } else if (response.status === 400) {
                         setIsError(true)
                         // Handle error when evaluation doesn't exist
@@ -237,7 +233,6 @@ export default function Alignement({ text, counter }) {
 
             if (response.ok) {
                 const data = await response.json();
-                console.log(data);
             }
         } catch (error) {
             console.error('Network error:', error);
@@ -251,7 +246,6 @@ export default function Alignement({ text, counter }) {
         const validate = e.target.checked
 
         const validateur_id = localStorage.getItem('id')
-        console.log(validate);
         const response = await fetch(`${ENDPOINT}/validation/${textId}`, {
             method: 'PATCH',
             headers: {
@@ -263,7 +257,7 @@ export default function Alignement({ text, counter }) {
 
         if (response.ok) {
             const data = await response.json()
-            console.log(data.message);
+            console.log(data)
         }
     }
     return (

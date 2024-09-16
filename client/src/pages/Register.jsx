@@ -7,6 +7,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 //   const ENDPOINT = 'http://localhost:3500' 
 const ENDPOINT = 'http://localhost:8000/api'
 export default function Register() {
+	const [username,setUsername] = useState('')
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 	const [role, setRole] = useState('')
@@ -21,7 +22,6 @@ export default function Register() {
 		const response = await fetch(`${ENDPOINT}/user`, {
 			credentials:'include'
 		})
-		console.log(response.status);
 		
 		if (response.status === 401) {
             setIs401(true)
@@ -29,7 +29,6 @@ export default function Register() {
         } else if (response.ok) {
 			const data = await response.json()
 			setUsers(data)
-			console.log(data);
 		}
 		setIsLoading(false)
 	}
@@ -46,17 +45,16 @@ export default function Register() {
 				headers: {
 					'Content-Type': 'application/json',
 				},
-				body: JSON.stringify({ email, password, role }),
+				body: JSON.stringify({ username, email, password, role }),
 				credentials: 'include'
 
 			})
 
 			if (response.ok) {
 				const data = await response.json();
-				console.log(data.message)
 				fetchUser()
 				setIsOpen(false);
-
+				setUsername('')
 				setEmail('')
 				setPassword('')
 				setRole('')
@@ -92,7 +90,6 @@ export default function Register() {
 
 		if (response.ok) {
 			const data = await response.json()
-			console.log(data.message)
 			fetchUser()
 			setIsDeleteModal(false)
 		}
@@ -100,7 +97,7 @@ export default function Register() {
 
 	const closeModal = () => {
 		setIsOpen(false);
-
+		setUsername('')
 		setEmail('')
 		setPassword('')
 		setRole('')
@@ -136,7 +133,8 @@ export default function Register() {
 			<User users={users} openAddModal={openAddModal} handleDelete={handleDelete} />
 
 			<Modal isOpen={isDeleteModal} onClose={onCloseDeleteModal} bg={''} >
-				<p className="mb-3">Vous êtes sûr de vouloir supprimer l'utilisateur {localStorage.getItem('user')}?</p>
+				<p className="mb-3">Vous êtes sûr de vouloir supprimer l'utilisateur {localStorage.getItem('username')}?</p>
+				<p className="mb-3 text-red-600 font-bold">Toutes les évaluations effectuées ou validées par cet utilisateur seront supprimées!</p>
 				<div className="flex justify-start gap-3">
 					<button onClick={submitDelete} className="btn btn-neutral btn-sm">Oui</button>
 					<button onClick={onCloseDeleteModal} className="btn btn-neutral btn-sm">Non</button>
@@ -151,6 +149,13 @@ export default function Register() {
 							<input
 								className='input input-bordered input-primary w-full '
 								type="text"
+								required
+								value={username}
+								onChange={(e) => setUsername(e.target.value)}
+								placeholder="Nom d'utilisateur" />
+							<input
+								className='input input-bordered input-primary w-full '
+								type="email"
 								required
 								value={email}
 								onChange={(e) => setEmail(e.target.value)}

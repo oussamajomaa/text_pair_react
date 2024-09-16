@@ -17,12 +17,12 @@ export default function Rapport() {
 
     const getCount = async () => {
         setIsLoading(true)
-        const response = await fetch(`${ENDPOINT}/admin/rapport/count`)
+        const response = await fetch(`${ENDPOINT}/admin/rapport/count`,{
+            credentials:'include'
+        })
         if (response.ok) {
             const data = await response.json()
-            console.log(data);
             animateCounter(data.evaluated, data.validated, data.alignment, data.sourceAuthor, data.targetAuthor)
-
         }
         setIsLoading(false)
     }
@@ -56,8 +56,6 @@ export default function Rapport() {
         try {
             while (true) {
                 batchCount++;
-                console.log(`Requête ${batchCount} envoyée, lastId : ${lastId}`);
-
                 const response = await fetch(`${ENDPOINT}${endpoint}`, {
                     method: 'POST',
                     headers: {
@@ -65,11 +63,11 @@ export default function Rapport() {
                     },
                     body: JSON.stringify({ limit, lastId }),  // Envoyer lastId au backend
                     signal: controller.signal,  // Associer le signal à la requête
+                    credentials:'include'
                 });
 
                 if (response.ok) {
                     const data = await response.json();
-                    console.log(`Lot récupéré: ${data.length} enregistrements`);
                     setCountDownloded((prevCount) => prevCount + data.length)
                     setIsDownloaded(true)
                     // Ajouter les données récupérées à allData
@@ -77,8 +75,6 @@ export default function Rapport() {
 
                     // Si le nombre d'enregistrements récupérés est inférieur à la limite, arrêter la boucle
                     if (data.length < limit) {
-                        console.log("Dernier lot récupéré, arrêt de la boucle.");
-
                         // Exporter le dernier lot si des enregistrements restent
                         if (allData.length > 0) {
                             const currentFileName = `${fileName}_part${filePart}.csv`;
@@ -118,9 +114,6 @@ export default function Rapport() {
     };
 
 
-
-
-
     const getEvaluatedInBatches = () => {
         fetchDataInBatches('/admin/rapport/evaluated', 'evaluated.csv');
     };
@@ -134,18 +127,24 @@ export default function Rapport() {
     };
 
     const getSourceAuthorInBatches = async () => {
+        setIsLoading(true)
         // fetchDataInBatches('/admin/rapport/author_source', 'source_author.csv');
-        const response = await fetch(`${ENDPOINT}/admin/rapport/author_source`)
+        const response = await fetch(`${ENDPOINT}/admin/rapport/author_source`,{
+            credentials:'include'
+        })
         const data = await response.json()
-        console.log(data)
+        setIsLoading(false)
         downloadCSV(data, 'author_source.csv')
     };
 
     const getTargetAuthorInBatches = async () => {
+        setIsLoading(true)
         // fetchDataInBatches('/admin/rapport/author_target', 'target_author.csv');
-        const response = await fetch(`${ENDPOINT}/admin/rapport/author_target`)
+        const response = await fetch(`${ENDPOINT}/admin/rapport/author_target`,{
+            credentials:'include'
+        })
         const data = await response.json()
-        console.log(data)
+        setIsLoading(false)
         downloadCSV(data, 'author_target.csv')
     };
 
@@ -260,7 +259,7 @@ export default function Rapport() {
                 <span className="loading loading-bars loading-lg text-accent block m-auto"></span>
                 {isDownloaded && <span className='text-2xl text-red-400'>Lot récupéré: {countDownloded} enregistrements</span>}
             </div>}
-            {!isLoading && <div className='p-5 flex gap-6 flex-wrap justify-around'>
+            <div className='p-5 flex gap-6 flex-wrap justify-around'>
                 <div className='flex my-5'>
                     <div className='h-72 w-72 bg-slate-400 rounded flex flex-col justify-center items-center text-white gap-5'>
                         <h2 className='text-6xl '>{countAlignment}</h2>
@@ -288,8 +287,8 @@ export default function Rapport() {
                         </button>
                     </div>
                 </div>
-            </div>}
-            {!isLoading && <div className='p-5 flex gap-6 flex-wrap justify-around'>
+            </div>
+            <div className='p-5 flex gap-6 flex-wrap justify-around'>
                 <div className='flex my-5'>
                     <div className='h-72 w-72 bg-slate-400 rounded flex flex-col justify-center items-center text-white gap-5'>
                         <h2 className='text-6xl '>{countSourceAuthor}</h2>
@@ -309,7 +308,7 @@ export default function Rapport() {
                         </button>
                     </div>
                 </div>
-            </div>}
+            </div>
         </div>
     )
 }

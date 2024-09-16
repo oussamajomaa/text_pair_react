@@ -32,10 +32,11 @@ export default function Dashboard() {
     const getData = async () => {
         setIsLoading(true)
         try {
-            const response = await fetch(`${ENDPOINT}/dashboard`);
+            const response = await fetch(`${ENDPOINT}/dashboard`,{
+                credentials:'include'
+            })
             if (response.ok) {
                 const data = await response.json();
-                console.log(data)
                 setAlignment(data.alignment)
                 setEvaluated(data.evaluated)
                 setCorrect(data.correct)
@@ -62,18 +63,14 @@ export default function Dashboard() {
         getData();
     }, []);
 
-    const getOneAnnotateur = async (id) => {
-        console.log(id);
-        
-        const response = await fetch(`${ENDPOINT}/dashboard/annotateur/${id}`);
+    const getOneAnnotateur = async (id) => {        
+        const response = await fetch(`${ENDPOINT}/dashboard/annotateur/${id}`,{
+            credentials:'include'
+        })
         if (response.ok) {
             const data = await response.json();
-            console.log(data);
-            if (data.annotateurDetail && data.annotateurDetail.length > 0) {
-                
+            if (data.annotateurDetail) {
                 setAnnotateurDetail(data.annotateurDetail[0]); // Par défaut un objet vide si data.annotateurDetail[0] est undefined
-                console.log(annotateurDetail);
-                
                 setUsername(data.annotateurDetail[0].username)
             } else {
                 setUsername('Aucaun alignement évalué')
@@ -178,18 +175,14 @@ export default function Dashboard() {
         tooltip: {
             trigger: 'item'
         },
-        dataZoom: [
-            {
-              type: 'inside'
-            }
-          ],
+        // dataZoom: [
+        //     {
+        //       type: 'inside'
+        //     }
+        //   ],
         xAxis: {
             type: 'category',
             data: label,
-            // axisLabel: {
-            //     rotate: 90, // Rotation des labels à 90 degrés pour les rendre verticaux
-            //     interval: 0, // S'assurer que tous les labels sont affichés
-            // },
         },
 
         yAxis: {
@@ -211,46 +204,46 @@ export default function Dashboard() {
         ]
     });
 
-    const orderBy = async(e) => {
-        setIsLoading(true)
-        let order = 'value'
-        if(e.target.checked){
-            order = 'value'
-        } else {
-            order = 'name'
-        }
+    // const orderBy = async(e) => {
+    //     setIsLoading(true)
+    //     let order = 'value'
+    //     if(e.target.checked){
+    //         order = 'value'
+    //     } else {
+    //         order = 'name'
+    //     }
         
-        const response = await fetch(`${ENDPOINT}/dashboard/${order}`)
-        if (response.ok) {
-            const data = await response.json()
+    //     const response = await fetch(`${ENDPOINT}/dashboard/${order}`)
+    //     if (response.ok) {
+    //         const data = await response.json()
            
-                setSourceYear(data.sourceYear)
-                setTargetYear(data.targetYear)
+    //             setSourceYear(data.sourceYear)
+    //             setTargetYear(data.targetYear)
 
-        }
-        setIsLoading(false)
-    }
+    //     }
+    //     setIsLoading(false)
+    // }
 
 
-    const orderByAuthor = async(e) => {
-        setIsLoading(true)
-        let order = 'value'
-        if(e.target.checked){
-            order = 'value'
-        } else {
-            order = 'name'
-        }
+    // const orderByAuthor = async(e) => {
+    //     setIsLoading(true)
+    //     let order = 'value'
+    //     if(e.target.checked){
+    //         order = 'value'
+    //     } else {
+    //         order = 'name'
+    //     }
         
-        const response = await fetch(`${ENDPOINT}/dashboard/${order}`)
-        if (response.ok) {
-            const data = await response.json()
+    //     const response = await fetch(`${ENDPOINT}/dashboard/${order}`)
+    //     if (response.ok) {
+    //         const data = await response.json()
            
-                setSourceAuthor(data.sourceAuthor)
-                setTargetAuthor(data.targetAuthor)
+    //             setSourceAuthor(data.sourceAuthor)
+    //             setTargetAuthor(data.targetAuthor)
 
-        }
-        setIsLoading(false)
-    }
+    //     }
+    //     setIsLoading(false)
+    // }
 
 
     // Redirect to login if not admin
@@ -258,10 +251,6 @@ export default function Dashboard() {
         return <Navigate to={'/login'} />;
     }
 
-    // // Display loading state until data is fetched
-    // if (isLoading) {
-    //     return <div>Loading...</div>;
-    // }
     return (
         <div className="ml-64">
 
@@ -270,27 +259,27 @@ export default function Dashboard() {
             </div>
             {isLoading && <span className="loading loading-bars loading-lg text-accent block m-auto"></span>}
             {!isLoading && <div className="p-5">
-                <h2 className="text-3xl text-center font-bold">Alignements Évalués vs Alignements Validés</h2>
-                <div className="flex justify-between mb-6">
+                <h2 className="text-3xl mb-5 text-center font-bold">Alignements Évalués vs Alignements Validés</h2>
+                <div className="flex justify-between max-xl:flex-col mb-6">
                     <Echart option={generatePieChartOptions('', data1)} />
                     <Echart option={barChartOptions(label1, data1)} />
                 </div>
-                <h2 className="text-3xl text-center font-bold">Valeur des Alignements Évalués</h2>
-                <div className="flex justify-between mb-6">
+                <h2 className="text-3xl mb-5 text-center font-bold">Valeur des Alignements Évalués</h2>
+                <div className="flex justify-between max-xl:flex-col mb-6">
                     <Echart option={generatePieChartOptions('', data2)} />
                     <Echart option={barChartOptions(label2, data2)} />
                 </div>
-                <h2 className="text-3xl text-center font-bold">Alignements Évalués vs Alignements Non Évalués</h2>
-                <div className="flex justify-between mb-6">
+                <h2 className="text-3xl mb-5 text-center font-bold">Alignements Évalués vs Alignements Non Évalués</h2>
+                <div className="flex justify-between max-xl:flex-col mb-6">
                     <Echart option={generatePieChartOptions('', data3)} />
                     <Echart option={barChartOptions(label3, data3)} />
                 </div>
-                <h2 className="text-3xl text-center font-bold">Distribution des Annotateurs</h2>
-                <div className="flex justify-between mb-6">
+                <h2 className="text-3xl mb-5 text-center font-bold">Distribution des Annotateurs</h2>
+                <div className="flex justify-between max-xl:flex-col mb-6">
                     <Echart option={generatePieChartOptions('', evaluatedByUser)} />
                     <Echart option={barChartOptions(labelByUser, evaluatedByUser)} />
                 </div>
-                <h2 className="text-3xl text-center font-bold">Évaluation par Annotateur</h2>
+                <h2 className="text-3xl mb-5 text-center font-bold">Évaluation par Annotateur</h2>
                 <div className="w-1/2">
                     <select
                         className="select select-bordered w-full max-w-xs mb-6"
@@ -306,7 +295,7 @@ export default function Dashboard() {
                         ))}
                     </select>
                 </div>
-                <div className="flex justify-between mb-6">
+                <div className="flex justify-between max-xl:flex-col mb-6">
                     <Echart option={generatePieChartOptions(username, data4)} />
                     <Echart option={barChartOptions(label4, data4)} />
                 </div>
