@@ -1,10 +1,6 @@
 
-import { NavLink } from "react-router-dom"
 import { MdDelete } from "react-icons/md";
-import { CiEdit } from "react-icons/ci";
 import { IoIosAddCircle } from "react-icons/io";
-import { FaRegEdit } from "react-icons/fa";
-
 
 export default function User({ users, openAddModal, handleDelete, handleEdit }) {
     const email = localStorage.getItem('email')

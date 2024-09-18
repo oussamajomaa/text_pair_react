@@ -4,7 +4,7 @@ import { Navigate } from "react-router-dom";
 import ReactPaginate from "react-paginate";
 
 
-const ENDPOINT = "http://localhost:8000/api";
+const ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
 export default function Validation() {
 	const [paragraphs, setParagraphs] = useState([])
 	const [isSpinnser, setIsSpinner] = useState(false)

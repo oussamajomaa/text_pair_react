@@ -3,7 +3,7 @@ import Modal from "../component/Modal";
 import { FaRegEye } from "react-icons/fa6";
 import { FaRegEyeSlash } from "react-icons/fa6";
 
-const ENDPOINT = 'http://localhost:8000/api';
+const ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
 
 export default function Profil() {
     const [isOpen, setIsOpen] = useState(false)

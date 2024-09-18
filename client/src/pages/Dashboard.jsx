@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import Echart from "../component/Echart";
 
-const ENDPOINT = 'http://localhost:8000/api';
+const ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
 
 export default function Dashboard() {
     const role = localStorage.getItem('role');

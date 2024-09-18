@@ -3,9 +3,8 @@ import Modal from "../component/Modal";
 import User from "../component/User";
 import { Navigate, useNavigate } from "react-router-dom";
 
-//   const ENDPOINT = 'http://134.157.57.237:3500' 
-//   const ENDPOINT = 'http://localhost:3500' 
-const ENDPOINT = 'http://localhost:8000/api'
+const ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
+
 export default function Register() {
 	const [username,setUsername] = useState('')
 	const [email, setEmail] = useState('')

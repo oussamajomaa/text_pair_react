@@ -4,7 +4,7 @@ import ReactPaginate from 'react-paginate';
 import Alignement from '../component/Alignement';
 
 // Définition de l'URL de base pour l'API
-const ENDPOINT = 'http://localhost:8000/api';
+const ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
 
 export default function Home() {
     // Initialisation de plusieurs variables d'état pour gérer les données du formulaire et l'affichage des résultats

@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "./UserContext";
 
-const ENDPOINT = 'http://localhost:8000/api';
+const ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
 
 export default function Nav() {
 	const token = localStorage.getItem('token');
@@ -39,7 +39,7 @@ export default function Nav() {
 			{/* Sidebar */}
 			<div className="h-screen w-64 bg-gray-800 text-white flex flex-col p-4 fixed">
 				<div className="mb-4 flex items-center flex-col gap-5">
-					<a href=""><img src="/modern-textpair/logo.svg" className="w-100 h-10 mr-2" alt="Logo" /></a>
+					<a href="/admin/dashboard"><img src="/modern-textpair/logo.svg" className="w-100 h-10 mr-2" alt="Logo" /></a>
 					<p>Bonjour <span className="font-bold">{email}</span></p>
 				</div>
 
@@ -64,7 +64,7 @@ export default function Nav() {
 	const UserNavbar = () => (
 		<nav className="flex items-center justify-between flex-wrap p-3 bg-slate-600">
 			<div className="flex items-center flex-shrink-0 mr-6 gap-6">
-				<a href=""><img src="/modern-textpair/logo.svg" className="w-100 h-10 mr-2" alt="Logo" /></a>
+				<a ><img src="/modern-textpair/logo.svg" className="w-100 h-10 mr-2" alt="Logo" /></a>
 				<p className="block mt-4 lg:inline-block lg:mt-0 mr-4 text-white">Bonjour <span className="font-bold">{email}</span></p>
 			</div>
 			<div className="block lg:hidden">

@@ -7,7 +7,7 @@ import Modal from "./Modal"
 
 // const ENDPOINT = 'http://134.157.57.237:3500' 
 // const ENDPOINT = 'http://localhost:3500'
-const ENDPOINT = 'http://localhost:8000/api'
+const ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
 export default function Alignement({ text, counter }) {
     const source_target = useRef([]);
     const source_target_before = useRef([]);

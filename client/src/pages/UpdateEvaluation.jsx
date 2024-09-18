@@ -3,7 +3,7 @@ import ReactPaginate from "react-paginate";
 import Modal from "../component/Modal";
 import { Navigate } from "react-router-dom";
 
-const ENDPOINT = "http://localhost:8000/api";
+const ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
 
 export default function UpdateEvaluation() {
     const [paragraphs, setParagraphs] = useState([]);
