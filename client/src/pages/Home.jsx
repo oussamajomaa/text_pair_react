@@ -1,5 +1,5 @@
 import { Navigate } from 'react-router-dom';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import ReactPaginate from 'react-paginate';
 import Alignement from '../component/Alignement';
 
@@ -45,6 +45,7 @@ export default function Home() {
         }
 
         // Envoi de la requête POST à l'API avec les données du formulaire et l'ID de la page actuelle
+        
         const response = await fetch(`${ENDPOINT}/search`, {
             method: 'POST',
             headers: {
@@ -130,6 +131,8 @@ export default function Home() {
         setTarget_year('');
         setTarget_content('');
         setTarget_title('');
+        setStart(1)
+        setEnd(1)
     };
 
     // Cacher le formulaire de recherche

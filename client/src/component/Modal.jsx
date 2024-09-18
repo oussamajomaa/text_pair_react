@@ -1,12 +1,12 @@
 import { IoIosCloseCircle } from "react-icons/io";
 
-export default function Modal({ isOpen, onClose, children, bg }) {
+export default function Modal({ isOpen, onClose, children, bg,margin}) {
 
 
 	if (!isOpen) return null;
 
 	return (
-		<div className="fixed inset-0 flex items-center justify-center z-50 ml-64">
+		<div className={`fixed inset-0 flex items-center justify-center z-50 ${margin}`}>
 			<div className="fixed inset-0 bg-black opacity-50 "></div>
 			<div className="relative bg-white rounded-lg w-1/2 ">
 				<div className="absolute top-0 right-0 p-2 ">
@@ -14,7 +14,7 @@ export default function Modal({ isOpen, onClose, children, bg }) {
 						<IoIosCloseCircle size={24} color="black" />
 					</button>
 				</div>
-				<div className={`p-6 rounded   ${bg}`}>
+				<div className={`p-6 rounded   ${bg} `}>
 					{children}
 				</div>
 			</div>

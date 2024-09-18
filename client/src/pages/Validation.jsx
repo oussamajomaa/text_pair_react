@@ -12,7 +12,7 @@ export default function Validation() {
 	const [isLoading, setIsLoading] = useState(false);
 	const [lastId, setLastId] = useState(null); // Start with null for better control
 	const [currentPage, setCurrentPage] = useState(0); // Page actuelle
-	const itemsPerPage = 10; // Nombre d'éléments par page
+	const itemsPerPage = 50; // Nombre d'éléments par page
 	const [pageIds, setPageIds] = useState([0]); // Initial pageIds starts with 0 for first page
 	const userId = localStorage.getItem('id')
 	const fetchResults = async (lastId = 0) => {

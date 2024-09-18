@@ -257,15 +257,14 @@ export default function Alignement({ text, counter }) {
 
         if (response.ok) {
             const data = await response.json()
-            console.log(data)
         }
     }
     return (
         <div className="relative">
             <div className="div-table m-5 my-6 p-1 border shadow-xl relative rounded" ref={(el) => source_target.current[counter] = el}>
                 <span className="absolute top-0 left-0 bg-slate-600 p-4 rounde text-white text-xs">{counter}</span>
-                <div className="view-all flex max-md:flex-col" ref={(el) => source_target_before.current[counter] = el}>
-                    <div className="div-par-left w-1/2 max-md:w-full p-4 border-r border-black">
+                <div className="view-all flex max-lg:flex-col" ref={(el) => source_target_before.current[counter] = el}>
+                    <div className="div-par-left w-1/2 max-lg:w-full p-4 border-r border-black max-lg:border-r-0 max-lg:border-b">
                         <h3 className="text-xl font-bold mb-2 text-center">Source</h3>
                         <SourceAuthor text={text} />
                         <p>
@@ -275,7 +274,7 @@ export default function Alignement({ text, counter }) {
                         </p>
                     </div>
 
-                    <div className="div-par-right w-1/2 max-md:w-full p-4">
+                    <div className="div-par-right w-1/2 max-lg:w-full p-4">
                         <h3 className="text-xl font-bold mb-2 text-center">Cible</h3>
                         <TargetAuthor text={text} />
                         <p>
@@ -287,13 +286,13 @@ export default function Alignement({ text, counter }) {
 
                 </div>
 
-                <div className="view-diff max-md:flex-col" ref={(el) => source_target_after.current[counter] = el}>
-                    <div className="div-par-left w-1/2 max-md:w-full p-4 border-r border-black">
+                <div className="view-diff max-lg:flex-col" ref={(el) => source_target_after.current[counter] = el}>
+                    <div className="div-par-left w-1/2 max-lg:w-full p-4 border-r border-black">
                         <h3 className="text-xl font-bold mb-2 text-center">Source</h3>
                         <SourceAuthor text={text} />
                         <p ref={(el) => source_alignement.current[counter] = el}></p>
                     </div>
-                    <div className="div-par-right w-1/2 max-md:w-full p-4">
+                    <div className="div-par-right w-1/2 max-lg:w-full p-4">
                         <h3 className="text-xl font-bold mb-2 text-center">Cible</h3>
                         <TargetAuthor text={text} />
                         <p ref={(el) => target_alignement.current[counter] = el}></p>
@@ -320,7 +319,7 @@ export default function Alignement({ text, counter }) {
 
                 />
 
-                <div className="flex items-center justify-between gap-3 max-md:flex-col">
+                <div className="flex items-center justify-between gap-3 max-lg:flex-col">
                     <div className="flex gap-1">
                         <button className="btnShow btn btn-sm btn-outline w-52" onClick={() => showDiff(counter)} ref={(el) => show_btn.current[counter] = el}>Afficher la différence</button>
                         <button className="btnHide btn btn-sm btn-outline hover:text-white w-52" onClick={() => hideDiff(counter)} ref={(el) => hide_btn.current[counter] = el}>Cacher la différence</button>
@@ -329,7 +328,7 @@ export default function Alignement({ text, counter }) {
                     {/* Si l'email existe, cela veut dire que l'utilisateur est un valideur */}
 
 
-                    {role === 'Validateur' && <div className=" flex gap-3 items-center  max-md:flex-col">
+                    {role === 'Validateur' && <div className=" flex gap-3 items-center  max-lg:flex-col">
                         <div className=" flex gap-3 items-center px-[3px] btn btn-sm btn-outline hover:text-white">
                             <label htmlFor={`check${counter}`}>Valider</label>
                             <input
@@ -340,7 +339,7 @@ export default function Alignement({ text, counter }) {
                                 onChange={(e) => handleValidate(e, text.id)}
                                 ref={(el) => check.current[counter] = el} />
                         </div>
-                        <div className="flex gap-1  items-center max-md:flex-col ">
+                        <div className="flex gap-1  items-center max-lg:flex-col ">
                         Évaluation: <p className="rounded-3xl mx-1 p-2 bg-slate-500 text-white">{text.evaluate}</p>
                         </div>
                     </div>}
@@ -349,7 +348,7 @@ export default function Alignement({ text, counter }) {
 
                     {/* Les radios button seront affichés lorsque l'utilisateur est un annotateur */}
                     {role === 'Annotateur' &&
-                        <div className="flex items-center gap-4 px-4 max-md:flex-col">
+                        <div className="flex items-center gap-4 px-4 max-lg:flex-col">
                             <button className="btn btn-sm btn-outline w-52" onClick={() => { addComment(counter) }} ref={(el) => add_comment.current[counter] = el}>Ajouter un commentaire</button>
                             <button className="btn btn-sm btn-outline w-52 save-comment" onClick={() => { saveComment(counter, text.ID) }} ref={(el) => save_comment.current[counter] = el}>Enregistrer</button>
                             <div className="flex items-center gap-4 px-4 border rounded-md">
@@ -377,14 +376,14 @@ export default function Alignement({ text, counter }) {
                                     />
                                 </div>
                                 <div className="label-radio">
-                                    <label htmlFor={`doubtful${counter}`}>Pas sûr</label>
+                                    <label htmlFor={`doubtful${counter}`}>Incertain</label>
                                     <input
                                         type="radio"
                                         id={`doubtful${counter}`}
                                         name={`eval$${counter}`}
-                                        value="Pas sûr"
+                                        value="Incertain"
                                         onChange={(e) => { handleRadio(e, text.ID) }}
-                                        defaultChecked={text.evaluate === 'Pas sûr'}
+                                        defaultChecked={text.evaluate === 'Incertain'}
                                     />
                                 </div>
                             </div>

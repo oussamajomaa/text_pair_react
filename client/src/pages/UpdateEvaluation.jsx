@@ -11,7 +11,7 @@ export default function UpdateEvaluation() {
     const [isLoading, setIsLoading] = useState(false);
     const [lastId, setLastId] = useState(null); // Start with null for better control
     const [currentPage, setCurrentPage] = useState(0); // Page actuelle
-    const itemsPerPage = 10; // Nombre d'éléments par page
+    const itemsPerPage = 50; // Nombre d'éléments par page
     const [pageIds, setPageIds] = useState([0]); // Initial pageIds starts with 0 for first page
     const [isOpen, setIsOpen] = useState(false)
     const role = localStorage.getItem('role')
@@ -30,7 +30,9 @@ export default function UpdateEvaluation() {
 
         if (response.ok) {
             const data = await response.json();
+
             if (data.results && data.results.length > 0) {
+                
                 setCount(data.count); // Mettre à jour le nombre total d'alignements
                 setParagraphs(data.results); // Mettre à jour les paragraphes affichés
                 setLastId(data.lastId);
@@ -46,7 +48,7 @@ export default function UpdateEvaluation() {
             // Aller à la page suivante
             setPageIds((prev) => [...prev, lastId]);
             fetchResults(lastId);
-
+            
         } else if (selectedPage < currentPage && pageIds.length > 1) {
             // Aller à la page précédente
             const prevLastId = pageIds[pageIds.length - 2]; // ID de la page précédente
@@ -106,29 +108,23 @@ export default function UpdateEvaluation() {
                 {count} Alignements Évalués par {localStorage.getItem('email')}
             </h2>
             <div className="flex mb-3 pb-3 border-b-4">
-                <div className="font-bold w-6/12">Source Contexte</div>
+                <div className="font-bold w-5/12">Source Contexte</div>
                 <div className="font-bold w-5/12">Cible Contexte</div>
-                <div className="font-bold w-1/12">ACTION</div>
+                <div className="font-bold w-2/12 text-center">ACTION</div>
             </div>
             {currentItems.length > 0 && currentItems.map((text, id) => (
                 <div key={id}>
-                    <div className="flex gap-2 my-2 shadow items-center">
-                        <div className="w-6/12 ">
-                            {text.source_before.length > 200
-                                ? text.source_before.slice(0, 200) + ' ...'
-                                : text.source.before}
+                    <div className="flex gap-5 my-2 shadow items-center">
+                        <div className="w-5/12 text-justify">
+                                {text.source_before}
                         </div>
-                        <div className="w-5/12 ">
-                            {text.target_before.length > 200
-                                ? text.target_before.slice(0, 200) + ' ...'
-                                : text.target.before}
+                        <div className="w-5/12 text-justify">
+                                {text.target_before}
                         </div>
-                        <div className="w-1/12 ">
-                            <button
-                                className="btn btn-outline btn-error btn-sm"
-                                onClick={() => { handleDelete(text.evaluation_id) }}
-                            >
-                                Supprimer {text.evaluation_id}
+                        <div className="w-2/12 flex justify-center items-center">
+                            <button className="btn btn-outline btn-error btn-sm" onClick={() => { handleDelete(text.evaluation_id) }}>
+                                Supprimer 
+                        <span className="badge ">{id+1}</span>
                             </button>
                         </div>
                     </div>
@@ -151,8 +147,8 @@ export default function UpdateEvaluation() {
                 />
             </div>
             <Modal isOpen={isOpen} onClose={closeModal} bg="">
-                <div className="flex justify-around items-center">
-                    <p className="mb-3">Vous êtes sûr de vouloir supprimer cette évaluation? </p>
+                <div className="flex gap-6 items-center">
+                    <p className="">Vous êtes sûr de vouloir supprimer cette évaluation? </p>
                     <button className="btn btn-error btn-sm" onClick={confirmDelete}>Oui</button>
                 </div>
             </Modal>

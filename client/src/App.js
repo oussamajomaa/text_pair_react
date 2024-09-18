@@ -12,6 +12,8 @@ import UpdateEvaluation from './pages/UpdateEvaluation';
 import Dashboard from './pages/Dashboard';
 import NotFound from './pages/NotFound';
 import Rapport from './pages/Rapport';
+import Profil from './pages/Profil';
+import Alignment from './pages/Alignment';
 
 // import ReactDiffViewer, { DiffMethod } from "react-diff-viewer";
 // import { useState, useRef } from 'react';
@@ -25,8 +27,11 @@ function App() {
                 <Nav />
                 <Routes>
                     <Route path='/' element={<Home />}></Route>
+                    <Route path='/profil' element={<Profil />}></Route>
                     <Route path='/update' element={<UpdateEvaluation />}></Route>
                     <Route path='/admin/dashboard' element={<Dashboard />}></Route>
+                    <Route path='/admin/alignement' element={<Alignment />}></Route>
+
                     <Route path='/admin/register' element={<Register />}></Route>
                     <Route path='/validation' element={<Validation />}></Route>
                     <Route path='/login' element={<Login />}></Route>

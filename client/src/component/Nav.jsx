@@ -103,7 +103,7 @@ const ENDPOINT = 'http://localhost:8000/api';
 export default function Nav() {
 	const token = localStorage.getItem('token');
 	const role = localStorage.getItem('role');
-	const username = localStorage.getItem('username');
+	const email = localStorage.getItem('email');
 	const [isOpen, setIsOpen] = useState(false);
 	const [width, setWidth] = useState(window.innerWidth);
 	const { user, setUser } = useContext(UserContext);
@@ -135,13 +135,16 @@ export default function Nav() {
 			<div className="h-screen w-64 bg-gray-800 text-white flex flex-col p-4 fixed">
 				<div className="mb-4">
 					<h2 className="text-2xl font-semibold">Admin Panel</h2>
-					<p>Bonjour {username}</p>
+					<p>Bonjour <span className="font-bold">{email}</span></p>
 					<hr />
 				</div>
 				<nav className="flex flex-col flex-grow ">
 					<NavLink to="/admin/dashboard" className="py-3 mt-5 hover:bg-gray-700  ">Dashboard</NavLink>
+					<NavLink to="/admin/alignement" className="py-3  hover:bg-gray-700  ">Alignements</NavLink>
+
 					<NavLink to="/admin/register" className="py-3  hover:bg-gray-700  ">Gestion des utilisateurs</NavLink>
 					<NavLink to="/admin/rapport" className="py-3  hover:bg-gray-700  ">Rapports</NavLink>
+					<NavLink to="/profil" className="py-3  hover:bg-gray-700  ">Profile</NavLink>
 					<NavLink
 						className="py-3 bg-red-600 mt-auto text-center rounded"
 						onClick={logout} to={'/login'} >Déconnexion
@@ -157,7 +160,7 @@ export default function Nav() {
 		<nav className="flex items-center justify-between flex-wrap p-3 bg-slate-600">
 			<div className="flex items-center flex-shrink-0 mr-6">
 				<a href=""><img src="/modern-textpair/logo512.png" className="w-100 h-10 mr-2" alt="Logo" /></a>
-				<p className="block mt-4 lg:inline-block lg:mt-0 mr-4 text-white">Bonjour {username}</p>
+				<p className="block mt-4 lg:inline-block lg:mt-0 mr-4 text-white">Bonjour <span className="font-bold">{email}</span></p>
 			</div>
 			<div className="block lg:hidden">
 				<button
@@ -192,6 +195,10 @@ export default function Nav() {
 						onClick={() => setIsOpen(!isOpen)}
 						className="block mt-4 lg:inline-block lg:mt-0 mr-4" to={'/update'}>Supprimer une évaluation
 					</NavLink>}
+				<NavLink
+					className="block mt-4 lg:inline-block lg:mt-0 mr-4"
+					 to={'/profil'} >Profile
+				</NavLink>
 				<NavLink
 					className="block mt-4 lg:inline-block lg:mt-0 mr-4"
 					onClick={logout} to={'/login'} >Déconnexion
