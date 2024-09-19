@@ -17,8 +17,12 @@ export default function Rapport() {
 
     const getCount = async () => {
         setIsLoading(true)
-        const response = await fetch(`${ENDPOINT}/admin/rapport/count`,{
-            credentials:'include'
+        const response = await fetch(`${ENDPOINT}/admin/rapport/count`, {
+            method: 'GET', // Méthode HTTP
+            headers: {
+                'Content-Type': 'application/json', // Indiquer le type de contenu attendu par l'API
+            },
+            credentials: 'include'  // Envoyer les cookies avec la requête
         })
         if (response.ok) {
             const data = await response.json()
@@ -63,7 +67,7 @@ export default function Rapport() {
                     },
                     body: JSON.stringify({ limit, lastId }),  // Envoyer lastId au backend
                     signal: controller.signal,  // Associer le signal à la requête
-                    credentials:'include'
+                    credentials: 'include'
                 });
 
                 if (response.ok) {
@@ -129,8 +133,8 @@ export default function Rapport() {
     const getSourceAuthorInBatches = async () => {
         setIsLoading(true)
         // fetchDataInBatches('/admin/rapport/author_source', 'source_author.csv');
-        const response = await fetch(`${ENDPOINT}/admin/rapport/author_source`,{
-            credentials:'include'
+        const response = await fetch(`${ENDPOINT}/admin/rapport/author_source`, {
+            credentials: 'include'
         })
         const data = await response.json()
         setIsLoading(false)
@@ -140,8 +144,8 @@ export default function Rapport() {
     const getTargetAuthorInBatches = async () => {
         setIsLoading(true)
         // fetchDataInBatches('/admin/rapport/author_target', 'target_author.csv');
-        const response = await fetch(`${ENDPOINT}/admin/rapport/author_target`,{
-            credentials:'include'
+        const response = await fetch(`${ENDPOINT}/admin/rapport/author_target`, {
+            credentials: 'include'
         })
         const data = await response.json()
         setIsLoading(false)
