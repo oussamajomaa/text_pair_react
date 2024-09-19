@@ -77,7 +77,7 @@ export default function Validation() {
 					{count} Alignements à valider
 				</h2>
 				{paragraphs && paragraphs.map((text, counter) =>
-					<Alignement text={text} counter={counter + currentPage * 10 + 1} key={text.id} />
+					<Alignement text={text} counter={counter + currentPage * 50 + 1} key={text.id} />
 				)}
 			</div>
 			<div className="flex justify-center mb-3">
