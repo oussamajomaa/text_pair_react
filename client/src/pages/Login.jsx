@@ -93,7 +93,7 @@ export default function Login() {
 						{!showPw &&<FaRegEyeSlash className="absolute top-4 right-5 cursor-pointer" onClick={toggleShow} />}
 						</div>
 					<button className='btn btn-primary'>Login</button>
-					<NavLink to={'/forgot-password'} className="ml-auto underline text-blue-500">mot de passe oublié</NavLink>
+					{/* <NavLink to={'/forgot-password'} className="ml-auto underline text-blue-500">mot de passe oublié</NavLink> */}
 					{isError && <p className='text-red-400'>{message}</p>}
 				</form>
 				{/* {isflash && <Flash color="red" message={message} onClose={onClose} />} */}

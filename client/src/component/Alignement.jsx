@@ -321,8 +321,8 @@ export default function Alignement({ text, counter }) {
 
                 <div className="flex items-center justify-between gap-3 max-lg:flex-col">
                     <div className="flex gap-1">
-                        <button className="btnShow btn btn-sm btn-outline w-52" onClick={() => showDiff(counter)} ref={(el) => show_btn.current[counter] = el}>Afficher la différence</button>
-                        <button className="btnHide btn btn-sm btn-outline hover:text-white w-52" onClick={() => hideDiff(counter)} ref={(el) => hide_btn.current[counter] = el}>Cacher la différence</button>
+                        <button className="btnShow  btn-sm bg-[#DE9800] rounded w-52" onClick={() => showDiff(counter)} ref={(el) => show_btn.current[counter] = el}>Afficher la différence</button>
+                        <button className="btnHide  btn-sm bg-[#DE9800] rounded text-white w-52" onClick={() => hideDiff(counter)} ref={(el) => hide_btn.current[counter] = el}>Cacher la différence</button>
                     </div>
 
                     {/* Si l'email existe, cela veut dire que l'utilisateur est un valideur */}
@@ -349,8 +349,8 @@ export default function Alignement({ text, counter }) {
                     {/* Les radios button seront affichés lorsque l'utilisateur est un annotateur */}
                     {role === 'Annotateur' &&
                         <div className="flex items-center gap-4 px-4 max-lg:flex-col">
-                            <button className="btn btn-sm btn-outline w-52" onClick={() => { addComment(counter) }} ref={(el) => add_comment.current[counter] = el}>Ajouter un commentaire</button>
-                            <button className="btn btn-sm btn-outline w-52 save-comment" onClick={() => { saveComment(counter, text.ID) }} ref={(el) => save_comment.current[counter] = el}>Enregistrer</button>
+                            <button className="rounded btn-sm bg-[#DE9800] text-white w-52" onClick={() => { addComment(counter) }} ref={(el) => add_comment.current[counter] = el}>Ajouter un commentaire</button>
+                            <button className="rounded btn-sm bg-[#DE9800] text-white w-52 save-comment" onClick={() => { saveComment(counter, text.ID) }} ref={(el) => save_comment.current[counter] = el}>Enregistrer</button>
                             <div className="flex items-center gap-4 px-4 border rounded-md">
 
                                 <div className="label-radio">
