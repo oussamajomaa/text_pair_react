@@ -1,7 +1,14 @@
 
-import { NavLink } from "react-router-dom";
+import { Navigate, NavLink,useLocation } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "./UserContext";
+import { MdDashboard } from "react-icons/md";
+import { MdCompare } from "react-icons/md";
+import { FaUserFriends } from "react-icons/fa";
+import { FaFileCsv } from "react-icons/fa";
+import { ImProfile } from "react-icons/im";
+import { AiOutlineLogout } from "react-icons/ai";
+
 
 const ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
 
@@ -12,7 +19,8 @@ export default function Nav() {
 	const [isOpen, setIsOpen] = useState(false);
 	const [width, setWidth] = useState(window.innerWidth);
 	const { user, setUser } = useContext(UserContext);
-
+	
+	const location = useLocation()
 	// Fermer le menu automatiquement en cas de petit écran
 	useEffect(() => {
 		const handleResize = () => setWidth(window.innerWidth);
@@ -37,7 +45,7 @@ export default function Nav() {
 	const AdminSidebar = () => (
 		<div className="flex">
 			{/* Sidebar */}
-			<div className="h-screen w-64 bg-gray-800 text-white flex flex-col p-4 fixed">
+			<div className="h-screen  bg-gray-800 text-white flex flex-col p-4 fixed w-64 max-xl:hidden">
 				<div className="mb-4 flex items-center flex-col gap-5">
 					<a><img src="/modern-textpair/logo.svg" className="w-100 h-10 mr-2" alt="Logo" /></a>
 					<p>Bonjour <span className="font-bold">{email}</span></p>
@@ -53,6 +61,26 @@ export default function Nav() {
 					<NavLink
 						className="py-3 bg-red-600 mt-auto text-center rounded"
 						onClick={logout} to={'/login'} >Déconnexion
+					</NavLink>
+				</nav>
+			</div>
+
+			<div className="h-screen  bg-gray-800 text-white flex flex-col p-4 fixed w-24 xl:hidden">
+				{/* <div className="mb-4 flex items-center flex-col gap-5">
+					<a><img src="/modern-textpair/logo.svg" className="w-100 h-10 mr-2" alt="Logo" /></a>
+					<p>Bonjour <span className="font-bold">{email}</span></p>
+				</div> */}
+
+				<nav className="flex flex-col flex-grow items-center">
+					<NavLink title="Tableau de board" to="/admin/dashboard" className="py-3 mt-5 hover:bg-gray-700  "><MdDashboard  size={36}/></NavLink>
+					<NavLink title="Alignements" to="/admin/alignement" className="py-3  hover:bg-gray-700  "><MdCompare size={36} /></NavLink>
+
+					<NavLink title="Utilisateurs" to="/admin/register" className="py-3  hover:bg-gray-700  "><FaUserFriends size={36} /></NavLink>
+					<NavLink title="Rapports" to="/admin/rapport" className="py-3  hover:bg-gray-700  "><FaFileCsv size={36}/></NavLink>
+					<NavLink title="Profile" to="/profil" className="py-3  hover:bg-gray-700  "><ImProfile size={36}/></NavLink>
+					<NavLink title="Déconnexion"
+						className="  mt-auto text-center rounded btn  bg-[red]"
+						onClick={logout} to={'/login'} ><AiOutlineLogout size={36} color="white"/>
 					</NavLink>
 				</nav>
 			</div>
@@ -111,6 +139,14 @@ export default function Nav() {
 			</div>
 		</nav>
 	);
+	// Liste des routes exclues de la vérification du cookie
+	const excludedRoutes = ['/forgot-password','/reset-password'];
+
+	// Ne pas vérifier le cookie pour certaines routes
+	if (!document.cookie && !excludedRoutes.includes(location.pathname)) {
+	  localStorage.clear();
+	  return <Navigate to={'/login'} />;
+	}
 
 	return (
 		<>

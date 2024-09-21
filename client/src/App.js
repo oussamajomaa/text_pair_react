@@ -14,7 +14,8 @@ import NotFound from './pages/NotFound';
 import Rapport from './pages/Rapport';
 import Profil from './pages/Profil';
 import Alignment from './pages/Alignment';
-
+import RequestResetPassword from './pages/RequestResetPassword'
+import ResetPassword from './pages/ResetPassword';
 // import ReactDiffViewer, { DiffMethod } from "react-diff-viewer";
 // import { useState, useRef } from 'react';
 
@@ -35,6 +36,8 @@ function App() {
                     <Route path='/admin/register' element={<Register />}></Route>
                     <Route path='/validation' element={<Validation />}></Route>
                     <Route path='/login' element={<Login />}></Route>
+                    <Route path='/forgot-password' element={<RequestResetPassword />}></Route>
+                    <Route path='/reset-password' element={<ResetPassword />}></Route>
                     <Route path='/admin/rapport' element={<Rapport />}></Route>
                     <Route path="*" element={<NotFound />} />
                     {/* <Route path='/' element={<Add />}></Route> */}

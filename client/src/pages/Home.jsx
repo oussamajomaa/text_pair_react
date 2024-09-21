@@ -238,7 +238,7 @@ export default function Home() {
                             <button onClick={hideForm} type="reset" className="btn btn-sm btn-outline btn-error">Annuler</button>
                         </div>
                         <div className='flex flex-col items-center gap-2'>
-                            <h2 >Sélectionner l'intervalle des enregistrements entre 1 et 49 000</h2>
+                            <h2 >Sélectionner la plage des enregistrements entre 1 et 191582</h2>
                             <div>
                                 <label htmlFor="debut">début
                                     <input
@@ -249,7 +249,7 @@ export default function Home() {
                                 <label htmlFor="fin">fin
                                     <input
                                         type="number"
-                                        className='border rounded mx-2 w-16' id='fin' min={1}
+                                        className='border rounded mx-2 w-16' id='fin' min={1} max={191582}
                                         value={end}
                                         onChange={handleEndChange} /></label>
                             </div>

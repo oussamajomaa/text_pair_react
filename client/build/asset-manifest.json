@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/modern-textpair/static/css/main.8a202824.css",
+    "main.js": "/modern-textpair/static/js/main.201b9c54.js",
+    "static/js/453.8f6b432b.chunk.js": "/modern-textpair/static/js/453.8f6b432b.chunk.js",
+    "index.html": "/modern-textpair/index.html",
+    "main.8a202824.css.map": "/modern-textpair/static/css/main.8a202824.css.map",
+    "main.201b9c54.js.map": "/modern-textpair/static/js/main.201b9c54.js.map",
+    "453.8f6b432b.chunk.js.map": "/modern-textpair/static/js/453.8f6b432b.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.8a202824.css",
+    "static/js/main.201b9c54.js"
+  ]
+}

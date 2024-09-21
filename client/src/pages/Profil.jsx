@@ -63,16 +63,16 @@ export default function Profil() {
     }
 
     return (
-        <div>
-            {role === 'Administrateur' && <div className="flex-grow p-6 bg-gray-100 ml-64">
+        <div className="">
+            {role === 'Administrateur' && <div className="flex-grow p-6 bg-gray-100 xl:ml-64 max-xl:ml-24">
                 <h1 className="text-3xl font-bold">Profile</h1>
             </div>}
             <div className="p-5">
-                <h1 className={`text-3xl font-bold text-center mb-6 ${role==='Administrateur'?'ml-64':''}`}>Profile Utilisateur</h1>
+                <h1 className={`text-3xl font-bold text-center mb-6 ${role==='Administrateur'?'xl:ml-64 max-xl:ml-24':''}`}>Profile Utilisateur</h1>
                 <Modal isOpen={isChanged} onClose={closeModal} bg="bg-yellow-300" margin={`${role==='Administrateur'?'ml-64':''}`}>
                     <h2 className="text-center">{message}</h2>
                 </Modal>
-                <Modal isOpen={isOpen} onClose={closeModal} margin={`${role==='Administrateur'?'ml-64':''}`}>
+                <Modal isOpen={isOpen} onClose={closeModal} margin={`${role==='Administrateur'?'xl:ml-64 max-xl:ml-24':''}`}>
 
                     <form className="p-5 flex flex-col gap-5" onSubmit={handlSubmit}>
                             {/* <input
@@ -105,8 +105,8 @@ export default function Profil() {
                         <button className="btn">Valider</button>
                     </form>
                 </Modal>
-                <div className={`${role === "Administrateur" ? "ml-64" : ""}`}>
-                    <div className={`w-[600px] m-auto bg-slate-300 p-5 flex flex-col gap-5 rounded-md `}>
+                <div className={`${role === "Administrateur" ? "xl:ml-64 max-xl:ml-24" : ""}  `}>
+                    <div className={`xl:w-[600px] max-xl:w-full m-auto bg-slate-300 p-5 flex flex-col gap-5 rounded-md `}>
                         {/* <div className="flex gap-3">
                             <h2 className="w-1/2 text-right text-2xl font-bold">Nom d'utilisateur :</h2>
                             <h2 className="w-1/2 text-2xl">{username}</h2>

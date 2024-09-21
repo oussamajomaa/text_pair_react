@@ -1,6 +1,10 @@
 import { useState, useContext } from 'react';
 import { Navigate, NavLink } from 'react-router-dom';
 import { UserContext } from "../component/UserContext";
+import { FaRegEye } from "react-icons/fa6";
+import { FaRegEyeSlash } from "react-icons/fa";
+
+
 
     // const ENDPOINT = 'http://134.157.57.237:3500' 
     // const ENDPOINT = 'http://localhost:3500' 
@@ -10,6 +14,7 @@ import { UserContext } from "../component/UserContext";
 export default function Login() {
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
+	const [showPw, setShowPw] = useState(false)
 	const [logged, setLogged] = useState(false)
 	const [message, setMessage] = useState('')
 	const {setUser} = useContext(UserContext)
@@ -50,6 +55,9 @@ export default function Login() {
 		}
 	}
 
+	const toggleShow = () => {
+		setShowPw(!showPw)
+	}
 
 	if (logged) {
 		if (localStorage.getItem('role') === 'Administrateur'){
@@ -72,13 +80,18 @@ export default function Login() {
 						value={email}
 						onChange={(e) => setEmail(e.target.value)}
 						placeholder="E-mail" />
+						<div className='relative'>
+
 					<input
 						className='input input-bordered input-primary w-full'
-						type="password"
+						type={showPw?"text":"password"}
 						required
 						value={password}
 						onChange={(e) => setPassword(e.target.value)}
 						placeholder="Mot de passe" />
+						{showPw && <FaRegEye className="absolute top-4 right-5 cursor-pointer" onClick={toggleShow} />}
+						{!showPw &&<FaRegEyeSlash className="absolute top-4 right-5 cursor-pointer" onClick={toggleShow} />}
+						</div>
 					<button className='btn btn-primary'>Login</button>
 					<NavLink to={'/forgot-password'} className="ml-auto underline text-blue-500">mot de passe oublié</NavLink>
 					{isError && <p className='text-red-400'>{message}</p>}

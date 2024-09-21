@@ -5,7 +5,7 @@ import { IoIosAddCircle } from "react-icons/io";
 export default function User({ users, openAddModal, handleDelete, handleEdit }) {
     const email = localStorage.getItem('email')
     return (
-        <div className="p-5 shadoww xl:w-2/3 m-auto md:w-2/3 ">
+        <div className="p-5 shadoww xl:w-2/3 m-auto max-xl:w-full ">
             <h1 className="text-center font-bold text-2xl mb-3">Liste des utilisateurs</h1>
             <button onClick={openAddModal} className="block ml-auto mb-2"><IoIosAddCircle size={40} color="#5C7BD9" /></button>
             <div className="bg-slate-300 p-5  rounded-lg h-[calc(100vh-300px)] overflow-y-auto shadow-xl shadow-slate-500/50">

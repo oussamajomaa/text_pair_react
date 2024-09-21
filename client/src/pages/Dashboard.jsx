@@ -260,7 +260,7 @@ export default function Dashboard() {
     }
 
     return (
-        <div className="ml-64">
+        <div className="xl:ml-64 max-xl:ml-24 ">
 
             <div className="flex-grow p-6 bg-gray-100">
                 <h1 className="text-3xl font-bold">Tableau de board</h1>

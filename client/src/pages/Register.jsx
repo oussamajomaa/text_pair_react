@@ -1,37 +1,40 @@
-import { useEffect, useState,  } from "react"
+import { useEffect, useState, } from "react"
 import Modal from "../component/Modal";
 import User from "../component/User";
 import { Navigate, useNavigate } from "react-router-dom";
+import { FaRegEye } from "react-icons/fa6";
+
 
 const ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
 
 export default function Register() {
-	const [username,setUsername] = useState('')
+	const [username, setUsername] = useState('')
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
+	const [showPw, setShowPw] = useState(false)
 	const [role, setRole] = useState('')
-	const [usernameUpdate,setUsernameUpdate] = useState('')
+	const [usernameUpdate, setUsernameUpdate] = useState('')
 	const [emailUpdate, setEmailUpdate] = useState('')
 	const [roleUpdate, setRoleUpdate] = useState('')
-	const [idUpdate,setIdUpdate] = useState(0)
+	const [idUpdate, setIdUpdate] = useState(0)
 	const [users, setUsers] = useState([])
 	const [isOpen, setIsOpen] = useState(false);
-	const [isOpenUpdate,setIsOpenUpdate] = useState(false)
+	const [isOpenUpdate, setIsOpenUpdate] = useState(false)
 	const [isDeleteModal, setIsDeleteModal] = useState(false)
-	const [is401,setIs401] = useState(false)
+	const [is401, setIs401] = useState(false)
 	const [isLoading, setIsLoading] = useState(false);
 	const [isMessage, setIsMessage] = useState(false)
 	const navigate = useNavigate()
 	const fetchUser = async () => {
 		setIsLoading(true)
 		const response = await fetch(`${ENDPOINT}/user`, {
-			credentials:'include'
+			credentials: 'include'
 		})
-		
+
 		if (response.status === 401) {
-            setIs401(true)
-            // navigate('/login')
-        } else if (response.ok) {
+			setIs401(true)
+			// navigate('/login')
+		} else if (response.ok) {
 			const data = await response.json()
 			setUsers(data)
 		}
@@ -100,10 +103,10 @@ export default function Register() {
 		}
 	}
 
-	const handleEdit = async(id) => {
+	const handleEdit = async (id) => {
 		setIdUpdate(id)
-		const response = await fetch(`${ENDPOINT}/user/${id}`,{
-			credentials:'include'
+		const response = await fetch(`${ENDPOINT}/user/${id}`, {
+			credentials: 'include'
 		})
 		if (response.ok) {
 			const data = await response.json()
@@ -133,16 +136,16 @@ export default function Register() {
 		navigate('/login')
 	}
 
-	const handleUpdate = async(e)=> {
-	e.preventDefault()
+	const handleUpdate = async (e) => {
+		e.preventDefault()
 
-		const response = await fetch(`${ENDPOINT}/user/update/${idUpdate}`,{
-			method:'PUT',
-			headers:{
-				'Content-Type':'application/json',
+		const response = await fetch(`${ENDPOINT}/user/update/${idUpdate}`, {
+			method: 'PUT',
+			headers: {
+				'Content-Type': 'application/json',
 			},
-			body:JSON.stringify({usernameUpdate, roleUpdate}),
-			credentials:'include'
+			body: JSON.stringify({ usernameUpdate, roleUpdate }),
+			credentials: 'include'
 		})
 		if (response.ok) {
 			const data = await response.json()
@@ -153,16 +156,18 @@ export default function Register() {
 		}
 	}
 
+	const toggleShow = () => {
+		setShowPw(!showPw)
+	}
+
 	const userRole = localStorage.getItem('role')
 	// si le role n'est pas administrateur revenir sur la page d'accueil
 	// Redirection vers la page de login si l'utilisateur n'est pas authentifié
-    if (userRole !== 'Administrateur') {
-        return <Navigate to={'/login'} />;
-    }
+	if (userRole !== 'Administrateur') {
+		return <Navigate to={'/login'} />;
+	}
 	return (
-		
-		<div className="ml-64">
-            
+		<div className="xl:ml-64 max-xl:ml-24 ">
 			<div className="flex-grow p-6 bg-gray-100">
 				<h1 className="text-3xl font-bold">Gestion des utilisateurs</h1>
 			</div>
@@ -171,7 +176,7 @@ export default function Register() {
 				<p className="mb-3">Votre connection est expirimée. Recoonectez-vous à nouveau!</p>
 			</Modal>
 
-			<User users={users} openAddModal={openAddModal} handleDelete={handleDelete} handleEdit={handleEdit}/>
+			<User users={users} openAddModal={openAddModal} handleDelete={handleDelete} handleEdit={handleEdit} />
 
 
 			<Modal isOpen={isDeleteModal} onClose={onCloseDeleteModal} bg={''} margin='ml-64'>
@@ -204,13 +209,17 @@ export default function Register() {
 								value={email}
 								onChange={(e) => setEmail(e.target.value)}
 								placeholder="E-mail" />
-							<input
-								className='input input-bordered input-primary w-full '
-								type="password"
-								required
-								value={password}
-								onChange={(e) => setPassword(e.target.value)}
-								placeholder="Mot de passe" />
+							<div className="relative">
+								<input
+									className='input input-bordered input-primary w-full '
+									type={showPw ? "text" : "password"}
+									required
+									value={password}
+									onChange={(e) => setPassword(e.target.value)}
+									placeholder="Mot de passe" />
+									<FaRegEye className="absolute top-4 right-5 cursor-pointer" onClick={toggleShow} />
+
+							</div>
 							<select className="select select-bordered select-primary w-full" defaultValue={'DEFAULT'}
 								onChange={(e) => setRole(e.target.value)}>
 								<option value="DEFAULT" disabled>Choisir un rôle</option>
@@ -245,7 +254,7 @@ export default function Register() {
 								onChange={(e) => setEmailUpdate(e.target.value)}
 								readOnly
 								placeholder="E-mail" />
-							
+
 							<select className="select select-bordered select-primary w-full" defaultValue={roleUpdate}
 								onChange={(e) => setRoleUpdate(e.target.value)}>
 								<option value="DEFAULT" disabled>Choisir un rôle</option>
