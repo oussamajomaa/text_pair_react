@@ -287,7 +287,7 @@ export default function Alignement({ text, counter }) {
                 </div>
 
                 <div className="view-diff max-lg:flex-col" ref={(el) => source_target_after.current[counter] = el}>
-                    <div className="div-par-left w-1/2 max-lg:w-full p-4 border-r border-black">
+                    <div className="div-par-left w-1/2 max-lg:w-full p-4 border-r border-black max-lg:border-r-0 max-lg:border-b">
                         <h3 className="text-xl font-bold mb-2 text-center">Source</h3>
                         <SourceAuthor text={text} />
                         <p ref={(el) => source_alignement.current[counter] = el}></p>
@@ -321,12 +321,19 @@ export default function Alignement({ text, counter }) {
 
                 <div className="flex items-center justify-between gap-3 max-lg:flex-col">
                     <div className="flex gap-1">
-                        <button className="btnShow  btn-sm bg-[#DE9800] rounded w-52" onClick={() => showDiff(counter)} ref={(el) => show_btn.current[counter] = el}>Afficher la différence</button>
-                        <button className="btnHide  btn-sm bg-[#DE9800] rounded text-white w-52" onClick={() => hideDiff(counter)} ref={(el) => hide_btn.current[counter] = el}>Cacher la différence</button>
+                        <button className="btnShow  btn-sm bg-[#ffbb28] rounded w-52" onClick={() => showDiff(counter)} ref={(el) => show_btn.current[counter] = el}>Afficher la différence</button>
+                        <button className="btnHide  btn-sm bg-[#ffbb28] rounded text-white w-52" onClick={() => hideDiff(counter)} ref={(el) => hide_btn.current[counter] = el}>Cacher la différence</button>
                     </div>
 
                     {/* Si l'email existe, cela veut dire que l'utilisateur est un valideur */}
 
+                    {role === 'Administrateur' && <div className=" flex gap-3 items-center  max-lg:flex-col pr-3">
+                            {text.validate && text.validate === 1? <span className="bg-[#75f595] p-1 rounded shadow-lg">Validé</span>:<span className="bg-[#fd9e91] p-1 rounded">Non validé</span>} 
+                            {text.evaluate?<span className="bg-[#75f595] p-1 rounded">{text.evaluate}</span>:<span className="bg-[#fd9e91] p-1 rounded">Non évalué</span>}
+                        
+                        
+                        
+                    </div>}
 
                     {role === 'Validateur' && <div className=" flex gap-3 items-center  max-lg:flex-col">
                         <div className=" flex gap-3 items-center px-[3px] btn btn-sm btn-outline hover:text-white">

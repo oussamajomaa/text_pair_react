@@ -70,6 +70,7 @@ export default function Home() {
         if (response.ok) {
             const data = await response.json(); // Récupération des données de l'API
             if (data.results && data.results.length > 0) {
+                
                 setCount(data.total_count); // Mise à jour du compteur total de résultats
                 if (direction === 'next') {
                     setPageIds([...pageIds, lastId]);  // Ajouter l'ID actuel à la pile si c'est une requête "next"
