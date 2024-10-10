@@ -170,9 +170,9 @@ export default function Home() {
         if (role === 'Administrateur') {
             return <Navigate to={'/admin/dashboard'} />
         }
-        if (role === 'Validateur') {
-            return <Navigate to={'/validation'} />
-        }
+        // if (role === 'Validateur') {
+        //     return <Navigate to={'/validation'} />
+        // }
     } else {
 
         return <Navigate to={'/login'} />;

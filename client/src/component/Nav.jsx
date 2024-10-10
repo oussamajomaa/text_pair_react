@@ -118,11 +118,11 @@ export default function Nav() {
 					onClick={() => setIsOpen(!isOpen)} to={'/'}
 					className='block mt-4 lg:inline-block lg:mt-0  mr-4'>Accueil
 				</NavLink>}
-				{role === 'Validateur' &&
+				{/* {role === 'Validateur' &&
 					<NavLink
 						onClick={() => setIsOpen(!isOpen)} to={'/validation'}
 						className="block mt-4 lg:inline-block lg:mt-0 mr-4">Validation
-					</NavLink>}
+					</NavLink>} */}
 				{role === 'Annotateur' &&
 					<NavLink
 						onClick={() => setIsOpen(!isOpen)}

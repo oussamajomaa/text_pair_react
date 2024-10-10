@@ -224,7 +224,7 @@ export default function Register() {
 								onChange={(e) => setRole(e.target.value)}>
 								<option value="DEFAULT" disabled>Choisir un rôle</option>
 								<option value="Administrateur">Administrateur</option>
-								<option value="Validateur">Validateur</option>
+								{/* <option value="Validateur">Validateur</option> */}
 								<option value="Annotateur">Annotateur</option>
 							</select>
 							<button className='btn btn-primary'>Valider</button>
@@ -259,7 +259,7 @@ export default function Register() {
 								onChange={(e) => setRoleUpdate(e.target.value)}>
 								<option value="DEFAULT" disabled>Choisir un rôle</option>
 								<option value="Administrateur">Administrateur</option>
-								<option value="Validateur">Validateur</option>
+								{/* <option value="Validateur">Validateur</option> */}
 								<option value="Annotateur">Annotateur</option>
 							</select>
 							<button className='btn btn-primary'>Valider</button>

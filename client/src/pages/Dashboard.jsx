@@ -8,9 +8,9 @@ export default function Dashboard() {
     const role = localStorage.getItem('role');
     const [alignement, setAlignment] = useState(0)
     const [evaluated, setEvaluated] = useState(0)
-    const [correct, setCorrect] = useState(0)
-    const [incorrect, setIncorrect] = useState(0)
-    const [notSure, setNotSure] = useState(0)
+    const [oui, setOui] = useState(0)
+    const [non, setNon] = useState(0)
+    const [douteux, setNotSure] = useState(0)
     const [validated, setValidated] = useState(0)
     const [evaluatedByUser, setEvaluatedByUser] = useState([{}])
     const [evaluatedByValidateur, setEvaluatedByValidateur] = useState([{}])
@@ -41,9 +41,9 @@ export default function Dashboard() {
                 
                 setAlignment(data.alignment)
                 setEvaluated(data.evaluated)
-                setCorrect(data.correct)
-                setIncorrect(data.incorrect)
-                setNotSure(data.notSure)
+                setOui(data.oui)
+                setNon(data.non)
+                setNotSure(data.douteux)
                 setValidated(data.validated)
                 setEvaluatedByUser(data.evaluatedByUser)
                 setEvaluatedByValidateur(data.evaluatedByValidateur)
@@ -118,9 +118,9 @@ export default function Dashboard() {
     ];
 
     const data2 = [
-        { value: correct, name: 'Correct' },
-        { value: incorrect, name: 'Incorrect' },
-        { value: notSure, name: 'Incertain' }
+        { value: oui, name: 'Oui' },
+        { value: non, name: 'Non' },
+        { value: douteux, name: 'Douteux' }
     ];
 
     const data3 = [
@@ -130,9 +130,9 @@ export default function Dashboard() {
 
     const data4 = annotateurDetail
         ? [
-            { value: annotateurDetail.correct_count ?? 0, name: 'Correct' }, // Utilise la valeur ou 0 si elle est undefined
-            { value: annotateurDetail.incorrect_count ?? 0, name: 'Incorrect' },
-            { value: annotateurDetail.pas_sur_count ?? 0, name: 'Incertain' }
+            { value: annotateurDetail.correct_count ?? 0, name: 'Oui' }, // Utilise la valeur ou 0 si elle est undefined
+            { value: annotateurDetail.non_count ?? 0, name: 'Non' },
+            { value: annotateurDetail.pas_sur_count ?? 0, name: 'Douteux' }
         ]
         : [];
 
@@ -172,8 +172,8 @@ export default function Dashboard() {
 
 
     const label1 = ['Validés', 'Évalués']
-    const label2 = ['Correct', 'Incorrect', 'Incertain']
-    const label3 = ['Évalués', 'Non Évalués']
+    const label2 = ['Oui', 'Non', 'Douteux']
+    const label3 = ['Non Évalués','Évalués']
     // Bar chart options
     const barChartOptions = (label, data) => ({
         title: {
@@ -267,12 +267,12 @@ export default function Dashboard() {
             </div>
             {isLoading && <span className="loading loading-bars loading-lg text-accent block m-auto"></span>}
             {!isLoading && <div className="p-5">
-                <h2 className="text-3xl mb-5 text-center font-bold">Comparaison entre alignements évalués et validés</h2>
+                {/* <h2 className="text-3xl mb-5 text-center font-bold">Comparaison entre alignements évalués et validés</h2>
                 <div className="flex justify-between max-xl:flex-col mb-6">
                     <Echart option={generatePieChartOptions('', data1)} />
                     <Echart option={barChartOptions(label1, data1)} />
-                </div>
-                <h2 className="text-3xl mb-5 text-center font-bold">Statut des Alignements Évalués : Correct, Incorrect ou Incertain</h2>
+                </div> */}
+                <h2 className="text-3xl mb-5 text-center font-bold">Statut des Alignements Évalués : Oui, Non ou Douteux</h2>
                 <div className="flex justify-between max-xl:flex-col mb-6">
                     <Echart option={generatePieChartOptions('', data2)} />
                     <Echart option={barChartOptions(label2, data2)} />
@@ -307,11 +307,11 @@ export default function Dashboard() {
                     <Echart option={generatePieChartOptions(username, data4)} />
                     <Echart option={barChartOptions(label4, data4)} />
                 </div> */}
-                <h2 className="text-3xl mb-5 text-center font-bold">Répartition des évaluations par validateur</h2>
+                {/* <h2 className="text-3xl mb-5 text-center font-bold">Répartition des évaluations par validateur</h2>
                 <div className="flex justify-between max-xl:flex-col mb-6">
                     <Echart option={generatePieChartOptions('', evaluatedByValidateur)} />
                     <Echart option={barChartOptions(labelByValidateur, evaluatedByValidateur)} />
-                </div>
+                </div> */}
 
                 {/* <h2 className="text-3xl text-center font-bold">Nombre d'Alignement source par année</h2>
                 {isLoading && <span className="loading loading-bars loading-lg text-accent block m-auto"></span>}

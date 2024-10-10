@@ -62,8 +62,8 @@ export default function Login() {
 	if (logged) {
 		if (localStorage.getItem('role') === 'Administrateur'){
 			return <Navigate to={'/admin/dashboard'} />
-		} else if (localStorage.getItem('role') === 'Validateur') {
-			return <Navigate to={'/validation'} />
+		// } else if (localStorage.getItem('role') === 'Validateur') {
+		// 	return <Navigate to={'/validation'} />
 		} else {
 			return <Navigate to={'/'} />
 		}

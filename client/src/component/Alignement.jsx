@@ -328,14 +328,14 @@ export default function Alignement({ text, counter }) {
                     {/* Si l'email existe, cela veut dire que l'utilisateur est un valideur */}
 
                     {role === 'Administrateur' && <div className=" flex gap-3 items-center  max-lg:flex-col pr-3">
-                            {text.validate && text.validate === 1? <span className="bg-[#75f595] p-1 rounded shadow-lg">Validé</span>:<span className="bg-[#fd9e91] p-1 rounded">Non validé</span>} 
+                            {/* {text.validate && text.validate === 1? <span className="bg-[#75f595] p-1 rounded shadow-lg">Validé</span>:<span className="bg-[#fd9e91] p-1 rounded">Non validé</span>}  */}
                             {text.evaluate?<span className="bg-[#75f595] p-1 rounded">{text.evaluate}</span>:<span className="bg-[#fd9e91] p-1 rounded">Non évalué</span>}
                         
                         
                         
                     </div>}
 
-                    {role === 'Validateur' && <div className=" flex gap-3 items-center  max-lg:flex-col">
+                    {/* {role === 'Validateur' && <div className=" flex gap-3 items-center  max-lg:flex-col">
                         <div className=" flex gap-3 items-center px-[3px] btn btn-sm btn-outline hover:text-white">
                             <label htmlFor={`check${counter}`}>Valider</label>
                             <input
@@ -349,7 +349,7 @@ export default function Alignement({ text, counter }) {
                         <div className="flex gap-1  items-center max-lg:flex-col ">
                         Évaluation: <p className="rounded-3xl mx-1 p-2 bg-slate-500 text-white">{text.evaluate}</p>
                         </div>
-                    </div>}
+                    </div>} */}
 
 
 
@@ -361,36 +361,36 @@ export default function Alignement({ text, counter }) {
                             <div className="flex items-center gap-4 px-4 border rounded-md">
 
                                 <div className="label-radio">
-                                    <label htmlFor={`yes${counter}`}>Correct</label>
+                                    <label htmlFor={`yes${counter}`}>Oui</label>
                                     <input
                                         type="radio"
                                         id={`yes${counter}`}
                                         name={`eval$${counter}`}
-                                        value="Correct"
+                                        value="Oui"
                                         onChange={(e) => { handleRadio(e, text.ID) }}
-                                        defaultChecked={text.evaluate === 'Correct'}
+                                        defaultChecked={text.evaluate === 'Oui'}
                                     />
                                 </div>
                                 <div className="label-radio">
-                                    <label htmlFor={`no${counter}`}>Incorrect</label>
+                                    <label htmlFor={`no${counter}`}>Non</label>
                                     <input
                                         type="radio"
                                         id={`no${counter}`}
                                         name={`eval$${counter}`}
-                                        value="Incorrect"
+                                        value="Non"
                                         onChange={(e) => { handleRadio(e, text.ID) }}
-                                        defaultChecked={text.evaluate === 'Incorrect'}
+                                        defaultChecked={text.evaluate === 'Non'}
                                     />
                                 </div>
                                 <div className="label-radio">
-                                    <label htmlFor={`doubtful${counter}`}>Incertain</label>
+                                    <label htmlFor={`doubtful${counter}`}>Douteux</label>
                                     <input
                                         type="radio"
                                         id={`doubtful${counter}`}
                                         name={`eval$${counter}`}
-                                        value="Incertain"
+                                        value="Douteux"
                                         onChange={(e) => { handleRadio(e, text.ID) }}
-                                        defaultChecked={text.evaluate === 'Incertain'}
+                                        defaultChecked={text.evaluate === 'Douteux'}
                                     />
                                 </div>
                             </div>

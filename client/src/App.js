@@ -34,7 +34,7 @@ function App() {
                     <Route path='/admin/alignement' element={<Alignment />}></Route>
 
                     <Route path='/admin/register' element={<Register />}></Route>
-                    <Route path='/validation' element={<Validation />}></Route>
+                    {/* <Route path='/validation' element={<Validation />}></Route> */}
                     <Route path='/login' element={<Login />}></Route>
                     <Route path='/forgot-password' element={<RequestResetPassword />}></Route>
                     <Route path='/reset-password' element={<ResetPassword />}></Route>

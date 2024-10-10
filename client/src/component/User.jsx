@@ -13,7 +13,7 @@ export default function User({ users, openAddModal, handleDelete, handleEdit }) 
                     {/* <span className="w-5/12 font-bold">Username</span> */}
                     <span className="w-5/12 font-bold">E-mail</span>
                     <span className="w-5/12 font-bold">Role</span>
-                    <span className="w-2/12 font-bold ">Actions</span>
+                    <span className="w-2/12 font-bold text-center">Actions</span>
                 </div>
 
                 {users?.filter(user => email !== user.email).map(user => (
@@ -22,7 +22,7 @@ export default function User({ users, openAddModal, handleDelete, handleEdit }) 
                         <p className="w-5/12">{user.email}</p>
                         <p className="w-5/12">{user.role}</p>
 
-                        <div className="w-2/12 flex justify-around">
+                        <div className="w-2/12 flex justify-center">
                         {/* <button onClick={()=> handleEdit(user.id)}>
                             <FaRegEdit size={32} color="green" />
                         </button> */}

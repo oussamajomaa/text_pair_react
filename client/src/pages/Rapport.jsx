@@ -282,7 +282,7 @@ export default function Rapport() {
                         </button>
                     </div>
                 </div>
-                <div className='flex my-5'>
+                {/* <div className='flex my-5'>
                     <div className='h-72 w-72 bg-slate-400 rounded flex flex-col justify-center items-center text-white gap-5'>
                         <h2 className='text-6xl '>{countValidated}</h2>
                         <h2 className='text-xl '>Alignements validés</h2>
@@ -290,7 +290,7 @@ export default function Rapport() {
                             Exporter en CSV
                         </button>
                     </div>
-                </div>
+                </div> */}
             </div>
             <div className='p-5 flex gap-6 flex-wrap justify-around'>
                 <div className='flex my-5'>
