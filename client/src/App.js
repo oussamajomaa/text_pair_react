@@ -6,14 +6,14 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Nav from './component/Nav';
 import { UserContextProvider } from './component/UserContext';
-import Validation from './pages/Validation';
-import Add from './pages/Add';
+// import Validation from './pages/Validation';
+// import Add from './pages/Add';
 import UpdateEvaluation from './pages/UpdateEvaluation';
 import Dashboard from './pages/Dashboard';
 import NotFound from './pages/NotFound';
 import Rapport from './pages/Rapport';
 import Profil from './pages/Profil';
-import Alignment from './pages/Alignment';
+import AdminAlignment from './pages/AdminAlignment'
 import RequestResetPassword from './pages/RequestResetPassword'
 import ResetPassword from './pages/ResetPassword';
 // import ReactDiffViewer, { DiffMethod } from "react-diff-viewer";
@@ -31,7 +31,7 @@ function App() {
                     <Route path='/profil' element={<Profil />}></Route>
                     <Route path='/update' element={<UpdateEvaluation />}></Route>
                     <Route path='/admin/dashboard' element={<Dashboard />}></Route>
-                    <Route path='/admin/alignement' element={<Alignment />}></Route>
+                    <Route path='/admin/alignement' element={<AdminAlignment />}></Route>
 
                     <Route path='/admin/register' element={<Register />}></Route>
                     {/* <Route path='/validation' element={<Validation />}></Route> */}

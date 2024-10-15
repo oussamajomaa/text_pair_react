@@ -3,10 +3,12 @@ import React from 'react'
 export default function SourceAuthor({ text }) {
   return (
 
-      <div className='flex flex-col text-yellow-900'>
-        <span><strong>Auteur:</strong> {text.source_author}</span>
-        <span><strong>Année:</strong> {text.source_year}</span>
-        <span><strong>Titre:</strong> {text.source_title}</span>
+      <div className='text-yellow-900'>
+        <span> {text.source_author} </span>,
+        <span> {text.source_year} </span>,
+        <span> {text.source_title} </span>,
+        <span> {text.source_length} </span>
+        - <span> {text.source_genre} </span> -
       </div>
 
   )

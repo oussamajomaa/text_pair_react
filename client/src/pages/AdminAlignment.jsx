@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Alignement from '../component/Alignement'
 import ReactPaginate from 'react-paginate';
 
@@ -7,6 +7,8 @@ const ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
 export default function Alignment() {
 	// Initialisation de plusieurs variables d'état pour gérer les données du formulaire et l'affichage des résultats
 	const [count, setCount] = useState(0);
+	const [alignmentCount, setAlignmentCount] = useState(0)
+
 	const token = localStorage.getItem('token'); // Récupération du token d'authentification
 	const role = localStorage.getItem('role')
 	const form = useRef(); // Référence au formulaire
@@ -16,10 +18,14 @@ export default function Alignment() {
 	const [source_title, setSource_title] = useState(''); // Champ Titre Source
 	const [source_year, setSource_year] = useState(''); // Champ Année Source
 	const [source_content, setSource_content] = useState(''); // Champ Contenu Source
+	const [source_length, setSource_length] = useState(0)
+
 	const [target_author, setTarget_author] = useState(''); // Champ Auteur Cible
 	const [target_title, setTarget_title] = useState(''); // Champ Titre Cible
 	const [target_year, setTarget_year] = useState(''); // Champ Année Cible
 	const [target_content, setTarget_content] = useState(''); // Champ Contenu Cible
+	const [target_length, setTarget_length] = useState(0)
+
 	const [isCount, setIsCount] = useState(false); // Indique si des résultats ont été trouvés
 	const [currentPage, setCurrentPage] = useState(0); // Suivi de la page actuelle
 	const [isLoading, setIsLoading] = useState(false); // Indique si les résultats sont en cours de chargement
@@ -29,6 +35,18 @@ export default function Alignment() {
 	const [pageIds, setPageIds] = useState([]); // Pile des derniers IDs pour la navigation dans les pages
 	const [start, setStart] = useState(1)
 	const [end, setEnd] = useState(1)
+
+	const getAlignmentCount = async () => {
+		const response = await fetch(`${ENDPOINT}/alignment/count`)
+		if (response.ok) {
+			const data = await response.json()
+			setAlignmentCount(data)
+		}
+
+	}
+	useEffect(() => {
+		getAlignmentCount()
+	}, [])
 
 	// Fonction pour récupérer les résultats de recherche à partir de l'API
 	const fetchResults = async (page = 0, direction = 'next', lastId) => {
@@ -85,6 +103,11 @@ export default function Alignment() {
 
 	// Fonction appelée lors de la soumission du formulaire
 	const handlSubmit = async (e) => {
+		if (!source_content && !source_author && !source_title && !source_year &&
+            !target_content && !target_author && !target_title && !target_year
+        ) {
+            return
+        }
 		e.preventDefault();
 
 		// Réinitialisation des états pour une nouvelle recherche
@@ -164,8 +187,8 @@ export default function Alignment() {
 	return (
 		<div className="xl:ml-64 max-xl:ml-24 ">
 			<div className="flex-grow p-6 bg-gray-100">
-                <h1 className="text-3xl font-bold">Alignements</h1>
-            </div>
+				<h1 className="text-3xl font-bold">Alignements</h1>
+			</div>
 			<div>
 				<div className=" p-5">
 					<button onClick={showForm} className="hidden show-form btn w-full " ref={button}>
@@ -177,40 +200,48 @@ export default function Alignment() {
 							<div className="p-5 source w-1/2 border-r max-md:w-full">
 								<h3 className=" font-bold mb-2 text-center text-xl">Source</h3>
 								<div className='flex items-center mb-2'>
-									<label className="bg-slate-500 p-2 mr-2 rounded-md text-white inline-block w-[90px] text-right">Passage</label>
+									<label className="bg-slate-500 p-2 mr-2 rounded-md text-white inline-block w-[116px] text-right">Passage</label>
 									<input type="text" className=" input input-bordered w-full" onChange={(e) => setSource_content(e.target.value)} />
 								</div>
 								<div className='flex items-center mb-2'>
-									<label className="bg-slate-500 p-2 mr-2 rounded-md text-white inline-block w-[90px] text-right">Auteur</label>
+									<label className="bg-slate-500 p-2 mr-2 rounded-md text-white inline-block w-[116px] text-right">Auteur</label>
 									<input type="text" className="input input-bordered w-full" onChange={(e) => setSource_author(e.target.value)} />
 								</div>
 								<div className='flex items-center mb-2'>
-									<label className="bg-slate-500 p-2 mr-2 rounded-md text-white inline-block w-[90px] text-right">Titre</label>
+									<label className="bg-slate-500 p-2 mr-2 rounded-md text-white inline-block w-[116px] text-right">Titre</label>
 									<input type="text" className="input input-bordered w-full" onChange={(e) => setSource_title(e.target.value)} />
 								</div>
 								<div className='flex items-center mb-2'>
-									<label className="bg-slate-500 p-2 mr-2 rounded-md text-white inline-block w-[90px] text-right">Date</label>
+									<label className="bg-slate-500 p-2 mr-2 rounded-md text-white inline-block w-[116px] text-right">Date</label>
 									<input type="text" className="input input-bordered w-full" onChange={(e) => setSource_year(e.target.value)} />
+								</div>
+								<div className='flex items-center mb-2'>
+									<label className="bg-slate-500 p-2 mr-2 rounded-md text-white inline-block w-[116px] text-right">Longueur</label>
+									<input type="text" className="input input-bordered w-full" onChange={(e) => setSource_length(e.target.value)} />
 								</div>
 							</div>
 							{/* Section Cible */}
 							<div className="p-5 target w-1/2 border-l max-md:w-full">
 								<h3 className=" font-bold mb-2 text-center text-xl">Cible</h3>
 								<div className='flex items-center mb-2'>
-									<label className="bg-slate-500 p-2 mr-2 rounded-md text-white inline-block w-[90px] text-right">Passage</label>
+									<label className="bg-slate-500 p-2 mr-2 rounded-md text-white inline-block w-[116px] text-right">Passage</label>
 									<input type="text" className="input input-bordered w-full" onChange={(e) => setTarget_content(e.target.value)} />
 								</div>
 								<div className='flex items-center mb-2'>
-									<label className="bg-slate-500 p-2 mr-2 rounded-md text-white inline-block w-[90px] text-right">Auteur</label>
+									<label className="bg-slate-500 p-2 mr-2 rounded-md text-white inline-block w-[116px] text-right">Auteur</label>
 									<input type="text" className="input input-bordered w-full" onChange={(e) => setTarget_author(e.target.value)} />
 								</div>
 								<div className='flex items-center mb-2'>
-									<label className="bg-slate-500 p-2 mr-2 rounded-md text-white inline-block w-[90px] text-right">Titre</label>
+									<label className="bg-slate-500 p-2 mr-2 rounded-md text-white inline-block w-[116px] text-right">Titre</label>
 									<input type="text" className="input input-bordered w-full" onChange={(e) => setTarget_title(e.target.value)} />
 								</div>
 								<div className='flex items-center mb-2'>
-									<label className="bg-slate-500 p-2 mr-2 rounded-md text-white inline-block w-[90px] text-right">Date</label>
+									<label className="bg-slate-500 p-2 mr-2 rounded-md text-white inline-block w-[116px] text-right">Date</label>
 									<input type="text" className="input input-bordered w-full" onChange={(e) => setTarget_year(e.target.value)} />
+								</div>
+								<div className='flex items-center mb-2'>
+									<label className="bg-slate-500 p-2 mr-2 rounded-md text-white inline-block w-[116px] text-right">Longueur</label>
+									<input type="text" className="input input-bordered w-full" onChange={(e) => setTarget_length(e.target.value)} />
 								</div>
 							</div>
 						</div>
@@ -222,7 +253,8 @@ export default function Alignment() {
 								<button onClick={hideForm} type="reset" className="btn btn-sm btn-outline btn-error">Annuler</button>
 							</div>
 							<div className='flex flex-col items-center gap-2'>
-								<h2 >Sélectionner la plage des enregistrements entre 1 et 191582</h2>
+							<h2 >Sélectionner la plage des</h2>
+                            <h2>enregistrements entre 1 et {alignmentCount}</h2>
 								<div>
 									<label htmlFor="debut">début
 										<input
@@ -233,7 +265,7 @@ export default function Alignment() {
 									<label htmlFor="fin">fin
 										<input
 											type="number"
-											className='border rounded mx-2 w-16' id='fin' min={1} max={191582}
+											className='border rounded mx-2 w-16' id='fin' min={1} max={alignmentCount}
 											value={end}
 											onChange={handleEndChange} /></label>
 								</div>

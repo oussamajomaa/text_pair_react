@@ -48,14 +48,14 @@ export default function Nav() {
 			<div className="h-screen  bg-gray-800 text-white flex flex-col p-4 fixed w-64 max-xl:hidden">
 				<div className="mb-4 flex items-center flex-col gap-5">
 					<a><img src="/modern-textpair/logo.svg" className="w-100 h-10 mr-2" alt="Logo" /></a>
-					<p>Bonjour <span className="font-bold">{email}</span></p>
+					<p>Bonjour</p> <span className="font-bold">{email}</span>
 				</div>
 
 				<nav className="flex flex-col flex-grow ">
 					<NavLink to="/admin/dashboard" className="py-3 mt-5 hover:bg-gray-700  ">Dashboard</NavLink>
 					<NavLink to="/admin/alignement" className="py-3  hover:bg-gray-700  ">Alignements</NavLink>
 
-					<NavLink to="/admin/register" className="py-3  hover:bg-gray-700  ">Gestion des utilisateurs</NavLink>
+					<NavLink to="/admin/register" className="py-3  hover:bg-gray-700  ">Utilisateurs</NavLink>
 					<NavLink to="/admin/rapport" className="py-3  hover:bg-gray-700  ">Rapports</NavLink>
 					<NavLink to="/profil" className="py-3  hover:bg-gray-700  ">Profile</NavLink>
 					<NavLink
@@ -90,7 +90,7 @@ export default function Nav() {
 
 	// Menu principal pour autres rôles
 	const UserNavbar = () => (
-		<nav className="flex items-center justify-between flex-wrap p-3 bg-slate-600">
+		<nav className="flex items-center justify-between flex-wrap p-3 bg-slate-600 sticky top-0 backdrop-blur-3xl z-10">
 			<div className="flex items-center flex-shrink-0 mr-6 gap-6">
 				<a href="/modern-textpair"><img src="/modern-textpair/logo.svg" className="w-100 h-10 mr-2" alt="Logo" /></a>
 				<p className="block mt-4 lg:inline-block lg:mt-0 mr-4 text-white">Bonjour <span className="font-bold">{email}</span></p>
