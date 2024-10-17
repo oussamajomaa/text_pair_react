@@ -103,11 +103,11 @@ export default function Alignment() {
 
 	// Fonction appelée lors de la soumission du formulaire
 	const handlSubmit = async (e) => {
-		if (!source_content && !source_author && !source_title && !source_year &&
-            !target_content && !target_author && !target_title && !target_year
-        ) {
-            return
-        }
+		// if (!source_content && !source_author && !source_title && !source_year &&
+		// 	!target_content && !target_author && !target_title && !target_year
+		// ) {
+		// 	return
+		// }
 		e.preventDefault();
 
 		// Réinitialisation des états pour une nouvelle recherche
@@ -215,10 +215,10 @@ export default function Alignment() {
 									<label className="bg-slate-500 p-2 mr-2 rounded-md text-white inline-block w-[116px] text-right">Date</label>
 									<input type="text" className="input input-bordered w-full" onChange={(e) => setSource_year(e.target.value)} />
 								</div>
-								<div className='flex items-center mb-2'>
+								{/* <div className='flex items-center mb-2'>
 									<label className="bg-slate-500 p-2 mr-2 rounded-md text-white inline-block w-[116px] text-right">Longueur</label>
 									<input type="text" className="input input-bordered w-full" onChange={(e) => setSource_length(e.target.value)} />
-								</div>
+								</div> */}
 							</div>
 							{/* Section Cible */}
 							<div className="p-5 target w-1/2 border-l max-md:w-full">
@@ -239,10 +239,10 @@ export default function Alignment() {
 									<label className="bg-slate-500 p-2 mr-2 rounded-md text-white inline-block w-[116px] text-right">Date</label>
 									<input type="text" className="input input-bordered w-full" onChange={(e) => setTarget_year(e.target.value)} />
 								</div>
-								<div className='flex items-center mb-2'>
+								{/* <div className='flex items-center mb-2'>
 									<label className="bg-slate-500 p-2 mr-2 rounded-md text-white inline-block w-[116px] text-right">Longueur</label>
 									<input type="text" className="input input-bordered w-full" onChange={(e) => setTarget_length(e.target.value)} />
-								</div>
+								</div> */}
 							</div>
 						</div>
 						{/* Boutons de contrôle du formulaire */}
@@ -252,9 +252,9 @@ export default function Alignment() {
 								<button onClick={resetButton} type="reset" className="btn btn-sm btn-outline">Réinitialiser</button>
 								<button onClick={hideForm} type="reset" className="btn btn-sm btn-outline btn-error">Annuler</button>
 							</div>
-							<div className='flex flex-col items-center gap-2'>
-							<h2 >Sélectionner la plage des</h2>
-                            <h2>enregistrements entre 1 et {alignmentCount}</h2>
+							{/* <div className='flex flex-col items-center gap-2'>
+								<h2 >Sélectionner la plage des</h2>
+								<h2>enregistrements entre 1 et {alignmentCount}</h2>
 								<div>
 									<label htmlFor="debut">début
 										<input
@@ -269,7 +269,7 @@ export default function Alignment() {
 											value={end}
 											onChange={handleEndChange} /></label>
 								</div>
-							</div>
+							</div> */}
 						</div>
 					</form>
 

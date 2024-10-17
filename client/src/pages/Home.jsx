@@ -38,6 +38,7 @@ export default function Home() {
     const [start, setStart] = useState(1)
     const [end, setEnd] = useState(1)
     const [postRequette, setPostRequette] = useState({})
+    const [isSend,setIssend] = useState(false)
 
     const getAlignmentCount = async () => {
         const response = await fetch(`${ENDPOINT}/alignment/count`)
@@ -65,6 +66,7 @@ export default function Home() {
 
         // Envoi de la requête POST à l'API avec les données du formulaire et l'ID de la page actuelle
 
+        
         const response = await fetch(`${ENDPOINT}/search`, {
             method: 'POST',
             headers: {
@@ -75,12 +77,12 @@ export default function Home() {
                 source_author,
                 source_title,
                 source_year,
-                source_length,
+                // source_length,
                 target_content,
                 target_author,
                 target_title,
                 target_year,
-                target_length,
+                // target_length,
                 lastId: tempLastId,
                 start,
                 end
@@ -91,8 +93,9 @@ export default function Home() {
         if (response.ok) {
             const data = await response.json(); // Récupération des données de l'API
             if (data.results && data.results.length > 0) {
-                console.log(data.grouped_results);
-                setPostRequette(data.grouped_results)
+                if (lastId === 0) {
+                    setPostRequette(data.grouped_results)
+                }
 
                 setCount(data.total_count); // Mise à jour du compteur total de résultats
                 if (direction === 'next') {
@@ -112,14 +115,14 @@ export default function Home() {
 
     // Fonction appelée lors de la soumission du formulaire
     const handlSubmit = async (e) => {
-        if (!source_content && !source_author && !source_title && !source_year &&
-            !target_content && !target_author && !target_title && !target_year
-
-        ) {
-            return
-        }
+        // if (!source_content && !source_author && !source_title && !source_year &&
+        //     !target_content && !target_author && !target_title && !target_year 
+        // ) {
+        //     return
+        // }
+        
         e.preventDefault();
-
+        setIssend(!isSend)
         // Réinitialisation des états pour une nouvelle recherche
         setParagraphs([]);       // Vider complètement les résultats actuels
         setLastId(0);            // Réinitialiser lastId à 0
@@ -173,10 +176,43 @@ export default function Home() {
         button.current.style.display = 'block';
     };
 
+    // const onKeyClick = (key, value) => {
+    //     console.log(key, value);
+    //     if (key === 'source_title') {
+    //         setSource_title(value)
+    //     }
+    //     if (key === 'target_title') {
+    //         setTarget_title(value)
+    //     }
+    //     if (key === 'source_year') {
+    //         setSource_year(value)
+    //     }
+    //     if (key === 'target_year') {
+    //         setTarget_year(value)
+    //     }
+    //     setLastId(0)
+    //     setParagraphs([]);       // Vider complètement les résultats actuels
+    //     setLastId(0);            // Réinitialiser lastId à 0
+    //     setCurrentPage(0);       // Réinitialiser la page courante
+    //     setPageIds([]);          // Réinitialiser la pile des lastIds
+    //     setCount(0);             // Réinitialiser le compteur total de résultats
+    //     getAlignmentCount()
+    //     fetchResults(0, 'next', 0);  // Passer les paramètres nécessaires à la fonction
+    // }
+
+
+    // useEffect(() => {
+    //     if (source_year || target_year || source_title || target_title) {
+    //         fetchResults(0, 'next', 0);  // Fetch results when source_year changes
+    //         getAlignmentCount()
+    //     }
+    // }, [source_title, source_year, target_title, target_year]);
+
+
+
     const handleStartChange = (e) => {
         const newStart = parseInt(e.target.value, 10);
         setStart(newStart);
-        console.log('new start ', start)
 
         // Si start est supérieur à end, mettez à jour end
         // if (newStart > end) {
@@ -190,7 +226,6 @@ export default function Home() {
         // Ne mettez à jour end que s'il est supérieur ou égal à start
         // if (newEnd >= start) {
         setEnd(newEnd);
-        console.log('new end ', end)
         // } else {
 
         // Remettre la valeur de l'input à l'état précédent
@@ -241,12 +276,12 @@ export default function Home() {
                             </div>
                             <div className='flex items-center mb-2'>
                                 <label className="bg-slate-500 p-2 mr-2 rounded-md text-white inline-block w-[116px] text-right">Date</label>
-                                <input type="text" className="input input-bordered w-full" onChange={(e) => setSource_year(e.target.value)} />
+                                <input type="text" className="input input-bordered w-full" value={source_year} onChange={(e) => setSource_year(e.target.value)} />
                             </div>
-                            <div className='flex items-center mb-2'>
+                            {/* <div className='flex items-center mb-2'>
                                 <label className="bg-slate-500 p-2 mr-2 rounded-md text-white inline-block w-[116px] text-right">Longueur</label>
                                 <input type="text" className="input input-bordered w-full" onChange={(e) => setSource_length(e.target.value)} />
-                            </div>
+                            </div> */}
                         </div>
                         {/* Section Cible */}
                         <div className="p-5 target w-1/2 border-l max-md:w-full">
@@ -267,10 +302,10 @@ export default function Home() {
                                 <label className="bg-slate-500 p-2 mr-2 rounded-md text-white inline-block w-[116px] text-right">Date</label>
                                 <input type="text" className="input input-bordered w-full" onChange={(e) => setTarget_year(e.target.value)} />
                             </div>
-                            <div className='flex items-center mb-2'>
+                            {/* <div className='flex items-center mb-2'>
                                 <label className="bg-slate-500 p-2 mr-2 rounded-md text-white inline-block w-[116px] text-right">Longueur</label>
                                 <input type="text" className="input input-bordered w-full" onChange={(e) => setTarget_length(e.target.value)} />
-                            </div>
+                            </div> */}
                         </div>
                     </div>
 

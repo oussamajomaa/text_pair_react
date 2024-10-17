@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Accordion = ({ data }) => {
+const Accordion = ({ data, onKeyClick }) => {
 	const [openKey, setOpenKey] = useState(null); // Gère quelle clé est ouverte
 
 	// Séparer les clés 'source_' et 'target_'
@@ -25,19 +25,23 @@ const Accordion = ({ data }) => {
 						>
 							{/* {key} {openKey === key ? "-" : "+"} */}
 							<span className="w-2/3">{key}</span>
-							<span>{openKey === key ? "-" : "+"}</span>
+							<span className="badge badge-warning text-xl">{openKey === key ? "-" : "+"}</span>
 						</div>
 						{openKey === key && (
 							<div className="ml-3 text-gray-500">
+
 								{/* Affichage du contenu de la clé sélectionnée */}
 								{data[key]
 									.sort((a, b) => b.count - a.count) // Trier par count (du plus grand au plus petit)
 									.map((item, index) => (
+										// <a onClick={() => onKeyClick(key, item.value)} key={index}>
 										<div key={index} className="flex justify-between hover:bg-slate-50 border-b-2 py-1">
 											<span className="w-2/3">{item.value}</span>
 											<span>{item.count}</span>
 										</div>
-									))}
+										// </a>
+									))
+								}
 							</div>
 						)}
 					</div>
@@ -54,7 +58,7 @@ const Accordion = ({ data }) => {
 						>
 							{/* {key} {openKey === key ? "-" : "+"} */}
 							<span className="w-2/3">{key}</span>
-							<span>{openKey === key ? "-" : "+"}</span>
+							<span className="badge badge-warning text-xl">{openKey === key ? "-" : "+"}</span>
 						</div>
 						{openKey === key && (
 							<div className="ml-3 text-gray-500">
